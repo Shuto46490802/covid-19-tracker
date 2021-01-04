@@ -1,3 +1,7 @@
+# Demo
+
+View project at: [http://Shuto46490802.github.io/covid-19-tracker](http://Shuto46490802.github.io/covid-19-tracker)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

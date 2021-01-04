@@ -19,7 +19,7 @@ const ActiveMap = (props) => {
           iconSize = [5, 5]
         }
         return new L.Icon({
-          iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Red_Circle%28small%29.svg/1024px-Red_Circle%28small%29.svg.png",
+          iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Location_dot_orange.svg/1024px-Location_dot_orange.svg.png",
           iconSize: iconSize
         });
       };
