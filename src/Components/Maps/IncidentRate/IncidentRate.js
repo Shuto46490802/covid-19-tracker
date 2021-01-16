@@ -4,22 +4,22 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import L from "leaflet";
 
-const ActiveMap = (props) => {
+const IncidentRate = (props) => {
 
-    const toggleIconSize = (active) => {
+    const toggleIconSize = (incidentRate) => {
         let iconSize = [];
 
-        if (active > 500000) {
+        if (incidentRate > 10000) {
             iconSize = [20, 20]
-        } else if (active > 300000) {
+        } else if (incidentRate > 8000) {
             iconSize = [15, 15]
-        } else if (active > 100000) {
+        } else if (incidentRate > 5000) {
             iconSize = [10, 10]
         } else {
             iconSize = [5, 5]
         }
         return new L.Icon({
-            iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Location_dot_orange.svg/1024px-Location_dot_orange.svg.png",
+            iconUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fb/Yellow_icon.svg/1200px-Yellow_icon.svg.png",
             iconSize: iconSize
         });
     };
@@ -35,14 +35,11 @@ const ActiveMap = (props) => {
                     <Marker
                         key={i}
                         position={[data.lat, data.long]}
-                        icon={toggleIconSize(data.confirmed)}
+                        icon={toggleIconSize(data.incidentRate)}
                     >
                         <Popup>
                             <h3>{data.key}</h3>
-                            <p>Cases: <strong>{props.formatNumber(data.confirmed)}</strong></p>
-                            <p>Recovered: <strong>{props.formatNumber(data.recovered)}</strong></p>
-                            <p>Deaths: <strong>{props.formatNumber(data.deaths)}</strong></p>
-                            <p>Active: <strong>{props.formatNumber(data.active)}</strong></p>
+                            <p>Incident rate: {Math.floor(data.incidentRate)} per 100,000people</p>
                         </Popup>
                     </Marker>
                 )
@@ -53,14 +50,11 @@ const ActiveMap = (props) => {
                         <Marker
                             key={i}
                             position={[data.lat, data.long]}
-                            icon={toggleIconSize(data.confirmed)}
+                            icon={toggleIconSize(data.incidentRate)}
                         >
                             <Popup position={[data.lat, data.long]}>
                                 <h3>{data.key}</h3>
-                                <p>Cases: <strong>{props.formatNumber(data.confirmed)}</strong></p>
-                                <p>Recovered: <strong>{props.formatNumber(data.recovered)}</strong></p>
-                                <p>Deaths: <strong>{props.formatNumber(data.deaths)}</strong></p>
-                                <p>Active: <strong>{props.formatNumber(data.active)}</strong></p>
+                                <p>Incident rate: {Math.floor(data.incidentRate)} per 100,000 people</p>
                             </Popup>
                         </Marker>
                     )
@@ -72,14 +66,11 @@ const ActiveMap = (props) => {
                         <Marker
                             key={i}
                             position={[data.lat, data.long]}
-                            icon={toggleIconSize(data.confirmed)}
+                            icon={toggleIconSize(data.incidentRate)}
                         >
                             <Popup position={[data.lat, data.long]}>
                                 <h3>{data.key}</h3>
-                                <p>Cases: <strong>{props.formatNumber(data.confirmed)}</strong></p>
-                                <p>Recovered: <strong>{props.formatNumber(data.recovered)}</strong></p>
-                                <p>Deaths: <strong>{props.formatNumber(data.deaths)}</strong></p>
-                                <p>Active: <strong>{props.formatNumber(data.active)}</strong></p>
+                                <p>Incident rate: {Math.floor(data.incidentRate)} per 100,000people</p>
                             </Popup>
                         </Marker>
                     )
@@ -89,4 +80,4 @@ const ActiveMap = (props) => {
     )
 }
 
-export default ActiveMap;
+export default IncidentRate;

@@ -1,30 +1,171 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
 
-#app-wrapper{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+/* app wrapper */
+#app-wrapper {
+    background-color: #222;
+    width: 100%;
+    height: 100vh;
+    color: #f5f5f5;
+    margin:0;
+    font-family:"Work Sans";
 }
-#header{
-    font-size:3em;
-    display:flex;
-    font-family:"Archivo";
+
+/* header */
+#header {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    background-color: #240090;
 }
-#icon{
+#icon-covid{
+    height: 100%;
+    background-color:  #3500D3;
+}
+#header h1 {
+    margin: 0 .5em;
+    font-size: 1.7em;
+    font-weight:300;
+}
+#header p {
+    display: flex;
+    flex-direction: column;
+    font-weight:500;
+    border-left: 1px solid white;
+    padding-left:.7em;
+}
+#nav {
+    margin-left: auto;
+    order: 1;
+    font-size: 2em;
+}
+#nav a {
+    margin-right: 1em;
+    text-decoration: none;
+    color: white;
+}
+#main{
     position:relative;
-    top:65px;
+    top:3.7em;
 }
-#maps-wrapper{
+
+/* map and toggler cards*/
+/* map */
+#cards-map-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* cards */
+.admin-icon{
+    z-index:2;
+    font-size:1.7em;
+    color:#3500D3;
+    cursor:pointer;
+}
+.card-toggler{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:0 1em;
+    background-color:#333;
+    border-left: 1px solid#444;
+    border-right: 1px solid#444;
+    border-bottom: 1px solid#444;
+}
+.card-toggler-name{
+    font-size:.7em;
+}
+
+/* country picker and charts */
+#charts{
+    display:flex;
+    margin-top:-1.7em;
+}
+#country-chart{
+    background-color:#333;
+    align-items:center;
+    border: 1px solid #444;
+    width:775px;
+    height:307px;
+    max-height:100%;
+    max-width:100%;
+    margin-right:.2em;
+    position:relative;
+}
+/* charts and infos */
+/* num of country and lastupdated */
+.charts-infos{
+    display:flex;
+    justify-content:space-evenly;
+}
+#info-panel{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    margin-top:5px;
+}
+.row-panel-wrapper{
+    border:1px solid#444;
+    background-color:#333;
+    display:flex;
+    justify-content:space-evenly;
+    position:relative;
+}
+.today-data{
+    text-align:center;
+    line-height:0.4em;
+}
+.today-data h2{
+    font-family:"Inconsolata";
+}
+.today-infected-panel{
+    border-right:1px solid#444;
+    border-bottom:1px solid#444;
+}
+.num-of-country-panel{
+    border-top:1px solid#444;
+    border-left:1px solid#444;
+    margin-left:-1px;
+}
+.row-panel-wrapper span{
+    font-size:.6em;
+}
+.update-panel{
+    border:1px solid#444;
+    background-color:#333;
     display:flex;
     flex-direction:column;
     align-items:center;
+    justify-content:center;
+    line-height:.4em;
+    padding:1.2em 0 .6em 0;
+    position:relative;
 }
-#map-toggler{
+
+/* expand and hide */
+.hide{
+    display:none;
+}
+.expand{
+    width:100%;
+}
+.expand-shrink-icon{
+    opacity:.8;
+    position:absolute;
+    font-size:15px;
+    z-index:3;
+}
+
+/* loader */
+.loader-wrapper{
     display:flex;
-    align-self:flex-start;
-    margin-left:1em;
+    flex-direction:column;
+    align-items:center;
+    margin-top:25%;
 }
-.toggler{
-    border:1px solid black;
-    margin-right:1em;
+.loading{
+    color:white;
 }

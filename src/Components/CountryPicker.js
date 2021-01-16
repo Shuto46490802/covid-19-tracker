@@ -1,35 +1,54 @@
 import React, { useState, useEffect } from "react";
 
-import { NativeSelect, FormControl } from "@material-ui/core";
+import { NativeSelect, FormControl, InputLabel } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
-import { fetchCountry, fetchProvinceData } from "../api";
+import { fetchCountry } from "../api";
 
-const CountryPicker = (props) => {
+import "../css/CountryPicker.css";
 
-  const [countries, setCountries] = useState([]);
-
-  useEffect(() => {
-    const fetchAPI = async () => {
-      setCountries(await fetchCountry());
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+        margin: theme.spacing(.5),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        //   marginTop: theme.spacing(2),
     }
-    fetchAPI();
+}));
 
-  }, [setCountries]);
+const CountryPicker = ({ classes, toggleCountry }) => {
 
-  return (
-    <div>
-      <FormControl className="form">
-        <NativeSelect onChange={(e) => { props.toggleCountry(e.target.value) }}>
-          <option value="Global">Global</option>
-          {
-            countries.map((country, i) =>
-              <option key={i} value={country}>{country}</option>
-            )
-          }
-        </NativeSelect>
-      </FormControl>
-    </div>
-  )
+    const [countries, setCountries] = useState([]);
+    const classStyle = useStyles();
+
+    useEffect(() => {
+        const fetchAPI = async () => {
+            setCountries(await fetchCountry());
+        }
+        fetchAPI();
+
+    }, [setCountries]);
+
+    const modifiedData = countries
+        .map((data) => data)
+        .filter(({ data }) => data.confirmed > 0)
+        .sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
+
+    return (
+        <div id="picker" className={`${classes[6]}`}>
+            <FormControl className="form" className={`${classStyle.formControl} `} id="form">
+                <InputLabel shrink id="label">Select a Country</InputLabel>
+                <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
+                    <option value={"select a country"} className={"option"}>Global</option>
+                    {
+                        modifiedData.map((country, i) =>
+                            <option key={i} value={country.code} className={"option"} > {country.name} </option>)
+                    }
+                </NativeSelect>
+            </FormControl>
+        </div>
+    )
 };
 
 export default CountryPicker;

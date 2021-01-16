@@ -1,0 +1,13 @@
+#demo-simple-select-outlined-label{
+}
+#select{
+    color:#f5f5f5;
+    background-color:#333;
+}
+#label{
+    color:#f5f5f5;
+    font-size:.9em;
+}
+#picker{
+    text-align:center;
+}

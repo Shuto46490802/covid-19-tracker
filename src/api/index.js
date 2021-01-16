@@ -2,50 +2,73 @@ import axios from "axios";
 
 const url = 'https://covid19.mathdro.id/api';
 
-export const fetchData = async (country) => {
-
-    let toggleURL = url
-    if (country === "Global") {
-        toggleURL = url;
+//for countries charts
+export const fetchCountriesYearlyData = async (country) => {
+    if (country === "select a country") {
+        return "Loading..."
     }
-    if (country && country !== "Global") {
-        toggleURL = (`${url}/countries/${country}`);
-    };
-
+    var changableUrl = (`https://corona-api.com/countries/${country}`)
     try {
-        const { data: { confirmed, recovered, deaths, lastUpdate } } = await axios.get(toggleURL);
-        return { confirmed, recovered, deaths, lastUpdate };
+        const { data: { data: { latest_data, timeline, name } } } = await axios.get(changableUrl);
+        return { latest_data, timeline, name }
     } catch (error) {
     }
-};
+}
 
-export const fetchDailyData = async () => {
-
+//fetch global datas
+export const fetchGlobaldata = async () => {
+    let url = "https://corona-api.com/timeline"
     try {
-        const { data } = await axios.get(`${url}/daily`);
-
+        const { data: { data } } = await axios.get(url);
         return data.map((data) => ({
-            confirmed: data.totalConfirmed,
-            date: data.reportDate,
-            deaths: data.deaths.total
-        }))
+            active: data.active,
+            confirmed: data.confirmed,
+            date: data.date,
+            deaths: data.deaths,
+            recovered: data.recovered,
+            newConfirmed: data.new_confirmed,
+            newDeaths: data.new_deaths,
+            newRecovered: data.new_recovered,
+            lastUpdate: data.updated_at
+        }));
     } catch (error) {
     }
-};
+}
 
+//for country picker
 export const fetchCountry = async () => {
+    let url = "https://corona-api.com/countries"
     try {
-        const { data: { countries } } = await axios.get(`${url}/countries`);
+        const { data: { data } } = await axios.get(url);
 
-        return countries.map((country) => country.name);
+        return data.map(({ name, code, latest_data }) => ({
+            name: name,
+            code: code,
+            data: latest_data
+        }))
 
     } catch (error) {
 
     }
 };
 
+//for country infected, deaths and recovered list 
+export const fetchCountriesData = async () => {
+    let url = "https://corona-api.com/countries"
 
+    try {
+        const { data: { data } } = await axios.get(url)
+        return data.map((data) => ({
+            country: data.name,
+            latestData: data.latest_data,
+            todayData: data.today
+        }))
 
+    } catch (error) {
+    }
+};
+
+//for Map
 export const fetchProvinceData = async () => {
 
     const promises = countries.map(async (country) => {
@@ -57,10 +80,11 @@ export const fetchProvinceData = async () => {
                 deaths: data.deaths,
                 recovered: data.recovered,
                 active: data.active,
-                province: data.provinceState,
                 lat: data.lat,
                 long: data.long,
-                country: data.countryRegion
+                country: data.countryRegion,
+                key: data.combinedKey,
+                incidentRate: data.incidentRate
             }));
         } catch (error) {
         }
@@ -117,7 +141,6 @@ const countries =
         "Congo (Brazzaville)",
         "Congo (Kinshasa)",
         "Costa Rica",
-        // "Cote d'Ivoire",
         "Croatia",
         "Cuba",
         "Cyprus",
@@ -138,7 +161,7 @@ const countries =
         "Fiji",
         "Finland",
         "France",
-        "Gabon", 
+        "Gabon",
         "Gambia",
         "Georgia",
         "Germany",
@@ -243,7 +266,7 @@ const countries =
         "Sweden",
         "Switzerland",
         "Syria",
-        "Taiwan*",
+        "Taiwan",
         "Tajikistan",
         "Tanzania",
         "Thailand",

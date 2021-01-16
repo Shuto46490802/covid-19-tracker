@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./CamulativeMap.css";
+
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 
 import L from "leaflet";
 
-const CamulativeMap = (props) => {
+const CamulativeMap = ({ noProvince, formatNumber, usProvinces, provinces }) => {
 
   const toggleIconSize = (confirmed) => {
     let iconSize = [];
@@ -26,67 +26,67 @@ const CamulativeMap = (props) => {
   };
 
   return (
-    <div id="camulative-map-wrapper">
-      <MapContainer center={[28.45835, 10.07813]} zoom={1} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {
-          props.noProvince.map((data, i) =>
+    <MapContainer center={[28.45835, 10.07813]} zoom={1} scrollWheelZoom={false}>
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {
+        noProvince.map((data, i) =>
+          <Marker
+            key={i}
+            position={[data.lat, data.long]}
+            icon={toggleIconSize(data.confirmed)}
+          >
+            <Popup>
+              <h3>{data.key}</h3>
+              <p>Cases: <strong>{formatNumber(data.confirmed)}</strong></p>
+              <p>Recovered: <strong>{formatNumber(data.recovered)}</strong></p>
+              <p>Deaths: <strong>{formatNumber(data.deaths)}</strong></p>
+            </Popup>
+          </Marker>
+        )
+      }
+      {
+        provinces.map((data) =>
+          data.map((data, i) =>
             <Marker
               key={i}
               position={[data.lat, data.long]}
               icon={toggleIconSize(data.confirmed)}
             >
-              <Popup>
-                <h3>{data.country}</h3>
-                <p>Cases: <strong>{props.formatNumber(data.confirmed)}</strong></p>
-                <p>Recovered: <strong>{props.formatNumber(data.recovered)}</strong></p>
-                <p>Deaths: <strong>{props.formatNumber(data.deaths)}</strong></p>
+              <Popup position={[data.lat, data.long]}>
+                <h3>{data.key}</h3>
+                <p>Cases: <strong>{formatNumber(data.confirmed)}</strong></p>
+                <p>Recovered: <strong>{formatNumber(data.recovered)}</strong></p>
+                <p>Deaths: <strong>{formatNumber(data.deaths)}</strong></p>
               </Popup>
             </Marker>
           )
-        }
-        {
-          props.provinces.map((data) =>
-            data.map((data, i) =>
-              <Marker
-                key={i}
-                position={[data.lat, data.long]}
-                icon={toggleIconSize(data.confirmed)}
-              >
-                <Popup position={[data.lat, data.long]}>
-                  <h2>{data.province}, {data.country}</h2>
-                  <p>Cases: <strong>{props.formatNumber(data.confirmed)}</strong></p>
-                  <p>Recovered: <strong>{props.formatNumber(data.recovered)}</strong></p>
-                  <p>Deaths: <strong>{props.formatNumber(data.deaths)}</strong></p>
-                </Popup>
-              </Marker>
-            )
+        )
+      }
+      {
+        usProvinces.map((data) =>
+          data.map((data, i) =>
+            <Marker
+              key={i}
+              position={[data.lat, data.long]}
+              icon={toggleIconSize(data.confirmed)}
+            >
+              <Popup position={[data.lat, data.long]}>
+                <h3>{data.key}</h3>
+                <p>Cases: <strong>{formatNumber(data.confirmed)}</strong></p>
+                <p>Recovered: <strong>{formatNumber(data.recovered)}</strong></p>
+                <p>Deaths: <strong>{formatNumber(data.deaths)}</strong></p>
+              </Popup>
+            </Marker>
           )
-        }
-        {
-          props.usProvinces.map((data) =>
-            data.map((data, i) =>
-              <Marker
-                key={i}
-                position={[data.lat, data.long]}
-                icon={toggleIconSize(data.confirmed)}
-              >
-                <Popup position={[data.lat, data.long]}>
-                  <h2>{data.province}, {data.country}</h2>
-                  <p>Cases: <strong>{props.formatNumber(data.confirmed)}</strong></p>
-                  <p>Recovered: <strong>{props.formatNumber(data.recovered)}</strong></p>
-                  <p>Deaths: <strong>{props.formatNumber(data.deaths)}</strong></p>
-                </Popup>
-              </Marker>
-            )
-          )
-        }
-      </MapContainer>
-    </div>
+        )
+      }
+    </MapContainer>
   )
 };
+
+
 
 export default CamulativeMap;

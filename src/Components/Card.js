@@ -5,7 +5,7 @@ import CountUp from "react-countup";
 
 import "../css/Card.css";
 
-const Cards = ( {data : {confirmed, recovered, deaths, lastUpdate}} ) => {
+const Cards = ( {globalData : {confirmed, recovered, deaths, lastUpdate}} ) => {
 
     if(!confirmed){
         return "Loading ..."
