@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { fetchCountry } from "../api";
 
-import "../css/CountryPicker.css";
+import "../css/CountryPicker.scss";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -36,18 +36,16 @@ const CountryPicker = ({ classes, toggleCountry }) => {
         .sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 
     return (
-        <div id="picker" className={`${classes[6]}`}>
-            <FormControl className="form" className={`${classStyle.formControl} `} id="form">
-                <InputLabel shrink id="label">Select a Country</InputLabel>
-                <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
-                    <option value={"select a country"} className={"option"}>Global</option>
-                    {
-                        modifiedData.map((country, i) =>
-                            <option key={i} value={country.code} className={"option"} > {country.name} </option>)
-                    }
-                </NativeSelect>
-            </FormControl>
-        </div>
+        <FormControl className="form"  id="form">
+            <InputLabel shrink id="label">Select a Country</InputLabel>
+            <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
+                <option value={"select a country"} className={"option"}>Global</option>
+                {
+                    modifiedData.map((country, i) =>
+                        <option key={i} value={country.code} className={"option"} > {country.name} </option>)
+                }
+            </NativeSelect>
+        </FormControl>
     )
 };
 

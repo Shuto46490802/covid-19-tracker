@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
+
+/* body */
+
+#app{
+    font-family:"Work Sans";
+    overscroll-behavior: none;
+    margin:0;
+    
+    @media only screen and (min-width : 870px){
+        overflow-y:hidden;
+        height:100vh;
+    }  
+}
+
+/* header */
+header{
+    display:flex;
+    align-items:center;
+    background-color:#104c87;
+    box-sizing:border-box;
+    height:50px;
+    width:100%;
+    position:fixed;
+    top:0;
+    z-index:2;
+    
+    img{
+        width:72px;
+        height:50px;
+    }
+    #header-title{
+        display:flex;
+        align-items:center;
+        margin-left:1em;
+        h1{
+            font-weight:300;
+            @media only screen and (max-width : 869px){
+                font-size:1.3em;
+            }  
+        }
+    }
+    #header-border{
+        width:1px;
+        height:40px;
+        margin:0 .5em;
+        background-color:#f5f5f5;
+    }
+    #header-footer{
+        display:flex;
+        flex-direction:column;
+        @media only screen and (max-width : 869px){
+            font-size:.8em;
+        }  
+    }
+    #nav{
+        display:flex;
+        margin-left:auto;
+        a{
+            font-size:2em;
+            margin:0 .5em;
+            @media only screen and (max-width : 869px){
+                font-size:1.5em;
+            }  
+        }
+    }
+}
+
+
+
+/* main */
+
+#laptop{
+    position:relative;
+    top:52px;
+    margin:5px;
+    @media only screen and (max-width : 869px){
+        display:none;
+    }   
+    .row{
+        display:flex;
+        justify-content:space-evenly;
+        margin:auto; 
+        
+       
+    }
+}
+
+#mobile{
+    position:relative;
+    top:52px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin:5px;
+    
+    @media only screen and (min-width : 870px){
+        display:none;
+    }
+}
+
+// cards and maps
+
+
+
+// cards
+
+#infected-card{
+    height:57vh;
+    min-height:0;
+    width:17%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+#infected-card-mobile{
+    width:98%;
+    height:93vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom:2em;
+}
+
+
+.deaths-active-card{
+    max-width:100%;
+    width:14.5%;
+    height:53vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.deaths-active-card-mobile{
+    width:98%;
+    height:93vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom:2em;
+}
+
+// maps
+#map{
+    max-width:100%;
+    height:53vh;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+}
+
+
+#map-mobile{
+    max-width:98%;
+    width:800px;
+    height:89vh;
+    margin-bottom:3em;
+    position:relative;
+}
+
+//info panel
+#info-panel{
+    height:35vh;
+    width:17%;
+    max-width:100%;
+    margin-top:5px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    align-items:center;
+    position:relative;
+}
+
+#info-panel-mobile{
+    width:98%;
+    height:93vh;
+    max-height:100%;
+    margin-bottom:2em;
+}
+
+//country picker and chart
+#country-picker-chart{
+    background-color:#474747;
+    width:54.3%;
+    height:38vh;
+    margin:-1.5em 5px 5px 5px;
+    position:relative;
+}
+
+#country-picker-chart-mobile{
+    width:96%;
+    height:92vh;
+    background-color:#474747;
+    margin:5px 5px 2em 5px;
+}
+
+#global-chart{
+    background-color:#474747;
+    width:27.15%;
+    height:38vh;
+    margin-top:-1.3em;
+    margin:-1.5em 5px 5px 5px;
+    position:relative;
+}
+
+#global-chart-mobile{
+    width:96%;
+    height:92vh;
+    background-color:#474747;
+    margin:5px 5px 2em 5px;
+}
+
+//expand and shrink 
+.expand-icon{
+    position:absolute;
+    z-index:2;
+    top:0;
+    right:0;
+}
+
+.shrink-icon{
+    position:absolute;
+    z-index:2;
+}
+
+.expand{
+    width:100%;
+    height:100vh;
+}
+
+.hide{
+    display:none !important;
+}
+

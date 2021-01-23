@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
+
+.active-card-container{
+    max-width:100%;
+    height:91%;
+    border:1px solid #053366;
+    margin:5px;
+    border-radius:3px;
+    display:flex;
+    flex-direction:column;
+    min-width:122px;
+    background-color:#244c83;
+    position:relative;
+    @media only screen and (max-width : 869px){
+        display:none;
+    }   
+    
+    .active-num{
+        color:#E85A4F;
+        font-family:"Inconsolata";
+    }
+
+    .incidentRate-num{
+        color:#d6ce15;
+        font-family:"Inconsolata";
+    }
+
+    .card-header{
+        text-align:center;
+        border-bottom:1px solid #f5f5f5;
+        padding:1.5em 0 .5em 0;
+        line-height:.5em;
+
+        .card-header-text{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            @media only screen and (max-width : 1150px){
+                font-size:.8em;
+            }
+            @media only screen and (max-width : 869px) {
+                font-size:1em;
+            }
+            #percentage{
+                line-height:1.45em;
+                font-size:.8em;
+            }
+        }
+
+        .card-header-num{
+            font-size:2.2em;
+            @media only screen and (max-width : 1350px){
+                font-size:2em;
+            }
+            @media only screen and (max-width : 1250px){
+                font-size:1.7em;
+            }
+            @media only screen and (max-width : 869px) {
+                font-size:2.5em;
+            }
+        }
+    }
+
+    .country-card-note{
+        text-align:center;
+        padding:.5em 0;
+        font-size:.9em;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .province-card-note{
+        text-align:center;
+        padding:.4em 0;
+        font-size:.9em;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .ul{
+        overflow-y:auto;
+        
+        .country-list{
+            padding:.7em;
+            border-bottom:1px solid #f5f5f5;
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .province-list{
+            padding:.3em;
+            border-bottom:1px solid #f5f5f5;
+            display:flex;
+            flex-direction:column;
+            flex-wrap:wrap;
+            
+
+            .province-list-cases{
+                font-size:.8em;
+                color:#f5f5f5;
+                font-family:"Work Sans";
+            }
+
+            .province-list-place{
+                font-size:.9em;
+            }
+        }
+        .list-num{
+            font-size:1.1em;
+            margin-right:.2em;
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+            .province-list-cases{
+                margin-left:.2em;
+            }
+        }
+    }
+}
+
+//responsive
+
+.active-card-container-mobile{
+    @media only screen and (min-width : 870px){
+        display:none;
+    }
+
+    width:98%;
+    height:100%;
+    max-height:700px;
+    max-width:100%;
+    border:1px solid #053366;
+    margin:5px;
+    border-radius:3px;
+    display:flex;
+    flex-direction:column;
+    min-width:122px;
+    background-color:#244c83;
+
+    .active-num{
+        color:#E85A4F;
+        font-family:"Inconsolata";
+    }
+
+    .incidentRate-num{
+        color:#d6ce15;
+        font-family:"Inconsolata";
+    }
+
+    .card-header{
+        text-align:center;
+        border-bottom:1px solid #f5f5f5;
+        padding:1.5em 0 .5em 0;
+        line-height:.5em;
+
+        .card-header-text{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            font-size:1em;
+            #percentage{
+                line-height:1.45em;
+                font-size:.8em;
+            }
+        }
+
+        .card-header-num{
+            font-size:2.5em;
+        }
+    }
+    
+    .country-card-note{
+        text-align:center;
+        padding:.5em 0;
+        font-size:.9em;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .province-card-note{
+        text-align:center;
+        padding:.4em 0;
+        font-size:.9em;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .ul{
+        overflow-y:auto;
+        
+        .country-list{
+            padding:.7em;
+            border-bottom:1px solid #f5f5f5;
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .province-list{
+            padding:.3em;
+            border-bottom:1px solid #f5f5f5;
+            display:flex;
+            flex-direction:column;
+            flex-wrap:wrap;
+            
+
+            .province-list-cases{
+                font-size:.8em;
+                color:#f5f5f5;
+                font-family:"Work Sans";
+            }
+
+            .province-list-place{
+                font-size:.9em;
+            }
+        }
+        .list-num{
+            font-size:1.1em;
+            margin-right:.2em;
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+            .province-list-cases{
+                margin-left:.2em;
+            }
+        }
+    }
+}

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import { Bar, Line } from 'react-chartjs-2';
 
 import Loader from 'react-loader-spinner';
 
-import "./Charts.css"
+import "./Charts.scss"
 
 const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLeft, arrowRight, option, classes, globalDailyChartExpand }) => {
 
@@ -16,6 +16,10 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
             setIsLoad(false)
         }, 1000)
     })
+
+    if (!latest_data) {
+        return "Loadning"
+    }
 
     const loader = <Loader
         type="Oval"
@@ -203,13 +207,14 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
         {}
 
     return (
-        <div className={`${classes[6]}`}>
-            <div className={"chart-wrapper country-charts"}>
-                <div id="line-chart">
-                    <span className={"country-header"} style={globalDailyChartExpand ? { fontSize: "1.5em", left: "-20px" } : { fontSize: "0.7em" }}>
-                        Daily Infected Cases/Deaths/Recovered by Country
-                </span>
-                    <div className={"chart"} style={globalDailyChartExpand ? { marginRight: "5em", width: "580px", height: "600px" } : { width: "385px", height: "200px" }}>
+        <Fragment>
+            <div className={"chart-container"}>
+                <div className={"chart-wrapper"}>
+                    <p className={"chart-header"}>Daily Infected/Deaths/Recovered by Country</p>
+                    <div
+                        className={"chart"}
+                        style={globalDailyChartExpand ? { height: "70vh" } : {}}
+                    >
                         {
                             isChart === "infected"
                                 ? infectedLineChart
@@ -220,50 +225,37 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                                         : null
                         }
                     </div>
-                    {
-                        !globalDailyChartExpand
-                            ? <div className="chart-toggler">
-                                <div className={"admin-icon"} onClick={() => { toggleToLeft() }} >
-                                    {arrowLeft}
-                                </div>
-                                <div >
-                                    {
-                                        isChart === "infected"
-                                            ? <span className={"card-toggler-name"}>Infected</span>
-                                            : isChart === "deaths"
-                                                ? <span className={"card-toggler-name"}>Deaths</span>
-                                                : isChart === "recovered"
-                                                    ? <span className={"card-toggler-name"}>Recovered</span>
-                                                    : null
-                                    }
-                                </div>
-                                <div className={"admin-icon"} onClick={() => { toggleToRight() }} >
-                                    {arrowRight}
-                                </div>
-                            </div>
-                            : null
-                    }
+                    <div className={"arrow-toggler"}>
+                        <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
+                        <span className={"card-toggler-text"}>
+                            {
+                                isChart === "infected"
+                                    ? "Infected"
+                                    : isChart === "deaths"
+                                        ? "Deaths"
+                                        : isChart === "recovered"
+                                            ? "Recovered"
+                                            : null
+                            }
+                        </span>
+                        <span className={"arrow-icon"} onClick={() => toggleToRight()}>{arrowRight}</span>
+                    </div>
                 </div>
-                <div id="bar-chart">
-                    <span className={"country-header"} style={globalDailyChartExpand ? { fontSize: "1.5em", left: "-10px" } : { fontSize: "0.7em" }}>
-                        Latest Infected Cases/Deaths/Recovered by Country
-                    </span>
-                    <div className={"chart"} style={globalDailyChartExpand ? { width: "600px", height: "600px" } : { width: "385px", height: "200px" }}>
+                <div
+                    className={"border"}
+                    style={globalDailyChartExpand ? { height: "75vh" } : {}}
+                />
+                <div className={"chart-wrapper bar-chart-wrapper"}>
+                    <p className={"chart-header"}>Latest Infected/Deaths/Recovered by Country</p>
+                    <div
+                        className={"chart "}
+                        style={globalDailyChartExpand ? { height: "70vh" } : {}}
+                    >
                         {barChart}
                     </div>
                 </div>
             </div>
-            {
-                globalDailyChartExpand
-                    ? <div id="card-toggler" style={globalDailyChartExpand ? { bottom: "-19px", left: "15px" } : {}}>
-                        <div className={"toggler"} style={admin0Style} onClick={() => { setIsChart("infected") }}>Infected</div>
-                        <div className={"toggler"} style={admin2Style} onClick={() => { setIsChart("deaths") }}>Deaths</div>
-                        <div className={"toggler"} style={todayStyle} onClick={() => { setIsChart("recovered") }} >Recovered</div>
-                    </div>
-                    : null
-
-            }
-        </div>
+        </Fragment>
     )
 }
 

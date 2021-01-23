@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 //components
 import CamulativeMap from "./CamulativeMap/CamulativeMap";
 import ActiveMap from "./ActiveMap/ActiveMap";
 import IncidentRate from "./IncidentRate/IncidentRate";
 
-import "./Maps.css";
+import "./Maps.scss";
 
 const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shrinkIcon }) => {
 
@@ -13,8 +13,8 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
     const [isHover, setIsHover] = useState(false);
 
     //check if data has been asinged to countries
-    if (!provincesData[0]) {
-        return "Loading"
+    if (!provincesData) {
+        return "Loading..."
     };
 
     //data from country without province
@@ -47,7 +47,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
 
     //toggle map togglers border bottom
     let { calmulativeStyle, activeStyle, incidentRateStyle } = {};
-    const onStyle = { borderBottom: "3px solid white", backgroundColor: "#240090" };
+    const onStyle = { borderBottom: "3px solid #d9e4f4", backgroundColor: "#295897" };
     calmulativeStyle = isMap === "calmulative" ?
         onStyle :
         {}
@@ -59,41 +59,63 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
         {}
 
     return (
-        <div>
+        <Fragment>
             <div
-                className={`${classes[3]}`}
-                id="maps-toggler"
+                id="map-container"
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
-                style={mapExpand ? { width: "1410px", height: "735px", marginLeft: ".6em" } : { width: "740px", height: "420px" }}
             >
-                <div className={"expand-shrink-icon-wrapper"} >
-                    {
-                        isHover
-                            ? !mapExpand
-                                ? <div style={{ top: "-6px", right: "-5px" }} onClick={() => setMapExpand(!mapExpand)} className={"expand-shrink-icon"}>{expandIcon}</div>
-                                : <div style={{ top: "-6px", right: "-5px" }} onClick={() => setMapExpand(!mapExpand)} className={"expand-shrink-icon"}>{shrinkIcon}</div>
-                            : null
-                    }
-                </div>
-                <div id="maps-wrapper">
-                    {
-                        isMap === "calmulative"
-                            ? <CamulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
-                            : isMap === "active"
-                                ? <ActiveMap noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
-                                : isMap === "incidentRate"
-                                    ? <IncidentRate noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
-                                    : null
-                    }
-                </div>
-                <div style={mapExpand ? { marginLeft: "1em" } : { marginLeft: ".2em" }} id="map-toggler">
-                    <div className={"toggler"} style={calmulativeStyle} onClick={() => { setIsMap("calmulative") }}> Calmulative Cases </div>
-                    <div className={"toggler"} style={activeStyle} onClick={() => { setIsMap("active") }} >Active Cases</div>
-                    <div className={"toggler"} style={incidentRateStyle} onClick={() => { setIsMap("incidentRate") }} > Incident Rate </div>
-                </div>
-            </div >
-        </div >
+                {
+                    isHover
+                        ? !mapExpand
+                            ? <div className={"expand-icon"}
+                                onClick={() => {
+                                    setMapExpand(true)
+                                    setIsMap("")
+                                    setTimeout(() => { setIsMap("calmulative") })
+                                }}>
+                                {expandIcon}
+                            </div>
+                            : <div className={"shrink-icon"} onClick={() => setMapExpand(false)}>{shrinkIcon}</div>
+                        : null
+                }
+                {
+                    isMap === "calmulative"
+                        ? <CamulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                        : isMap === "active"
+                            ? <ActiveMap noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                            : isMap === "incidentRate"
+                                ? <IncidentRate noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                                : null
+                }
+
+            </div>
+            <div className={"button-toggler-wrapper"}>
+                <div style={calmulativeStyle} className={"button-toggler"} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
+                <div style={activeStyle} className={"button-toggler"} onClick={() => setIsMap("active")}>Active Cases</div>
+                <div style={incidentRateStyle} className={"button-toggler"} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
+            </div>
+
+
+            <div id="map-container-mobile">
+                {
+                    isMap === "calmulative"
+                        ? <CamulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                        : isMap === "active"
+                            ? <ActiveMap noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                            : isMap === "incidentRate"
+                                ? <IncidentRate noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                                : null
+                }
+
+            </div>
+
+            <div className={"button-toggler-wrapper-mobile"}>
+                <div style={calmulativeStyle} className={"button-toggler"} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
+                <div style={activeStyle} className={"button-toggler"} onClick={() => setIsMap("active")}>Active Cases</div>
+                <div style={incidentRateStyle} className={"button-toggler"} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
+            </div>
+        </Fragment>
     )
 }
 

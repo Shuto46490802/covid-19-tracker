@@ -1,0 +1,91 @@
+#map-container{
+    width:100%;
+    height:93.7%;
+    @media only screen and (max-width : 869px){
+        display:none;
+    }   
+
+    .leaflet-container{
+        z-index:1;
+        height:100%;
+        max-width:100%;
+        margin:5px;
+        border:1px solid #053366;
+        position:relative;
+     }
+     
+     .leaflet-marker-icon{
+         opacity:0.8;
+         background-color:transparent;
+     }
+}
+
+.button-toggler-wrapper{
+    display:flex;
+    align-self:flex-start;
+    margin-left:.5em;
+    min-height:0;
+    position:relative;
+    bottom:-6px;
+    @media only screen and (max-width : 869px){
+        display:none;
+    }   
+
+    .button-toggler{
+        font-size:.7em;
+        margin-left:.5em;
+        border-right:1px solid #053366;
+        border-left:1px solid #053366;
+        border-bottom:1px solid #053366;
+        padding:.2em .6em;
+        background-color:#244c83;
+        @media only screen and (max-width : 869px){
+            font-size:.8em;
+        }  
+    }
+}
+
+#map-container-mobile{
+    @media only screen and (min-width : 870px){
+        display:none;
+    }
+
+    width:100%;
+    height:100%;
+
+    .leaflet-container{
+        z-index:1;
+        height:100%;
+        max-width:100%;
+        margin:5px;
+        border:1px solid #053366;
+        position:relative;
+     }
+
+     .leaflet-marker-icon{
+        opacity:0.8;
+        background-color:transparent;
+    }
+}
+
+.button-toggler-wrapper-mobile{
+    @media only screen and (min-width : 870px){
+        display:none;
+    }
+
+    display:flex;
+    margin-left:.5em;
+    min-height:0;
+    position:absolute;
+    bottom:-26px;
+
+    .button-toggler{
+        font-size:.8em;
+        margin-left:.5em;
+        border-right:1px solid #053366;
+        border-left:1px solid #053366;
+        border-bottom:1px solid #053366;
+        padding:.2em .6em;
+        background-color:#244c83;
+    }
+}

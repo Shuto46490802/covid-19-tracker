@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 
 import Loader from 'react-loader-spinner';
 
-import "./Charts.css"
+import "./Charts.scss"
 
 
 const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, globalChartExpand, setGlobalChartExpand, expandIcon, shrinkIcon }) => {
@@ -18,6 +18,10 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
       setIsLoad(false)
     }, 1000)
   })
+
+  if (!globalData[0]) {
+    return "Loading..."
+  }
 
   const loader = <Loader
     type="Oval"
@@ -139,84 +143,42 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
     {}
 
   return (
-    <div
-      className={`${classes[7]}`}
-      id="global-chart-wrapper"
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
-      style={globalChartExpand ? { top: "2em", width: "1390px", height: "730px", marginRight: ".8em" } : { width: "382px", height: "307px" }}
-    >
-      {
-        isLoad
-          ? <div className={"loader-global-chart-wrapper"}>
-            <div className={"loader"}>
-              {loader}
-            </div>
-            <div className={"loading"}>
-              Loading ...
-        </div>
+    <Fragment>
+      <div className={"global-chart-container"}>
+        <div className={"chart-wrapper"}>
+          <p className={"chart-header"}>Daily Infected/Deaths/Recovered by Country</p>
+          <div
+            className={"chart"}
+            style={globalChartExpand ? { height: "70vh" } : {}}
+          >
+            {
+              isChart === "infected"
+                ? infectedLineChart
+                : isChart === "deaths"
+                  ? deathsLineChart
+                  : isChart === "recovered"
+                    ? recoveredLineChart
+                    : null
+            }
           </div>
-          : <Fragment>
-            <div className={"expand-shrink-icon-wrapper"}>
-        {
-          isHover
-            ? !globalChartExpand
-              ? <div style={{ top: "-6px", right: "-5px" }} onClick={() => setGlobalChartExpand(!globalChartExpand)} className={"expand-shrink-icon"}>{expandIcon}</div>
-              : <div style={{ top: "-6px", right: "-5px" }} onClick={() => setGlobalChartExpand(!globalChartExpand)} className={"expand-shrink-icon"}>{shrinkIcon}</div>
-            : null
-        }
-      </div>
-      <div className="chart-wrapper-global" >
-        <span className={"chart-header"} style={globalChartExpand ? { fontSize: "2em", left: "260px" } : { fontSize: "0.7em" }}>Global Infected Cases/Deaths/Recovered</span>
-        <div className={"chart global-chart"} style={globalChartExpand ? { width: "1200px", height: "600px" } : { width: "385px", height: "200px" }} >
-          {
-            isChart === "infected"
-              ? infectedLineChart
-              : isChart === "deaths"
-                ? deathsLineChart
-                : isChart === "recovered"
-                  ? recoveredLineChart
-                  : null
-          }
-        </div>
-
-        {
-          !globalChartExpand
-            ? <div className="chart-toggler">
-              <div className={"admin-icon"} onClick={() => { toggleToLeft() }} >
-                {arrowLeft}
-              </div>
-              <div >
-                {
-                  isChart === "infected"
-                    ? <span className={"card-toggler-name"}>Infected</span>
-                    : isChart === "deaths"
-                      ? <span className={"card-toggler-name"}>Deaths</span>
-                      : isChart === "recovered"
-                        ? <span className={"card-toggler-name"}>Recovered</span>
-                        : null
-                }
-              </div>
-              <div className={"admin-icon"} onClick={() => { toggleToRight() }} >
-                {arrowRight}
-              </div>
-            </div>
-            : null
-        }
-      </div>
-      {
-        globalChartExpand
-          ? <div id="card-toggler" style={globalChartExpand ? { bottom: "-19px", left: "15px" } : {}}>
-            <div className={"toggler"} style={admin0Style} onClick={() => { setIsChart("infected") }}>Infected</div>
-            <div className={"toggler"} style={admin2Style} onClick={() => { setIsChart("deaths") }} >Deaths</div>
-            <div className={"toggler"} style={todayStyle} onClick={() => { setIsChart("recovered") }} >Recovered</div>
+          <div className={"arrow-toggler"}>
+            <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
+            <span className={"card-toggler-text"}>
+              {
+                isChart === "infected"
+                  ? "Infected"
+                  : isChart === "deaths"
+                    ? "Deaths"
+                    : isChart === "recovered"
+                      ? "Recovered"
+                      : null
+              }
+            </span>
+            <span className={"arrow-icon"} onClick={() => toggleToRight()}>{arrowRight}</span>
           </div>
-          : null
-
-      }
-          </Fragment>
-      }
-    </div>
+        </div>
+      </div>
+    </Fragment>
   )
 };
 
