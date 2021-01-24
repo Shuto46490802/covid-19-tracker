@@ -194,15 +194,15 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
     };
 
     //toggle map togglers border bottom
-    let { admin0Style, admin2Style, todayStyle } = {};
-    const onStyle = { borderBottom: "3px solid white", backgroundColor: "#240090" };
-    admin0Style = isChart === "infected" ?
+    let { infectedStyle, deathsStyle, recoveredStyle } = {};
+    const onStyle = { borderBottom: "3px solid white", backgroundColor: "#474747" };
+    infectedStyle = isChart === "infected" ?
         onStyle :
         {}
-    admin2Style = isChart === "deaths" ?
+    deathsStyle = isChart === "deaths" ?
         onStyle :
         {}
-    todayStyle = isChart === "recoverd" ?
+    recoveredStyle = isChart === "recovered" ?
         onStyle :
         {}
 
@@ -210,10 +210,15 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
         <Fragment>
             <div className={"chart-container"}>
                 <div className={"chart-wrapper"}>
-                    <p className={"chart-header"}>Daily Infected/Deaths/Recovered by Country</p>
+                    <p
+                        className={"chart-header"}
+                        style={globalDailyChartExpand ? { fontSize: "1em" } : {}}
+                    >
+                        Daily Infected/Deaths/Recovered by Country
+                        </p>
                     <div
                         className={"chart"}
-                        style={globalDailyChartExpand ? { height: "70vh" } : {}}
+                        style={globalDailyChartExpand ? { height: "85%" } : {}}
                     >
                         {
                             isChart === "infected"
@@ -225,36 +230,59 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                                         : null
                         }
                     </div>
-                    <div className={"arrow-toggler"}>
-                        <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
-                        <span className={"card-toggler-text"}>
-                            {
-                                isChart === "infected"
-                                    ? "Infected"
-                                    : isChart === "deaths"
-                                        ? "Deaths"
-                                        : isChart === "recovered"
-                                            ? "Recovered"
-                                            : null
-                            }
-                        </span>
-                        <span className={"arrow-icon"} onClick={() => toggleToRight()}>{arrowRight}</span>
-                    </div>
+                    {
+                        !globalDailyChartExpand
+                            ? <div className={"arrow-toggler"}>
+                                <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
+                                <span className={"card-toggler-text"}>
+                                    {
+                                        isChart === "infected"
+                                            ? "Infected"
+                                            : isChart === "deaths"
+                                                ? "Deaths"
+                                                : isChart === "recovered"
+                                                    ? "Recovered"
+                                                    : null
+                                    }
+                                </span>
+                                <span className={"arrow-icon"} onClick={() => toggleToRight()}>{arrowRight}</span>
+                            </div>
+                            : null
+                    }
                 </div>
                 <div
                     className={"border"}
-                    style={globalDailyChartExpand ? { height: "75vh" } : {}}
+                    style={globalDailyChartExpand ? { height: "90%" } : {}}
                 />
                 <div className={"chart-wrapper bar-chart-wrapper"}>
-                    <p className={"chart-header"}>Latest Infected/Deaths/Recovered by Country</p>
+                    <p
+                        className={"chart-header"}
+                        style={globalDailyChartExpand ? { fontSize: "1em" } : {}}
+                    >
+                        Latest Infected/Deaths/Recovered by Country
+                        </p>
                     <div
-                        className={"chart "}
-                        style={globalDailyChartExpand ? { height: "70vh" } : {}}
+                        className={"chart bar-chart"}
+                        style={globalDailyChartExpand ? { height: "85%" } : {}}
                     >
                         {barChart}
                     </div>
                 </div>
             </div>
+            <div className={"chart-button-toggler-wrapper-tablet infected-buttons"}>
+                <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
+                <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
+                <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
+            </div>
+            {
+                globalDailyChartExpand
+                    ? <div className={"chart-button-toggler-wrapper infected-buttons"}>
+                        <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
+                        <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
+                        <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
+                    </div>
+                    : null
+            }
         </Fragment>
     )
 }

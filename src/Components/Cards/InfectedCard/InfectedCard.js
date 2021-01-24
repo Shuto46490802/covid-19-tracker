@@ -52,7 +52,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
 
     //toggle map togglers border bottom
     let { admin0Style, admin2Style, todayStyle } = {};
-    const onStyle = { borderBottom: "3px solid white", backgroundColor: "#240090" };
+    const onStyle = { borderBottom: "3px solid #d9e4f4", backgroundColor: "#295897" };
     admin0Style = isCard === "admin0"
         ? onStyle
         : {}
@@ -69,7 +69,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                 className={"infected-card-container"}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
-                style={infectedCardExpand ? { width: "95%", height: "93%" } : { }}
+                style={infectedCardExpand ? { width: "95%", height: "93%" } : {}}
             >
                 {
                     isHover
@@ -131,25 +131,33 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                     }
                 </div>
             </div>
-            <div className={"arrow-toggler"}>
-                <span className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</span>
-                <span className={"card-toggler-text"}>
-                    {
-                        isCard === "admin0"
-                            ? "Admin0"
-                            : isCard === "admin2"
-                                ? "Admin2"
-                                : isCard === "today"
-                                    ? "Global Today's Cases"
-                                    : null
-                    }
-                </span>
-                <span className={"arrow-icon"} onClick={() => toggleAdminInfectedRight()}>{arrowRight}</span>
-            </div>
+            {
+                !infectedCardExpand
+                    ? <div className={"arrow-toggler"}>
+                        <span className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</span>
+                        <span className={"card-toggler-text"}>
+                            {
+                                isCard === "admin0"
+                                    ? "Admin0"
+                                    : isCard === "admin2"
+                                        ? "Admin2"
+                                        : isCard === "today"
+                                            ? "Global Today's Cases"
+                                            : null
+                            }
+                        </span>
+                        <span className={"arrow-icon"} onClick={() => toggleAdminInfectedRight()}>{arrowRight}</span>
+                    </div>
+                    : <div className={"card-button-toggler-wrapper"}>
+                        <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
+                        <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
+                        <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
+                    </div>
+            }
 
 
             <div
-                className={"infected-card-container-mobile"}>
+                className={"infected-card-container-tablet"}>
                 <div className={"card-header"} >
                     <span className={"card-header-text"}>
                         {
@@ -203,20 +211,10 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                     }
                 </div>
             </div>
-            <div className={"arrow-toggler-mobile"}>
-                <span className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</span>
-                <span className={"card-toggler-text"}>
-                    {
-                        isCard === "admin0"
-                            ? "Admin0"
-                            : isCard === "admin2"
-                                ? "Admin2"
-                                : isCard === "today"
-                                    ? "Global Today's Cases"
-                                    : null
-                    }
-                </span>
-                <span className={"arrow-icon"} onClick={() => toggleAdminInfectedRight()}>{arrowRight}</span>
+            <div className={"card-button-toggler-wrapper-tablet"}>
+                <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
+                <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
+                <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
             </div>
         </Fragment>
     )

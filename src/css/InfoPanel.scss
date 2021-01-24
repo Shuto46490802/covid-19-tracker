@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
 
+//laptop
 #table-laptop {
     border-collapse: collapse;
     border-style: hidden;
@@ -147,6 +148,8 @@
     }
 }
 
+
+//expand
 #table-expand{
     height:98%;
     width:98%;
@@ -199,8 +202,8 @@
     }
 }
 
-
-#table-mobile{
+//tablet
+#table-tablet{
     @media only screen and (min-width : 870px){
         display:none;
     }
@@ -220,22 +223,29 @@
         td{
             border: 1px solid #f5f5f5;
             width:50%;
+            line-height:1em;
 
             .panel-header{
                 font-size:1.2em;
                 text-align:center;
+               
             }
             .panel-number{
                 font-family:"Inconsolata";
                 text-align:center;
-                font-size:2.5em;
+                font-size:1.9em;
             }
 
             .deaths-number{
                 color:#999;
+                font-size:3em;
             }
             .recovered-number{
                 color:#53900f;
+                font-size:3em;
+            }
+            .country-number{
+                font-size:3em;
             }
 
             .infected-panel-header{
@@ -247,7 +257,7 @@
                 text-align:center;
                 font-size:2.3em;
                 color:#C34271;
-                font-size:3em;
+                font-size:4em;
             }
         }
     }

@@ -130,15 +130,15 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
   };
 
   //toggle map togglers border bottom
-  let { admin0Style, admin2Style, todayStyle } = {};
-  const onStyle = { borderBottom: "3px solid white", backgroundColor: "#240090" };
-  admin0Style = isChart === "infected" ?
+  let { infectedStyle, deathsStyle, recoveredStyle } = {};
+  const onStyle = { borderBottom: "3px solid white", backgroundColor: "#474747" };
+  infectedStyle = isChart === "infected" ?
     onStyle :
     {}
-  admin2Style = isChart === "deaths" ?
+  deathsStyle = isChart === "deaths" ?
     onStyle :
     {}
-  todayStyle = isChart === "recovered" ?
+  recoveredStyle = isChart === "recovered" ?
     onStyle :
     {}
 
@@ -146,10 +146,15 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
     <Fragment>
       <div className={"global-chart-container"}>
         <div className={"chart-wrapper"}>
-          <p className={"chart-header"}>Daily Infected/Deaths/Recovered by Country</p>
+          <p
+            className={"chart-header"}
+            style={globalChartExpand ? { fontSize: "1em" } : {}}
+          >
+            Daily Infected/Deaths/Recovered by Country
+            </p>
           <div
             className={"chart"}
-            style={globalChartExpand ? { height: "70vh" } : {}}
+            style={globalChartExpand ? { height: "85%" } : {}}
           >
             {
               isChart === "infected"
@@ -161,23 +166,41 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
                     : null
             }
           </div>
-          <div className={"arrow-toggler"}>
-            <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
-            <span className={"card-toggler-text"}>
-              {
-                isChart === "infected"
-                  ? "Infected"
-                  : isChart === "deaths"
-                    ? "Deaths"
-                    : isChart === "recovered"
-                      ? "Recovered"
-                      : null
-              }
-            </span>
-            <span className={"arrow-icon"} onClick={() => toggleToRight()}>{arrowRight}</span>
-          </div>
+          {
+            !globalChartExpand
+              ? <div className={"arrow-toggler"}>
+                <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
+                <span className={"card-toggler-text"}>
+                  {
+                    isChart === "infected"
+                      ? "Infected"
+                      : isChart === "deaths"
+                        ? "Deaths"
+                        : isChart === "recovered"
+                          ? "Recovered"
+                          : null
+                  }
+                </span>
+                <span className={"arrow-icon"} onClick={() => toggleToRight()}>{arrowRight}</span>
+              </div>
+              : null
+          }
         </div>
       </div>
+      <div className={"chart-button-toggler-wrapper-tablet"}>
+        <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
+        <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
+        <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
+      </div>
+      {
+        globalChartExpand
+          ? <div className={"chart-button-toggler-wrapper"}>
+            <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
+            <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
+            <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
+          </div>
+          : null
+      }
     </Fragment>
   )
 };

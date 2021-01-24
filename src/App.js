@@ -298,7 +298,7 @@ const App = () => {
                         className={classes[5]}
                         onMouseEnter={() => setIsTodayChartHover(true)}
                         onMouseLeave={() => setIsTodayChartHover(false)}
-                        style={globalDailyChartExpand ? { width: "95%", height: "89vh", top: "30px" } : {}}
+                        style={globalDailyChartExpand ? { width: "95%", height: "87vh", top: "30px" } : { }}
                     >
                         {
                             isTodayChartHover
@@ -336,7 +336,7 @@ const App = () => {
                         className={classes[6]}
                         onMouseEnter={() => setIsGlobalChartHover(true)}
                         onMouseLeave={() => setIsGlobalChartHover(false)}
-                        style={globalChartExpand ? { width: "95%", height: "89vh", top: "30px" } : {}}
+                        style={globalChartExpand ? { width: "95%", height: "87vh", top: "30px" } : {}}
                     >
                         {
                             isGlobalChartHover
@@ -360,8 +360,8 @@ const App = () => {
                 </div>
             </main>
 
-            <main id="mobile">
-                <div id="map-mobile">
+            <main id="tablet">
+                <div id="map-tablet">
                     <Maps
                         classes={classes}
                         provincesData={provincesData}
@@ -371,7 +371,7 @@ const App = () => {
                         shrinkIcon={shrinkIcon}
                     />
                 </div>
-                <div id={"infected-card-mobile"}>
+                <div id={"infected-card-tablet"}>
                     <InfectedCard
                         countriesData={countriesData}
                         globalData={globalData}
@@ -385,7 +385,7 @@ const App = () => {
                         formatNumber={formatNumber}
                     />
                 </div>
-                <div className={"deaths-active-card-mobile"}>
+                <div className={"deaths-active-card-tablet"}>
                     <DeathsRecoveredCard
                         countriesData={countriesData}
                         globalData={globalData}
@@ -399,7 +399,7 @@ const App = () => {
                         formatNumber={formatNumber}
                     />
                 </div>
-                <div className={"deaths-active-card-mobile"}>
+                <div className={"deaths-active-card-tablet"}>
                     <ActiveIncidentRateCard
                         provincesData={provincesData}
                         classes={classes}
@@ -412,7 +412,7 @@ const App = () => {
                         formatNumber={formatNumber}
                     />
                 </div>
-                <div id="country-picker-chart-mobile">
+                <div id="country-picker-chart-tablet">
                     <CountryPicker
                         classes={classes}
                         toggleCountry={toggleCountry}
@@ -437,7 +437,7 @@ const App = () => {
                             />
                     }
                 </div>
-                <div id="global-chart-mobile">
+                <div id="global-chart-tablet">
                     <GlobalCharts
                         globalData={globalData}
                         arrowLeft={arrowLeft}
@@ -450,7 +450,7 @@ const App = () => {
                         shrinkIcon={shrinkIcon}
                     />
                 </div>
-                <div id="info-panel-mobile">
+                <div id="info-panel-tablet">
                     <InfoPanel
                         globalData={globalData}
                         countriesData={countriesData}

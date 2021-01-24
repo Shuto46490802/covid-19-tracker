@@ -97,7 +97,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
             </div>
 
 
-            <div id="map-container-mobile">
+            <div id="map-container-tablet">
                 {
                     isMap === "calmulative"
                         ? <CamulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
@@ -109,8 +109,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                 }
 
             </div>
-
-            <div className={"button-toggler-wrapper-mobile"}>
+            <div className={"map-button-toggler-wrapper-tablet"}>
                 <div style={calmulativeStyle} className={"button-toggler"} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
                 <div style={activeStyle} className={"button-toggler"} onClick={() => setIsMap("active")}>Active Cases</div>
                 <div style={incidentRateStyle} className={"button-toggler"} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>

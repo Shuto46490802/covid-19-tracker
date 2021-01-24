@@ -158,7 +158,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                     </Fragment>
             }
 
-            <table id="table-mobile">
+            <table id="table-tablet">
                 <tr>
                     <td colspan="2">
                         <span className={"infected-panel-header"}>Today's Global Cases</span>
@@ -185,7 +185,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                 <tr>
                     <td>
                         <span className={"panel-header"}>Countries/Provinces</span>
-                        <h2 className={"panel-number"}>
+                        <h2 className={"panel-number country-number"}>
                             {filteredCountries.length}/{filteredProvinces.length}
                         </h2>
                     </td>
