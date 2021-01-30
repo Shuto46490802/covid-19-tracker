@@ -4,7 +4,7 @@ import "../css/InfoPanel.scss";
 
 const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, classes, dataPanelExpand }) => {
 
-    if (!globalData[0]) {
+    if (!globalData[0] || !provincesData[0]) {
         return "Loading..."
     }
 
@@ -80,7 +80,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                         <table id="table-laptop">
                             <tr>
                                 <td colspan="2">
-                                    <span className={"infected-panel-header"}>Today's Global Cases</span>
+                                    <div className={"infected-panel-header"}>Today's Global Cases</div>
                                     <h2 className={"infected-panel-number"}>
                                         {formatNumber(globalData[0].newConfirmed)}
                                     </h2>
@@ -89,13 +89,13 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                             </tr>
                             <tr>
                                 <td>
-                                    <span className={"panel-header"}>Today's Global Deaths</span>
+                                    <div className={"panel-header"}>Today's Global Deaths</div>
                                     <h3 className={"panel-number deaths-number"}>
                                         {formatNumber(globalData[0].newDeaths)}
                                     </h3>
                                 </td>
                                 <td>
-                                    <span className={"panel-header"}>Today's Global Recovered</span>
+                                    <div className={"panel-header"}>Today's Global Recovered</div>
                                     <h3 className={"panel-number recovered-number"}>
                                         {formatNumber(globalData[0].newRecovered)}
                                     </h3>
@@ -103,13 +103,13 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                             </tr>
                         </table>
                         <div id="country-panel">
-                            <span className={"panel-header"}>Countries/Provinces</span>
+                            <div className={"panel-header"}>Countries/Provinces</div>
                             <h3 className={"panel-number"}>
                                 {filteredCountries.length}/{filteredProvinces.length}
                             </h3>
                         </div>
                         <div id="last-update-panel">
-                            <span className={"panel-header"}>Last Updated at (M/D/YYYY)</span>
+                            <div className={"panel-header"}>Last Updated at (M/D/YYYY)</div>
                             <h3 className={"panel-number"}>
                                 {getFormattedDate(globalData[0].lastUpdate)}
                             </h3>
@@ -119,7 +119,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                         <table id="table-expand">
                             <tr>
                                 <td colspan="2">
-                                    <span className={"infected-panel-header"}>Today's Global Cases</span>
+                                    <span className={"panel-header"}>Today's Global Cases</span>
                                     <h1 className={"infected-panel-number"}>
                                         {formatNumber(globalData[0].newConfirmed)}
                                     </h1>
@@ -191,7 +191,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                     </td>
                     <td>
                         <span className={"panel-header"}>Last Updated at (M/D/YYYY)</span>
-                        <h2 className={"panel-number"}>
+                        <h2 className={"panel-number lastUpdate-number"}>
                             {getFormattedDate(globalData[0].lastUpdate)}
                         </h2>
                     </td>

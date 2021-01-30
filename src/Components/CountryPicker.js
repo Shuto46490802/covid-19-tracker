@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import { NativeSelect, FormControl, InputLabel } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CountryPicker = ({ classes, toggleCountry }) => {
+const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand }) => {
 
     const [countries, setCountries] = useState([]);
     const classStyle = useStyles();
@@ -36,16 +36,33 @@ const CountryPicker = ({ classes, toggleCountry }) => {
         .sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 
     return (
-        <FormControl className="form"  id="form">
-            <InputLabel shrink id="label">Select a Country</InputLabel>
-            <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
-                <option value={"select a country"} className={"option"}>Global</option>
-                {
-                    modifiedData.map((country, i) =>
-                        <option key={i} value={country.code} className={"option"} > {country.name} </option>)
-                }
-            </NativeSelect>
-        </FormControl>
+        <Fragment>
+            <div className={`country-picker-container${globalDailyChartExpand ? "-expand" : ""}`}>
+                <FormControl id="form">
+                    <InputLabel shrink id="label">Select a Country</InputLabel>
+                    <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
+                        <option value={"select a country"} className={"option"}>Global</option>
+                        {
+                            modifiedData.map((country, i) =>
+                                <option key={i} value={country.code} className={"option"} > {country.name} </option>)
+                        }
+                    </NativeSelect>
+                </FormControl>
+            </div>
+
+            <div className={`country-picker-container-tablet`}>
+                <FormControl id="form">
+                    <InputLabel shrink id="label">Select a Country</InputLabel>
+                    <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
+                        <option value={"select a country"} className={"option"}>Global</option>
+                        {
+                            modifiedData.map((country, i) =>
+                                <option key={i} value={country.code} className={"option"} > {country.name} </option>)
+                        }
+                    </NativeSelect>
+                </FormControl>
+            </div>
+        </Fragment>
     )
 };
 

@@ -50,7 +50,6 @@ const App = () => {
     const [dataPanelExpand, setDataPanelExpand] = useState(false);
     const [globalDailyChartExpand, setGlobalDailyChartExpand] = useState(false);
     const [globalChartExpand, setGlobalChartExpand] = useState(false);
-    const [countryChartExpand, setCountryChartExpand] = useState(false);
 
     const [isPanelHover, setIsPanelHover] = useState(false);
     const [isTodayChartHover, setIsTodayChartHover] = useState(false);
@@ -157,26 +156,33 @@ const App = () => {
         }
     };
 
-    //toggle expand and hide
+    //toggle expand and hide  
     const classes =
         infectedCardExpand
-            ? ["expand", "hide", "hide", "hide", "hide", "hide", "hide", "hide"]
-            : deathsdCardExpand
-                ? ["hide", "expand", "hide", "hide", "hide", "hide", "hide", "hide"]
-                : activeCardExpand
-                    ? ["hide", "hide", "expand", "hide", "hide", "hide", "hide", "hide"]
-                    : mapExpand
-                        ? ["hide", "hide", "hide", "expand", "hide", "hide", "hide", "hide"]
-                        : dataPanelExpand
-                            ? ["hide", "hide", "hide", "hide", "expand", "hide", "hide", "hide"]
-                            : globalDailyChartExpand
-                                ? ["hide", "hide", "hide", "hide", "hide", "expand", "hide", "hide"]
+            ? ["expand", "hide", "hide", "hide", "hide", "hide", "hide"]
+            : dataPanelExpand
+                ? ["hide", "expand", "hide", "hide", "hide", "hide", "hide"]
+                : mapExpand
+                    ? ["hide", "hide", "expand", "hide", "hide", "hide", "hide"]
+                    : globalDailyChartExpand
+                        ? ["hide", "hide", "hide", "expand", "hide", "hide", "hide"]
+                        : deathsdCardExpand
+                            ? ["hide", "hide", "hide", "hide", "expand", "hide", "hide"]
+                            : activeCardExpand
+                                ? ["hide", "hide", "hide", "hide", "hide", "expand", "hide"]
                                 : globalChartExpand
-                                    ? ["hide", "hide", "hide", "hide", "hide", "hide", "expand", "hide"]
-                                    : countryChartExpand
-                                        ? ["hide", "hide", "hide", "hide", "hide", "hide", "hide", "expand"]
-                                        : [];
+                                    ? ["hide", "hide", "hide", "hide", "hide", "hide", "expand"]
+                                    : ["", "", "", "", "", "", ""];
 
+    const columnClasses =
+        infectedCardExpand || dataPanelExpand
+            ? ["expand", "hide", "hide"]
+            : mapExpand || globalDailyChartExpand
+                ? ["hide", "expand", "hide"]
+                : deathsdCardExpand || activeCardExpand || globalChartExpand
+                    ? ["hide", "hide", "expand"]
+                    : ["", "", ""];
+    console.log(classes[0])
     return (
         <div id="app">
             <header>
@@ -201,12 +207,14 @@ const App = () => {
                     </div>
                 </div>
             </header>
+
             <main id="laptop">
-                <div className={"row"}>
+                <div
+                    className={`column${columnClasses[0]} column1`}
+                >
                     <div
                         id={"infected-card"}
                         className={classes[0]}
-                        style={infectedCardExpand ? { width: "100%", height: "93vh" } : {}}
                     >
                         <InfectedCard
                             countriesData={countriesData}
@@ -215,72 +223,23 @@ const App = () => {
                             arrowLeft={arrowLeft}
                             arrowRight={arrowRight}
                             infectedCardExpand={infectedCardExpand}
-                            expandIcon={expandIcon}
-                            shrinkIcon={shrinkIcon}
                             setInfectedCardExpand={setInfectedCardExpand}
-                            formatNumber={formatNumber}
-                        />
-                    </div>
-                    <div
-                        id="map"
-                        className={classes[3]}
-                        style={mapExpand ? { width: "98%", height: "89vh" } : { width: "770px",  }}
-                    >
-                        <Maps
-                            classes={classes}
-                            provincesData={provincesData}
-                            setMapExpand={setMapExpand}
-                            mapExpand={mapExpand}
-                            expandIcon={expandIcon}
-                            shrinkIcon={shrinkIcon}
-                        />
-                    </div>
-                    <div
-                        className={`deaths-active-card ${classes[1]}`}
-                        style={deathsdCardExpand ? { width: "100%", height: "93vh" } : {}}
-                    >
-                        <DeathsRecoveredCard
-                            countriesData={countriesData}
-                            globalData={globalData}
-                            classes={classes}
-                            arrowLeft={arrowLeft}
-                            arrowRight={arrowRight}
-                            deathsdCardExpand={deathsdCardExpand}
-                            setDeathsCardExpand={setDeathsCardExpand}
                             expandIcon={expandIcon}
                             shrinkIcon={shrinkIcon}
                             formatNumber={formatNumber}
-                        />
-                    </div>
-                    <div
-                        className={`deaths-active-card ${classes[2]}`}
-                        style={activeCardExpand ? { width: "100%", height: "93vh" } : {}}
-                    >
-                        <ActiveIncidentRateCard
-                            provincesData={provincesData}
                             classes={classes}
-                            arrowLeft={arrowLeft}
-                            arrowRight={arrowRight}
-                            activeCardExpand={activeCardExpand}
-                            setActiveCardExpand={setActiveCardExpand}
-                            expandIcon={expandIcon}
-                            shrinkIcon={shrinkIcon}
-                            formatNumber={formatNumber}
                         />
                     </div>
-                </div>
-                <div className={"row"}>
                     <div
                         id="info-panel"
-                        className={classes[4]}
+                        className={classes[1]}
                         onMouseEnter={() => setIsPanelHover(true)}
                         onMouseLeave={() => setIsPanelHover(false)}
-                        style={dataPanelExpand ? { width: "95%", height: "91vh" } : {}}
                     >
                         {
                             isPanelHover
                                 ? !dataPanelExpand
-                                    ? <div className={"expand-icon"} onClick={() => setDataPanelExpand(true)}>{expandIcon}</div>
+                                    ? <div className={"expand-icon"} onClick={() => { setDataPanelExpand(true) }}>{expandIcon}</div>
                                     : <div className={"shrink-icon"} onClick={() => setDataPanelExpand(false)}>{shrinkIcon}</div>
                                 : null
                         }
@@ -293,12 +252,26 @@ const App = () => {
                             dataPanelExpand={dataPanelExpand}
                         />
                     </div>
+                </div>
+                <div className={`column${columnClasses[1]} column2`}>
+                    <div
+                        id="map"
+                        className={classes[2]}
+                    >
+                        <Maps
+                            classes={classes}
+                            provincesData={provincesData}
+                            setMapExpand={setMapExpand}
+                            mapExpand={mapExpand}
+                            expandIcon={expandIcon}
+                            shrinkIcon={shrinkIcon}
+                        />
+                    </div>
                     <div
                         id="country-picker-chart"
-                        className={classes[5]}
+                        className={classes[3]}
                         onMouseEnter={() => setIsTodayChartHover(true)}
                         onMouseLeave={() => setIsTodayChartHover(false)}
-                        style={globalDailyChartExpand ? { width: "95%", height: "87vh", top: "30px" } : { }}
                     >
                         {
                             isTodayChartHover
@@ -307,10 +280,152 @@ const App = () => {
                                     : <div className={"shrink-icon"} onClick={() => setGlobalDailyChartExpand(false)}>{shrinkIcon}</div>
                                 : null
                         }
+                        <div id="country-picker">
+                            <CountryPicker
+                                classes={classes}
+                                toggleCountry={toggleCountry}
+                                globalDailyChartExpand={globalDailyChartExpand}
+                            />
+                        </div>
+                        <div id="country-chart">
+                            {
+                                country === "select a country"
+                                    ? <GlobalTodayCharts
+                                        globalData={globalData}
+                                        arrowRight={arrowRight}
+                                        arrowLeft={arrowLeft}
+                                        option={option}
+                                        classes={classes}
+                                        globalDailyChartExpand={globalDailyChartExpand}
+                                    />
+                                    : <CountryCharts
+                                        countriesYearlyData={countriesYearlyData}
+                                        arrowLeft={arrowLeft}
+                                        arrowRight={arrowRight}
+                                        option={option}
+                                        classes={classes}
+                                        globalDailyChartExpand={globalDailyChartExpand}
+                                    />
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className={`column${columnClasses[2]} column3`}>
+                    <div className={`row ${globalChartExpand ? "hide" : ""}`} >
+                        <div
+                            id="deaths-recovered-card"
+                            className={classes[4]}
+                        >
+                            <DeathsRecoveredCard
+                                countriesData={countriesData}
+                                globalData={globalData}
+                                classes={classes}
+                                arrowLeft={arrowLeft}
+                                arrowRight={arrowRight}
+                                deathsdCardExpand={deathsdCardExpand}
+                                setDeathsCardExpand={setDeathsCardExpand}
+                                expandIcon={expandIcon}
+                                shrinkIcon={shrinkIcon}
+                                formatNumber={formatNumber}
+                            />
+                        </div>
+                        <div
+                            id="active-incident-card"
+                            className={classes[5]}
+                        >
+                            <ActiveIncidentRateCard
+                                provincesData={provincesData}
+                                classes={classes}
+                                arrowLeft={arrowLeft}
+                                arrowRight={arrowRight}
+                                activeCardExpand={activeCardExpand}
+                                setActiveCardExpand={setActiveCardExpand}
+                                expandIcon={expandIcon}
+                                shrinkIcon={shrinkIcon}
+                                formatNumber={formatNumber}
+                            />
+                        </div>
+                    </div>
+                    <div
+                        id="global-chart"
+                        className={classes[6]}
+                    >
+                        <GlobalCharts
+                            globalData={globalData}
+                            arrowLeft={arrowLeft}
+                            arrowRight={arrowRight}
+                            option={option}
+                            classes={classes}
+                            globalChartExpand={globalChartExpand}
+                            setGlobalChartExpand={setGlobalChartExpand}
+                            expandIcon={expandIcon}
+                            shrinkIcon={shrinkIcon}
+                        />
+                    </div>
+                </div>
+            </main>
+
+
+            <main id="tablet">
+                <div className={"tablet-item"} id="map-tablet">
+                    <Maps
+                        classes={classes}
+                        provincesData={provincesData}
+                        setMapExpand={setMapExpand}
+                        mapExpand={mapExpand}
+                        expandIcon={expandIcon}
+                        shrinkIcon={shrinkIcon}
+                    />
+                </div>
+                <div className={"tablet-item"} id={"infected-card-tablet"}>
+                    <InfectedCard
+                        countriesData={countriesData}
+                        globalData={globalData}
+                        provincesData={provincesData}
+                        arrowLeft={arrowLeft}
+                        arrowRight={arrowRight}
+                        infectedCardExpand={infectedCardExpand}
+                        expandIcon={expandIcon}
+                        shrinkIcon={shrinkIcon}
+                        setInfectedCardExpand={setInfectedCardExpand}
+                        formatNumber={formatNumber}
+                    />
+                </div>
+                <div className={"deaths-active-card tablet-item"}>
+                    <DeathsRecoveredCard
+                        countriesData={countriesData}
+                        globalData={globalData}
+                        classes={classes}
+                        arrowLeft={arrowLeft}
+                        arrowRight={arrowRight}
+                        deathsdCardExpand={deathsdCardExpand}
+                        setDeathsCardExpand={setDeathsCardExpand}
+                        expandIcon={expandIcon}
+                        shrinkIcon={shrinkIcon}
+                        formatNumber={formatNumber}
+                    />
+                </div>
+                <div className={"deaths-active-card tablet-item"}>
+                    <ActiveIncidentRateCard
+                        provincesData={provincesData}
+                        classes={classes}
+                        arrowLeft={arrowLeft}
+                        arrowRight={arrowRight}
+                        activeCardExpand={activeCardExpand}
+                        setActiveCardExpand={setActiveCardExpand}
+                        expandIcon={expandIcon}
+                        shrinkIcon={shrinkIcon}
+                        formatNumber={formatNumber}
+                    />
+                </div>
+                <div id="country-picker-chart" className={"tablet-item"}>
+                    <div id="country-picker">
                         <CountryPicker
                             classes={classes}
                             toggleCountry={toggleCountry}
                         />
+                    </div>
+                    <div id="country-chart">
                         {
                             country === "select a country"
                                 ? <GlobalTodayCharts
@@ -331,113 +446,8 @@ const App = () => {
                                 />
                         }
                     </div>
-                    <div
-                        id="global-chart"
-                        className={classes[6]}
-                        onMouseEnter={() => setIsGlobalChartHover(true)}
-                        onMouseLeave={() => setIsGlobalChartHover(false)}
-                        style={globalChartExpand ? { width: "95%", height: "87vh", top: "30px" } : {}}
-                    >
-                        {
-                            isGlobalChartHover
-                                ? !globalChartExpand
-                                    ? <div className={"expand-icon"} onClick={() => setGlobalChartExpand(true)}>{expandIcon}</div>
-                                    : <div className={"shrink-icon"} onClick={() => setGlobalChartExpand(false)}>{shrinkIcon}</div>
-                                : null
-                        }
-                        <GlobalCharts
-                            globalData={globalData}
-                            arrowLeft={arrowLeft}
-                            arrowRight={arrowRight}
-                            option={option}
-                            classes={classes}
-                            globalChartExpand={globalChartExpand}
-                            setGlobalChartExpand={setGlobalChartExpand}
-                            expandIcon={expandIcon}
-                            shrinkIcon={shrinkIcon}
-                        />
-                    </div>
                 </div>
-            </main>
-
-            <main id="tablet">
-                <div id="map-tablet">
-                    <Maps
-                        classes={classes}
-                        provincesData={provincesData}
-                        setMapExpand={setMapExpand}
-                        mapExpand={mapExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                    />
-                </div>
-                <div id={"infected-card-tablet"}>
-                    <InfectedCard
-                        countriesData={countriesData}
-                        globalData={globalData}
-                        provincesData={provincesData}
-                        arrowLeft={arrowLeft}
-                        arrowRight={arrowRight}
-                        infectedCardExpand={infectedCardExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        setInfectedCardExpand={setInfectedCardExpand}
-                        formatNumber={formatNumber}
-                    />
-                </div>
-                <div className={"deaths-active-card-tablet"}>
-                    <DeathsRecoveredCard
-                        countriesData={countriesData}
-                        globalData={globalData}
-                        classes={classes}
-                        arrowLeft={arrowLeft}
-                        arrowRight={arrowRight}
-                        deathsdCardExpand={deathsdCardExpand}
-                        setDeathsCardExpand={setDeathsCardExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        formatNumber={formatNumber}
-                    />
-                </div>
-                <div className={"deaths-active-card-tablet"}>
-                    <ActiveIncidentRateCard
-                        provincesData={provincesData}
-                        classes={classes}
-                        arrowLeft={arrowLeft}
-                        arrowRight={arrowRight}
-                        activeCardExpand={activeCardExpand}
-                        setActiveCardExpand={setActiveCardExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        formatNumber={formatNumber}
-                    />
-                </div>
-                <div id="country-picker-chart-tablet">
-                    <CountryPicker
-                        classes={classes}
-                        toggleCountry={toggleCountry}
-                    />
-                    {
-                        country === "select a country"
-                            ? <GlobalTodayCharts
-                                globalData={globalData}
-                                arrowRight={arrowRight}
-                                arrowLeft={arrowLeft}
-                                option={option}
-                                classes={classes}
-                                globalDailyChartExpand={globalDailyChartExpand}
-                            />
-                            : <CountryCharts
-                                countriesYearlyData={countriesYearlyData}
-                                arrowLeft={arrowLeft}
-                                arrowRight={arrowRight}
-                                option={option}
-                                classes={classes}
-                                globalDailyChartExpand={globalDailyChartExpand}
-                            />
-                    }
-                </div>
-                <div id="global-chart-tablet">
+                <div id="global-chart" className={"tablet-item"}>
                     <GlobalCharts
                         globalData={globalData}
                         arrowLeft={arrowLeft}
@@ -450,7 +460,7 @@ const App = () => {
                         shrinkIcon={shrinkIcon}
                     />
                 </div>
-                <div id="info-panel-tablet">
+                <div id="info-panel" className={"tablet-item"}>
                     <InfoPanel
                         globalData={globalData}
                         countriesData={countriesData}

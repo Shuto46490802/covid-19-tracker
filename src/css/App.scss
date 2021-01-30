@@ -5,8 +5,8 @@
     font-family:"Work Sans";
     overscroll-behavior: none;
     margin:0;
-    
-    @media only screen and (min-width : 870px){
+
+    @media only screen and (min-width : 960px){
         overflow-y:hidden;
         height:100vh;
     }  
@@ -23,20 +23,33 @@ header{
     position:fixed;
     top:0;
     z-index:2;
+
+    @media only screen and (max-width : 959px){
+        height:32.2px;
+    }  
+    @media only screen and (max-width : 500px){
+        height:16.7px;
+    }  
     
     img{
         width:72px;
         height:50px;
+        @media only screen and (max-width : 959px){
+            width:48px;
+            height:32.2px;
+        }  
+        @media only screen and (max-width : 500px){
+            width:24px;
+            height:16.7px;
+        }  
     }
     #header-title{
         display:flex;
         align-items:center;
-        margin-left:1em;
+        margin-left:clamp(5px, 1vw, 15px);
         h1{
-            font-weight:300;
-            @media only screen and (max-width : 869px){
-                font-size:1.3em;
-            }  
+            font-size:clamp(10px, 2vw, 30px);
+            font-weight:400;
         }
     }
     #header-border{
@@ -44,177 +57,301 @@ header{
         height:40px;
         margin:0 .5em;
         background-color:#f5f5f5;
+        @media only screen and (max-width : 959px){
+            height:26px;
+        }  
+        @media only screen and (max-width : 500px){
+            height:13px;
+        }  
     }
     #header-footer{
         display:flex;
         flex-direction:column;
-        @media only screen and (max-width : 869px){
-            font-size:.8em;
-        }  
+        font-size:1.1vw;
     }
     #nav{
         display:flex;
         margin-left:auto;
         a{
-            font-size:2em;
+            font-size:2.1vw;
             margin:0 .5em;
-            @media only screen and (max-width : 869px){
-                font-size:1.5em;
-            }  
         }
     }
 }
 
 
+//laptop
+#laptop{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    margin:5px;
+    position:relative;
+    height:100%;
+    @media only screen and (max-width : 959px){
+        display:none;
+    }  
+
+    .column{
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        align-items:center;
+        position:relative;
+        top:50px;
+        height:92.5%;
+        @media only screen and (max-height : 700px){
+            height:92%;
+        }   
+        @media only screen and (max-height : 600px){
+            height:91%;
+        }  
+        @media only screen and (max-height : 550px){
+            height:90%;
+        }  
+        @media only screen and (max-height : 500px){
+            height:89%;
+        }  
+        @media only screen and (max-height : 450px){
+            height:88%;
+        } 
+        @media only screen and (max-height : 400px){
+            height:86%;
+        } 
+    }
+
+    .column1{
+        width:16%;
+
+        #infected-card{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            height:60%;
+            width:100%;
+            padding:5px;
+            box-sizing:border-box;
+        }
+
+        #info-panel{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:space-between;
+            height:40%; 
+            width:100%;
+            box-sizing:border-box;
+            padding:5px;
+            position:relative;
+        }
+    }
+
+    .column2{
+        width:56%;
+
+        #map{
+            padding:5px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            height:57%;
+            width:100%;
+            box-sizing:border-box;
+        }
+
+        #country-picker-chart{
+            height:43%;
+            padding:5px;
+            box-sizing:border-box;
+            width:100%;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:space-between;
+            position:relative;
+
+            #country-picker{
+                width:100%;
+                height:15%;
+                background-color:#474747;
+            }
+
+            #country-chart{
+                width:100%;
+                height:85%;
+            }
+        }
+    }
+
+    .column3{
+        width:28%;
+
+        .row{
+            display:flex;
+            justify-content:space-evenly;
+            height:57%;
+            width:100%;
+            box-sizing:border-box;
+            padding:5px;
+
+            .deaths-active-card{
+                width:50%;
+            }
+
+            #deaths-recovered-card{
+                margin-right:5px;
+                width:49.9%;
+            }
+
+            #active-incident-card{
+                margin-left:5px;
+                width:50.1%;
+            }
+        }
+
+        #global-chart{
+            height:43%;
+            width:100%;
+            padding:5px;
+            box-sizing:border-box;
+        }
+    }
+
+    .columnexpand{
+        width:99%;
+        height:92.5%;
+        position:relative;
+        top:50px;
+        display:flex;
+        justify-content:center;
+        background-color:pink;
+        
+        @media only screen and (max-height : 700px){
+            height:92%;
+        }   
+        @media only screen and (max-height : 600px){
+            height:91%;
+        }  
+        @media only screen and (max-height : 550px){
+            height:90%;
+        }  
+        @media only screen and (max-height : 500px){
+            height:89%;
+        }  
+        @media only screen and (max-height : 450px){
+            height:88%;
+        } 
+        @media only screen and (max-height : 400px){
+            height:86%;
+        } 
+
+        #country-picker-chart{
+            background-color:transparent;
+            height:100% !important;
+            padding:5px;
+            box-sizing:border-box;
+            width:100% !important;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:space-between;
+
+            #country-picker{
+                background-color:#474747;
+                height:6% !important;
+            }
+
+            #country-chart{
+                height:94% !important;
+                display:flex;
+                flex-direction:column;
+            }
+        }
+
+        .row{
+            height:100%;
+            width:100%;
+        }
+    }
+
+    .columnhide{
+        display:none;
+    }
+}
+
 
 /* main */
 
-#laptop{
-    position:relative;
-    top:52px;
-    margin:5px;
-    @media only screen and (max-width : 869px){
+#tablet{ 
+    @media only screen and (min-width : 960px){
         display:none;
-    }   
-    .row{
-        display:flex;
-        justify-content:space-evenly;
-        margin:auto; 
-        
-       
     }
-}
+    @media only screen and (max-width : 500px){
+        display:none;
+    }  
 
-#tablet{
-    position:relative;
-    top:52px;
     display:flex;
     flex-direction:column;
     align-items:center;
     margin:5px;
+    position:relative;
+    top:32.2px;
     
-    @media only screen and (min-width : 870px){
-        display:none;
+    .tablet-item{
+        background-color:pink;
+        height:90vh;
+        width:90%;
+        margin-bottom:2em;
+        padding:5px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        box-sizing:border-box;
+
+        #country-picker{
+            height:7%;
+            width:100%;
+            background-color: #474747;
+        }
+
+        #country-chart{
+            height:93%;
+            width:100%;
+            display:flex;
+            flex-direction:column;
+        }
     }
 }
 
-// laptop
-
-#infected-card{
-    height:57vh;
-    min-height:0;
-    width:17%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-}
-.deaths-active-card{
-    max-width:100%;
-    width:14.5%;
-    height:53vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-}
-#map{
-    max-width:100%;
-    height:53vh;
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    position:relative;
-}
-#info-panel{
-    height:35vh;
-    width:17%;
-    max-width:100%;
-    margin-top:5px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-evenly;
-    align-items:center;
-    position:relative;
-}
-#country-picker-chart{
-    width:54.3%;
-    height:38vh;
-    margin:-1.5em 5px 5px 5px;
-    position:relative;
-    background-color :#474747;
-}
-#global-chart{
-    width:27.15%;
-    height:38vh;
-    margin-top:-1.3em;
-    margin:-1.5em 5px 5px 5px;
-    position:relative;
-}
-
-//expand and shrink 
+//expand and shrink
 .expand-icon{
     position:absolute;
-    z-index:2;
     top:0;
     right:0;
-    opacity:0.8;
     cursor:pointer;
+    z-index:2;
 }
+
 .shrink-icon{
     position:absolute;
-    z-index:2;
-    opacity:0.8;
     top:0;
     right:0;
     cursor:pointer;
+    z-index:2;
 }
+
 .expand{
-    width:100%;
-    height:100vh;
+    width:100% !important;
+    height:100% !important;
+    margin:0 !important;
 }
 .hide{
     display:none !important;
 }
 
-//tablet
 
-#infected-card-tablet{
-    width:98%;
-    height:80vh;
-    margin-bottom:4em;
-    position:relative;
-}
-.deaths-active-card-tablet{
-    width:98%;
-    height:80vh;
-    margin-bottom:4em;
-    position:relative;
-}
-#map-tablet{
-    width:98%;
-    height:80vh;
-    margin-bottom:4em;
-    position:relative;
-}
-#info-panel-tablet{
-    width:98%;
-    height:80vh;
-    margin-bottom:2em;
-}
-#country-picker-chart-tablet{
-    width:96%;
-    height:80vh;
-    margin:5px 5px 4em 5px;
-    background-color :#474747;
-    position:relative;
-}
-#global-chart-tablet{
-    width:96%;
-    height:80vh;
-    margin:5px 5px 4em 5px;
-}
+
 

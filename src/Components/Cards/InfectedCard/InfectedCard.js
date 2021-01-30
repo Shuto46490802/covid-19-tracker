@@ -2,12 +2,12 @@ import React, { Fragment, useState } from "react";
 
 import "./InfectedCard.scss";
 
-const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber }) => {
+const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber, classes }) => {
 
     const [isCard, setIsCard] = useState("admin0");
     const [isHover, setIsHover] = useState(false);
 
-    if (!countriesData[0] || !globalData[0]) {
+    if (!countriesData[0] || !globalData[0] || !provincesData[0]) {
         return "Loading..."
     }
 
@@ -63,13 +63,14 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
         ? onStyle
         : {}
 
+
+
     return (
         <Fragment>
             <div
-                className={"infected-card-container"}
+                className={`infected-card-container${infectedCardExpand ? "-expand" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
-                style={infectedCardExpand ? { width: "95%", height: "93%" } : {}}
             >
                 {
                     isHover
@@ -79,29 +80,27 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                         : null
                 }
                 <div className={"card-header"} >
-                    <span className={"card-header-text"}>
-                        {
-                            isCard === "admin0" || isCard === "admin2"
-                                ? "Global Cases"
-                                : "Global Today's Cases"
-                        }
-                    </span>
-                    <h1 className={"card-header-num infected-num"} >
-                        {
-                            isCard === "admin0" || isCard === "admin2"
-                                ? formatNumber(globalData[0].confirmed)
-                                : formatNumber(globalData[0].newConfirmed)
-                        }
-                    </h1>
+                    {
+                        isCard === "admin0" || isCard === "admin2"
+                            ? <div className={"card-header-text"}>Global Cases</div>
+                            : <div className={"card-header-text"}>Global Today's Cases</div>
+                    }
+
+                    {
+                        isCard === "admin0" || isCard === "admin2"
+                            ? <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].confirmed)}</h1>
+                            : <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].newConfirmed)}</h1>
+                    }
+
                 </div>
                 {
                     isCard === "admin0" || isCard === "today"
                         ? <div className={"country-card-note"} >
-                            <span>Cases by Country</span>
+                            <div>Cases by Country</div>
                         </div>
                         : <div className={"province-card-note"} >
-                            <span>Cases by</span>
-                            <span>Province/State/Dpendency</span>
+                            <div>Cases by</div>
+                            <div>Province/State/Dpendency</div>
                         </div>
                 }
                 <div className={"ul"}>
@@ -109,79 +108,87 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                         isCard === "admin0"
                             ? modifiedGlobalCasesData.map((data, i) =>
                                 <div className={"country-list"} key={i}>
-                                    <span className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</span>
-                                    <span>{data[0]}</span>
+                                    <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
+                                    <div className={"country-list-place"}>{data[0]}</div>
                                 </div>
                             )
                             : isCard === "admin2"
                                 ? modifiedProvincesData.map((data, i) =>
                                     <div className={"province-list"} key={i}>
-                                        <span className={"list-num infected-num"} >{formatNumber(data[0])} <span className={"province-list-cases"}>Cases</span></span>
-                                        <span className={"province-list-place"}>{data[1]}</span>
+                                        <div className={"list-num infected-num"} >{formatNumber(data[0])} <div className={"province-list-cases"}>Cases</div></div>
+                                        <div className={"province-list-place"}>{data[1]}</div>
                                     </div>
                                 )
                                 : isCard === "today"
                                     ? modifiedTodayData.map((data, i) =>
                                         <div className={"country-list"} key={i}>
-                                            <span className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</span>
-                                            <span>{data[0]}</span>
+                                            <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
+                                            <div className={"country-list-place"}>{data[0]}</div>
                                         </div>
                                     )
                                     : null
                     }
                 </div>
+                {
+                    !infectedCardExpand
+                        ? <div className={"arrow-toggler"}>
+                            <div className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</div>
+                            <div className={"card-toggler-text"}>
+                                {
+                                    isCard === "admin0"
+                                        ? "Admin0"
+                                        : isCard === "admin2"
+                                            ? "Admin2"
+                                            : isCard === "today"
+                                                ? "Global Today's Cases"
+                                                : null
+                                }
+                            </div>
+                            <div className={"arrow-icon"} onClick={() => toggleAdminInfectedRight()}>{arrowRight}</div>
+                        </div>
+                        : <div className={"card-button-toggler-wrapper"}>
+                            <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
+                            <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
+                            <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
+                        </div>
+                }
             </div>
-            {
-                !infectedCardExpand
-                    ? <div className={"arrow-toggler"}>
-                        <span className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</span>
-                        <span className={"card-toggler-text"}>
-                            {
-                                isCard === "admin0"
-                                    ? "Admin0"
-                                    : isCard === "admin2"
-                                        ? "Admin2"
-                                        : isCard === "today"
-                                            ? "Global Today's Cases"
-                                            : null
-                            }
-                        </span>
-                        <span className={"arrow-icon"} onClick={() => toggleAdminInfectedRight()}>{arrowRight}</span>
-                    </div>
-                    : <div className={"card-button-toggler-wrapper"}>
-                        <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
-                        <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
-                        <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
-                    </div>
-            }
 
-
+            {/* tablet */}
             <div
-                className={"infected-card-container-tablet"}>
+                className={`infected-card-container-tablet`}
+                onMouseEnter={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+            >
+                {
+                    isHover
+                        ? !infectedCardExpand
+                            ? <div className={"expand-icon"} onClick={() => setInfectedCardExpand(true)}>{expandIcon}</div>
+                            : <div className={"shrink-icon"} onClick={() => setInfectedCardExpand(false)}>{shrinkIcon}</div>
+                        : null
+                }
                 <div className={"card-header"} >
-                    <span className={"card-header-text"}>
-                        {
-                            isCard === "admin0" || isCard === "admin2"
-                                ? "Global Cases"
-                                : "Global Today's Cases"
-                        }
-                    </span>
-                    <h1 className={"card-header-num infected-num"} >
-                        {
-                            isCard === "admin0" || isCard === "admin2"
-                                ? formatNumber(globalData[0].confirmed)
-                                : formatNumber(globalData[0].newConfirmed)
-                        }
-                    </h1>
+                    {
+                        isCard === "admin0" || isCard === "admin2"
+                            ? <div className={"card-header-text"}>Global Cases</div>
+                            : <div className={"card-header-text"}>Global Today's Cases</div>
+                    }
+
+                    {
+                        isCard === "admin0" || isCard === "admin2"
+                            ? <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].confirmed)}</h1>
+                            : <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].newConfirmed)}</h1>
+                    }
+
                 </div>
                 {
                     isCard === "admin0" || isCard === "today"
                         ? <div className={"country-card-note"} >
-                            <span>Cases by Country</span>
+                            <div>Cases by Country</div>
                         </div>
                         : <div className={"province-card-note"} >
-                            <span>Cases by</span>
-                            <span>Province/State/Dpendency</span>
+                            <div>Cases by</div>
+                            <div>Province/State/Dpendency</div>
                         </div>
                 }
                 <div className={"ul"}>
@@ -189,32 +196,32 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                         isCard === "admin0"
                             ? modifiedGlobalCasesData.map((data, i) =>
                                 <div className={"country-list"} key={i}>
-                                    <span className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</span>
-                                    <span>{data[0]}</span>
+                                    <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
+                                    <div className={"country-list-place"}>{data[0]}</div>
                                 </div>
                             )
                             : isCard === "admin2"
                                 ? modifiedProvincesData.map((data, i) =>
                                     <div className={"province-list"} key={i}>
-                                        <span className={"list-num infected-num"} >{formatNumber(data[0])} <span className={"province-list-cases"}>Cases</span></span>
-                                        <span className={"province-list-place"}>{data[1]}</span>
+                                        <div className={"list-num infected-num"} >{formatNumber(data[0])} <div className={"province-list-cases"}>Cases</div></div>
+                                        <div className={"province-list-place"}>{data[1]}</div>
                                     </div>
                                 )
                                 : isCard === "today"
                                     ? modifiedTodayData.map((data, i) =>
                                         <div className={"country-list"} key={i}>
-                                            <span className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</span>
-                                            <span>{data[0]}</span>
+                                            <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
+                                            <div className={"country-list-place"}>{data[0]}</div>
                                         </div>
                                     )
                                     : null
                     }
                 </div>
-            </div>
-            <div className={"card-button-toggler-wrapper-tablet"}>
-                <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
-                <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
-                <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
+                <div className={"card-button-toggler-wrapper-tablet"}>
+                    <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
+                    <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
+                    <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
+                </div>
             </div>
         </Fragment>
     )
