@@ -34,10 +34,10 @@
 
     .button-toggler{
         font-size:clamp(9px, .8vw, 11px);
-        @media only screen and (max-height : 700px){
+        @media only screen and (max-height : 600px){
             font-size:clamp(7px, .7vw, 10px);
         }  
-        @media only screen and (max-height : 600px){
+        @media only screen and (max-height : 500px){
             font-size:clamp(6px, .6vw, 9px);
         } 
         border-right:1px solid #053366;
@@ -58,10 +58,10 @@
         background-color:#244c83;
         cursor:pointer;
         font-size:clamp(11px, 1vw, 15px);
-        @media only screen and (max-height : 700px){
+        @media only screen and (max-height : 600px){
             font-size:clamp(10px, 1vw, 13px);
         }  
-        @media only screen and (max-height : 600px){
+        @media only screen and (max-height : 500px){
             font-size:clamp(9px, 1vw, 11px);
         }  
     }
@@ -97,7 +97,6 @@
 .button-toggler-wrapper-tablet{
     display:flex;
     align-self:flex-start;
-    margin-left:.5em;
     min-height:0;
     position:relative; 
     @media only screen and (min-width : 960px){
@@ -115,12 +114,12 @@
         margin-left:.7em;
         background-color:#244c83;
         cursor:pointer;
-        font-size:clamp(11px, 1vw, 15px);
-        @media only screen and (max-height : 700px){
-            font-size:clamp(10px, 1vw, 13px);
-        }  
+        font-size:clamp(8px, 1.4vw, 14px);
         @media only screen and (max-height : 600px){
-            font-size:clamp(9px, 1vw, 11px);
+            font-size:clamp(8px, 1.3vw, 12px);
+        }  
+        @media only screen and (max-height : 500px){
+            font-size:clamp(7px, 1.3vw, 10px);
         }  
     }   
 }

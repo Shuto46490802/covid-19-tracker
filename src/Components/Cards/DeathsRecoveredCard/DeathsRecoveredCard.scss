@@ -9,9 +9,9 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    @media only screen and (max-width : 959px){
-        display:none;
-    }  
+    @media only screen and (max-width: 959px) {
+        display: none;
+    }
 
     .deaths-num {
         color: #999;
@@ -125,10 +125,10 @@
             align-items: center;
             flex-wrap: wrap;
             font-size: clamp(15px, 1.2vw, 18px);
-            @media only screen and (max-height: 700px) {
+            @media only screen and (max-height: 600px) {
                 font-size: clamp(13px, 1.1vw, 15px);
             }
-            @media only screen and (max-height: 600px) {
+            @media only screen and (max-height: 500px) {
                 font-size: clamp(11px, 1vw, 12px);
             }
             .province-list-cases {
@@ -138,10 +138,10 @@
 
         .country-list-place {
             font-size: clamp(13px, 1.1vw, 16px);
-            @media only screen and (max-height: 700px) {
+            @media only screen and (max-height: 600px) {
                 font-size: clamp(10px, 1vw, 13px);
             }
-            @media only screen and (max-height: 600px) {
+            @media only screen and (max-height: 500px) {
                 font-size: clamp(8px, 0.9vw, 10px);
             }
         }
@@ -269,10 +269,10 @@
             align-items: center;
             flex-wrap: wrap;
             font-size: clamp(17px, 1.2vw, 20px);
-            @media only screen and (max-height: 700px) {
+            @media only screen and (max-height: 600px) {
                 font-size: clamp(15px, 1.1vw, 18px);
             }
-            @media only screen and (max-height: 600px) {
+            @media only screen and (max-height: 500px) {
                 font-size: clamp(13px, 1vw, 16px);
             }
             .province-list-cases {
@@ -283,10 +283,10 @@
 
         .country-list-place {
             font-size: clamp(15px, 1.2vw, 18px);
-            @media only screen and (max-height: 700px) {
+            @media only screen and (max-height: 600px) {
                 font-size: clamp(13px, 1.2vw, 16px);
             }
-            @media only screen and (max-height: 600px) {
+            @media only screen and (max-height: 500px) {
                 font-size: clamp(11px, 1.2vw, 14px);
             }
         }
@@ -301,12 +301,12 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    @media only screen and (min-width : 960px){
-        display:none;
-    }   
-    @media only screen and (max-width : 500px){
-        display:none;
-    }  
+    @media only screen and (min-width: 960px) {
+        display: none;
+    }
+    @media only screen and (max-width: 500px) {
+        display: none;
+    }
 
     .deaths-num {
         color: #999;
@@ -329,42 +329,41 @@
         border-left: 1px solid #053366;
 
         .card-header-text {
-            font-size: clamp(10px, 1vw, 15px);
+            font-size: clamp(9px, 1.5vw, 15px);
             @media only screen and (max-height: 700px) {
-                font-size: clamp(9px, 1vw, 13px);
+                font-size: clamp(9px, 1.1vw, 14px);
             }
             @media only screen and (max-height: 600px) {
-                font-size: clamp(8px, 0.9vw, 12px);
+                font-size: clamp(9px, 0.9vw, 13px);
             }
             @media only screen and (max-height: 550px) {
-                font-size: clamp(8px, 0.8vw, 11px);
+                font-size: clamp(8px, 0.8vw, 12px);
             }
             @media only screen and (max-height: 500px) {
-                font-size: clamp(7px, 0.7vw, 10px);
+                font-size: clamp(8px, 0.7vw, 11px);
             }
             @media only screen and (max-height: 450px) {
-                font-size: clamp(7px, 0.6vw, 9px);
+                font-size: clamp(8px, 0.6vw, 10px);
             }
         }
 
         .card-header-num {
-            font-size: clamp(24px, 2.4vw, 36px);
             margin: 0;
-
+            font-size: clamp(25px, 4vw, 38px);
             @media only screen and (max-height: 700px) {
-                font-size: clamp(21px, 2.3vw, 33px);
+                font-size: clamp(23px, 2.6vw, 36px);
             }
             @media only screen and (max-height: 600px) {
-                font-size: clamp(18px, 2.2vw, 30px);
+                font-size: clamp(21px, 2.5vw, 34px);
             }
             @media only screen and (max-height: 550px) {
-                font-size: clamp(15px, 2.1vw, 27px);
+                font-size: clamp(19px, 2.4vw, 32px);
             }
             @media only screen and (max-height: 500px) {
-                font-size: clamp(12px, 2vw, 24px);
+                font-size: clamp(17px, 2.3vw, 30px);
             }
             @media only screen and (max-height: 450px) {
-                font-size: clamp(10px, 1.9vw, 21px);
+                font-size: clamp(15px, 2.2vw, 28px);
             }
         }
     }
@@ -378,21 +377,21 @@
         padding: clamp(3px, 0.7vh, 10px) 0;
         display: flex;
         flex-direction: column;
-        font-size: clamp(10px, 1.1vw, 18px);
+        font-size: clamp(9px, 1.5vw, 15px);
         @media only screen and (max-height: 700px) {
-            font-size: clamp(10px, 1vw, 16px);
+            font-size: clamp(9px, 1.1vw, 14px);
         }
         @media only screen and (max-height: 600px) {
-            font-size: clamp(9px, 0.9vw, 14px);
+            font-size: clamp(9px, 0.9vw, 13px);
         }
         @media only screen and (max-height: 550px) {
-            font-size: clamp(9px, 0.8vw, 12px);
+            font-size: clamp(8px, 0.8vw, 12px);
         }
         @media only screen and (max-height: 500px) {
-            font-size: clamp(8px, 0.7vw, 10px);
+            font-size: clamp(8px, 0.7vw, 11px);
         }
         @media only screen and (max-height: 450px) {
-            font-size: clamp(8px, 0.6vw, 8px);
+            font-size: clamp(8px, 0.6vw, 10px);
         }
     }
 
@@ -419,12 +418,12 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            font-size: clamp(15px, 1.2vw, 18px);
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(13px, 1.1vw, 15px);
-            }
+            font-size: clamp(12px, 1.6vw, 16px);
             @media only screen and (max-height: 600px) {
-                font-size: clamp(11px, 1vw, 12px);
+                font-size: clamp(12px, 1.5vw, 14px);
+            }
+            @media only screen and (max-height: 500px) {
+                font-size: clamp(11px, 1.5vw, 12px);
             }
             .province-list-cases {
                 margin-left: 0.2em;
@@ -432,12 +431,12 @@
         }
 
         .country-list-place {
-            font-size: clamp(13px, 1.1vw, 16px);
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(10px, 1vw, 13px);
-            }
+            font-size:clamp(10px, 1.5vw, 15px);
             @media only screen and (max-height: 600px) {
-                font-size: clamp(8px, 0.9vw, 10px);
+                font-size: clamp(10px, 1.5vw, 13px);
+            }
+            @media only screen and (max-height: 500px) {
+                font-size: clamp(9px, 1.5vw, 11px);
             }
         }
     }
