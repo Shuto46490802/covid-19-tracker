@@ -1,125 +1,124 @@
-//laptop
-#map-container{
-    width:99.7%;
-    height:100%;
-    position:relative;
-    z-index:1;
-    @media only screen and (max-width : 959px){
-        display:none;
-    }   
+//map containers
+.map-container,
+.map-container-tablet,
+.map-container-tablet-version {
+    width: 99.7%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: #244c83;
 
-    .leaflet-container{
-        z-index:1;
-        height:100%;
-        width:100%;
-        border:1px solid #053366;
-        position:relative;
-     }
-     
-     .leaflet-marker-icon{
-         opacity:0.8;
-         background-color:transparent;
-     }
-}
-
-.button-toggler-wrapper{
-    display:flex;
-    align-self:flex-start;
-    margin-left:.5em;
-    min-height:0;
-    position:relative;
-    @media only screen and (max-width : 959px){
-        display:none;
-    }   
-
-    .button-toggler{
-        font-size:clamp(9px, .8vw, 11px);
-        @media only screen and (max-height : 600px){
-            font-size:clamp(7px, .7vw, 10px);
-        }  
-        @media only screen and (max-height : 500px){
-            font-size:clamp(6px, .6vw, 9px);
-        } 
-        border-right:1px solid #053366;
-        border-left:1px solid #053366;
-        border-bottom:1px solid #053366;
-        padding:.2em .6em;
-        margin-left:.5em;
-        background-color:#244c83;
-        cursor:pointer;
+    .leaflet-container {
+        z-index: 1;
+        height: 100%;
+        width: 100%;
+        border: 1px solid #053366;
+        position: relative;
     }
 
-    .button-toggler-expand{
-        border-right:1px solid #053366;
-        border-left:1px solid #053366;
-        border-bottom:1px solid #053366;
-        padding:.2em .6em;
-        margin-left:.7em;
-        background-color:#244c83;
-        cursor:pointer;
-        font-size:clamp(11px, 1vw, 15px);
-        @media only screen and (max-height : 600px){
-            font-size:clamp(10px, 1vw, 13px);
-        }  
-        @media only screen and (max-height : 500px){
-            font-size:clamp(9px, 1vw, 11px);
-        }  
+    .leaflet-marker-icon {
+        opacity: 0.8;
+        background-color: transparent;
     }
 }
 
-//tablet
-#map-container-tablet{
-    width:99.7%;
-    height:100%;
-    position:relative;
-    z-index:1; 
-    @media only screen and (min-width : 960px){
-        display:none;
-    }   
-    @media only screen and (max-width : 500px){
-        display:none;
-    }     
-
-    .leaflet-container{
-        z-index:1;
-        height:100%;
-        width:100%;
-        border:1px solid #053366;
-        position:relative;
-     }
-     
-     .leaflet-marker-icon{
-         opacity:0.8;
-         background-color:transparent;
-     }
+//desktop
+.map-container{
+    @media only screen and (max-width: 959px) {
+        display: none;
+    }
 }
 
-.button-toggler-wrapper-tablet{
-    display:flex;
-    align-self:flex-start;
-    min-height:0;
-    position:relative; 
-    @media only screen and (min-width : 960px){
-        display:none;
-    }   
-    @media only screen and (max-width : 500px){
-        display:none;
-    }  
+//button toggler wrapper normal size
+.button-toggler-wrapper {
+    display: flex;
+    align-self: flex-start;
+    margin-left: 0.5em;
+    min-height: 0;
+    position: relative;
+    @media only screen and (max-width: 959px) {
+        display: none;
+    }
 
-    .button-toggler{
-        border-right:1px solid #053366;
-        border-left:1px solid #053366;
-        border-bottom:1px solid #053366;
-        padding:.2em .6em;
-        margin-left:.7em;
-        background-color:#244c83;
-        cursor:pointer;
-        font-size:clamp(8px, 1.4vw, 14px);
-        @media only screen and (max-height : 600px){
-            font-size:clamp(8px, 1.3vw, 12px);
-        }  
-        @media only screen and (max-height : 500px){
-            font-size:clamp(7px, 1.3vw, 10px);
-        }  
-    }   
+    .button-toggler {
+        font-size: clamp(9px, 0.8vw, 11px);
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(7px, 0.7vw, 10px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(6px, 0.6vw, 9px);
+        }
+        border-right: 1px solid #053366;
+        border-left: 1px solid #053366;
+        border-bottom: 1px solid #053366;
+        padding: 0.2em 0.6em;
+        margin-left: 0.5em;
+        background-color: #244c83;
+        cursor: pointer;
+    }
+}
+
+// button toggler wrapper for expand
+.button-toggler-wrapper-expand {
+    display: flex;
+    align-self: flex-start;
+
+    @media only screen and (max-width: 959px) {
+        display: none;
+    }
+
+    .button-toggler {
+        border-right: 1px solid #053366;
+        border-left: 1px solid #053366;
+        border-bottom: 1px solid #053366;
+        padding: 0.2em 0.6em;
+        background-color: #244c83;
+        margin-left: 0.7em;
+        cursor: pointer;
+        font-size: clamp(11px, 1vw, 15px);
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(10px, 1vw, 13px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(9px, 1vw, 11px);
+        }
+    }
+}
+
+//button toggler wrapper for tablet
+.button-toggler-wrapper-tablet,
+.button-toggler-wrapper-tablet-version {
+    display: flex;
+    align-self: flex-start;
+
+    .button-toggler {
+        border-right: 1px solid #053366;
+        border-left: 1px solid #053366;
+        border-bottom: 1px solid #053366;
+        padding: 0.2em 0.6em;
+        margin-left: 0.7em;
+        background-color: #244c83;
+        cursor: pointer;
+        font-size: clamp(8px, 1.4vw, 14px);
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(8px, 1.3vw, 12px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(7px, 1.3vw, 10px);
+        }
+    }
+}
+
+.map-container-hide, .button-toggler-wrapper-hide {
+    display: none;
+}
+
+.map-container-tablet,
+.button-toggler-wrapper-tablet {
+    @media only screen and (min-width: 960px) {
+        display: none;
+    }
+    @media only screen and (max-width: 500px) {
+        display: none;
+    }
 }

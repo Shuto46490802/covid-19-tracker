@@ -6,7 +6,7 @@ import Loader from 'react-loader-spinner';
 
 import "./GlobalTodayCharts.scss"
 
-const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLeft, arrowRight, option, classes, globalDailyChartExpand }) => {
+const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLeft, arrowRight, option, classes, globalDailyChartExpand, isTablet, isMobile }) => {
 
     const [isChart, setIsChart] = useState("infected");
     const [isLoad, setIsLoad] = useState(true);
@@ -192,19 +192,20 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
     //toggle map togglers border bottom
     let { infectedStyle, deathsStyle, recoveredStyle } = {};
     const onStyle = { borderBottom: "3px solid white", backgroundColor: "#474747" };
+    const offStyle = { backgroundColor: "#777" };;
     infectedStyle = isChart === "infected" ?
         onStyle :
-        {}
+        offStyle
     deathsStyle = isChart === "deaths" ?
         onStyle :
-        {}
+        offStyle
     recoveredStyle = isChart === "recovered" ?
         onStyle :
-        {}
+        offStyle
 
     return (
         <Fragment>
-            <div className={"chart-container"}>
+            <div className={`chart-container${isTablet ? "-hide" : ""}`}>
                 <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
                     <p className={`chart-header`} >
                         Daily Infected/Deaths/Recovered by Country
@@ -224,7 +225,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                         !globalDailyChartExpand
                             ? <div className={"arrow-toggler"}>
                                 <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
-                                <span className={"card-toggler-text"}>
+                                <span className={"toggler-text"}>
                                     {
                                         isChart === "infected"
                                             ? "Infected"
@@ -257,7 +258,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
             </div>
             {
                 globalDailyChartExpand
-                    ? <div className={"chart-button-toggler-wrapper-expand"}>
+                    ? <div className={`button-toggler-wrapper-expand`}>
                         <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
                         <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
                         <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
@@ -266,7 +267,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
             }
 
             {/* tablet */}
-            <div className={"chart-container-tablet"}>
+            <div className={`chart-container-tablet${isTablet ? "-version" : ""}`}>
                 <div className={`chart-wrapper`}>
                     <p className={`chart-header`} >
                         Daily Infected/Deaths/Recovered by Country
@@ -282,28 +283,9 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                                         : null
                         }
                     </div>
-                    {
-                        !globalDailyChartExpand
-                            ? <div className={"arrow-toggler"}>
-                                <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
-                                <span className={"card-toggler-text"}>
-                                    {
-                                        isChart === "infected"
-                                            ? "Infected"
-                                            : isChart === "deaths"
-                                                ? "Deaths"
-                                                : isChart === "recovered"
-                                                    ? "Recovered"
-                                                    : null
-                                    }
-                                </span>
-                                <span className={"arrow-icon"} onClick={() => toggleToRight()}>{arrowRight}</span>
-                            </div>
-                            : null
-                    }
                 </div>
                 <div className={"border"} />
-                <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
+                <div className={`chart-wrapper`}>
                     <p className={`chart-header`}>
                         Latest Infected/Deaths/Recovered by Country
                         </p>
@@ -312,7 +294,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                     </div>
                 </div>
             </div>
-            <div className={"chart-button-toggler-wrapper-tablet"}>
+            <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : ""}`}>
                 <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
                 <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
                 <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>

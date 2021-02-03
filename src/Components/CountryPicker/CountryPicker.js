@@ -3,9 +3,9 @@ import React, { useState, useEffect, Fragment } from "react";
 import { NativeSelect, FormControl, InputLabel } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
-import { fetchCountry } from "../api";
+import { fetchCountry } from "../../api";
 
-import "../css/CountryPicker.scss";
+import "./CountryPicker.scss";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand }) => {
+const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand, isTablet, isMobile }) => {
 
     const [countries, setCountries] = useState([]);
     const classStyle = useStyles();
@@ -37,7 +37,7 @@ const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand }) => {
 
     return (
         <Fragment>
-            <div className={`country-picker-container${globalDailyChartExpand ? "-expand" : ""}`}>
+            <div className={`country-picker-container${globalDailyChartExpand ? "-expand" : isTablet ? "-hide" : ""}`}>
                 <FormControl id="form">
                     <InputLabel shrink id="label">Select a Country</InputLabel>
                     <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
@@ -50,7 +50,7 @@ const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand }) => {
                 </FormControl>
             </div>
 
-            <div className={`country-picker-container-tablet`}>
+            <div className={`country-picker-container-tablet${isTablet ? "-version" : "" }`}>
                 <FormControl id="form">
                     <InputLabel shrink id="label">Select a Country</InputLabel>
                     <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>

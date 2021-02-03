@@ -6,7 +6,7 @@ import Loader from 'react-loader-spinner';
 
 import "./GlobalTodayCharts.scss"
 
-const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes, globalDailyChartExpand }) => {
+const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes, globalDailyChartExpand, isTablet, isMobile }) => {
 
     const [isInfectedActiveChart, setIsInfectedActiveChart] = useState("infected");
     const [isDeathsRecoveredChart, setIsDeathsRecoveredChart] = useState("deaths");
@@ -120,25 +120,26 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
     //toggle map togglers border bottom
     let { infectedStyle, activeStyle } = {};
     const onStyle = { borderBottom: "3px solid white", backgroundColor: "#474747" };
+    const offStyle = { backgroundColor: "#777" };
     infectedStyle = isInfectedActiveChart === "infected" ?
         onStyle :
-        {}
+        offStyle
     activeStyle = isInfectedActiveChart === "active" ?
         onStyle :
-        {}
+        offStyle
 
     let { deathsStyle, recoveredStyle } = {};
     deathsStyle = isDeathsRecoveredChart === "deaths" ?
         onStyle :
-        {}
+        offStyle
     recoveredStyle = isDeathsRecoveredChart === "recovered" ?
         onStyle :
-        {}
+        offStyle
 
     return (
         <Fragment>
             {/* laptop */}
-            <div className={`chart-container`}>
+            <div className={`chart-container${isTablet ? "-hide" : ""}`}>
                 <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
                     <p className={`chart-header`}>
                         Global Daily Infected/Active Cases
@@ -156,7 +157,7 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                         !globalDailyChartExpand
                             ? <div className={"arrow-toggler"}>
                                 <div className={"arrow-icon"} onClick={() => toggleInfectedActiveChart()}>{arrowLeft}</div>
-                                <div className={"card-toggler-text"}>
+                                <div className={"toggler-text"}>
                                     {
                                         isInfectedActiveChart === "infected"
                                             ? "Daily Infected Cases"
@@ -173,7 +174,7 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                 <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
                     <p className={`chart-header`}>
                         Global Daily Deaths/Recovered
-                        </p>
+                    </p>
                     <div className={`chart`}>
                         {
                             isDeathsRecoveredChart === "deaths"
@@ -185,7 +186,7 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                         !globalDailyChartExpand
                             ? <div className={"arrow-toggler"}>
                                 <div className={"arrow-icon"} onClick={() => toggleDeathsRecoveredChart()}>{arrowLeft}</div>
-                                <div className={"card-toggler-text"}>
+                                <div className={"toggler-text"}>
                                     {
                                         isDeathsRecoveredChart === "deaths"
                                             ? "Daily Deaths"
@@ -200,12 +201,12 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
             </div>
             {
                 globalDailyChartExpand
-                    ? <div className={"button-toggler-container-expand"}>
-                        <div className={"button-toggler-wrapper"}>
+                    ? <div className={`button-toggler-container-expand`}>
+                        <div className={"button-toggler-wrapper-expand"}>
                             <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsInfectedActiveChart("infected")}>Infected</div>
                             <div style={activeStyle} className={"button-toggler"} onClick={() => setIsInfectedActiveChart("active")}>Active</div>
                         </div>
-                        <div className={"button-toggler-wrapper"}>
+                        <div className={"button-toggler-wrapper-expand"}>
                             <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsDeathsRecoveredChart("deaths")}>Deaths</div>
                             <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsDeathsRecoveredChart("recovered")}>Recovered</div>
                         </div>
@@ -214,7 +215,7 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
             }
 
             {/* tablet */}
-            <div className={`chart-container-tablet`}>
+            <div className={`chart-container-tablet${isTablet ? "-version" : ""}`}>
                 <div className={`chart-wrapper`}>
                     <p className={`chart-header`}>
                         Global Daily Infected/Active Cases
@@ -228,22 +229,6 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                                 : activeBarChart
                         }
                     </div>
-                    {
-                        !globalDailyChartExpand
-                            ? <div className={"arrow-toggler"}>
-                                <div className={"arrow-icon"} onClick={() => toggleInfectedActiveChart()}>{arrowLeft}</div>
-                                <div className={"card-toggler-text"}>
-                                    {
-                                        isInfectedActiveChart === "infected"
-                                            ? "Daily Infected Cases"
-                                            : "Daily Active Cases"
-
-                                    }
-                                </div>
-                                <div className={"arrow-icon"} onClick={() => toggleInfectedActiveChart()}>{arrowRight}</div>
-                            </div>
-                            : null
-                    }
                 </div>
                 <div className={"border"} />
                 <div className={`chart-wrapper`}>
@@ -257,30 +242,15 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                                 : recoveredBarChart
                         }
                     </div>
-                    {
-                        !globalDailyChartExpand
-                            ? <div className={"arrow-toggler"}>
-                                <div className={"arrow-icon"} onClick={() => toggleDeathsRecoveredChart()}>{arrowLeft}</div>
-                                <div className={"card-toggler-text"}>
-                                    {
-                                        isDeathsRecoveredChart === "deaths"
-                                            ? "Daily Deaths"
-                                            : "Daily Recovered"
-                                    }
-                                </div>
-                                <div className={"arrow-icon"} onClick={() => toggleDeathsRecoveredChart()}>{arrowRight}</div>
-                            </div>
-                            : null
-                    }
                 </div>
             </div>
 
-            <div className={"chart-button-toggler-container-tablet"}>
-                <div className={"chart-button-toggler-wrapper infected-buttons"}>
+            <div className={`button-toggler-container-tablet${isTablet ? "-version" : ""}`}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
                     <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsInfectedActiveChart("infected")}>Infected</div>
                     <div style={activeStyle} className={"button-toggler"} onClick={() => setIsInfectedActiveChart("active")}>Active</div>
                 </div>
-                <div className={"chart-button-toggler-wrapper deaths-buttons"}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
                     <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsDeathsRecoveredChart("deaths")}>Deaths</div>
                     <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsDeathsRecoveredChart("recovered")}>Recovered</div>
                 </div>

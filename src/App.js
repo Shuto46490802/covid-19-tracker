@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 //Components 
-import CountryPicker from "./Components/CountryPicker";
+import CountryPicker from "./Components/CountryPicker/CountryPicker";
 import GlobalCharts from "./Components/Charts/GlobalCharts";
 import CountryCharts from "./Components/Charts/CountryCharts";
 import GlobalTodayCharts from "./Components/Charts/GlobalTodayCharts";
@@ -9,31 +9,28 @@ import Maps from "./Components/Maps/Maps";
 import InfectedCard from "./Components/Cards/InfectedCard/InfectedCard";
 import DeathsRecoveredCard from "./Components/Cards/DeathsRecoveredCard/DeathsRecoveredCard";
 import ActiveIncidentRateCard from "./Components/Cards/ActiveIncidentRateCard/ActiveIncidentRateCard";
-import InfoPanel from "./Components/InfoPanel"
+import InfoPanel from "./Components/InfoPanel/InfoPanel";
+import PopupNavBars from "./Components/PopupNavBars/PopupNavBars";
 
 import "./css/App.scss";
 
 import { fetchProvinceData, fetchCountriesData, fetchGlobaldata, fetchCountriesYearlyData } from "./api";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithubSquare } from '@fortawesome/free-brands-svg-icons';
-import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons';
-import { faTumblrSquare } from '@fortawesome/free-brands-svg-icons';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { faCompressArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 
+
 import Loader from 'react-loader-spinner';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-const github = < FontAwesomeIcon icon={faGithubSquare} />
-const twitter = < FontAwesomeIcon icon={faTwitterSquare} />
-const tumblr = < FontAwesomeIcon icon={faTumblrSquare} />
 const arrowLeft = < FontAwesomeIcon icon={faCaretLeft} />
 const arrowRight = < FontAwesomeIcon icon={faCaretRight} />
 const expandIcon = < FontAwesomeIcon icon={faExpandArrowsAlt} />
 const shrinkIcon = < FontAwesomeIcon icon={faCompressArrowsAlt} />
+
 
 const App = () => {
 
@@ -51,9 +48,14 @@ const App = () => {
     const [globalDailyChartExpand, setGlobalDailyChartExpand] = useState(false);
     const [globalChartExpand, setGlobalChartExpand] = useState(false);
 
+    const [isMap, setIsMap] = useState("calmulative");
+
     const [isPanelHover, setIsPanelHover] = useState(false);
     const [isTodayChartHover, setIsTodayChartHover] = useState(false);
-    const [isGlobalChartHover, setIsGlobalChartHover] = useState(false);
+
+    const [isTablet, setIsTablet] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
 
     const [isLoad, setIsLoad] = useState(true)
 
@@ -132,6 +134,7 @@ const App = () => {
                 ticks: {
                     maxTicksLimit: 6,
                     fontColor: "#f5f5f5",
+                    fontSize: 10
                 }
             }],
             yAxes: [{
@@ -182,9 +185,10 @@ const App = () => {
                 : deathsdCardExpand || activeCardExpand || globalChartExpand
                     ? ["hide", "hide", "expand"]
                     : ["", "", ""];
-    console.log(classes[0])
+
+
     return (
-        <div id="app">
+        <div className={`app${isTablet ? "-tablet-version" : ""}`} >
             <header>
                 <img src="https://www.tiabc.ca/wp-content/uploads/home/COVID%E2%80%9419.png" alt="covid-19 logo" />
                 <div id="header-title">
@@ -196,19 +200,28 @@ const App = () => {
                     </div>
                 </div>
                 <div id="nav">
-                    <div>
-                        <a src="https://github.com/Shuto46490802" target="_blank">{github}</a>
-                    </div>
-                    <div>
-                        <a src="https://twitter.com/" target="_blank" >{twitter}</a>
-                    </div>
-                    <div>
-                        <a src="https://www.tumblr.com/" target="_blank" >{tumblr}</a>
+                    <p className={"nav-text"}>Global Map</p>
+                    <p className={"nav-text"}>Country Map</p>
+                    <div id="popup-nav-bars">
+                        <PopupNavBars
+                            isTablet={isTablet}
+                            setIsTablet={setIsTablet}
+                            isMobile={isMobile}
+                            setIsMobile={setIsMobile}
+                            setIsMap={setIsMap}
+                            setInfectedCardExpand={setInfectedCardExpand}
+                            setDeathsCardExpand={setDeathsCardExpand}
+                            setActiveCardExpand={setActiveCardExpand}
+                            setMapExpand={setMapExpand}
+                            setDataPanelExpand={setDataPanelExpand}
+                            setGlobalDailyChartExpand={setGlobalDailyChartExpand}
+                            setGlobalChartExpand={setGlobalChartExpand}
+                        />
                     </div>
                 </div>
             </header>
 
-            <main id="laptop">
+            <main className={`desktop${isTablet ? "-hide" : ""}`} >
                 <div
                     className={`column${columnClasses[0]} column1`}
                 >
@@ -228,6 +241,8 @@ const App = () => {
                             shrinkIcon={shrinkIcon}
                             formatNumber={formatNumber}
                             classes={classes}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
                         />
                     </div>
                     <div
@@ -250,6 +265,8 @@ const App = () => {
                             formatNumber={formatNumber}
                             classes={classes}
                             dataPanelExpand={dataPanelExpand}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
                         />
                     </div>
                 </div>
@@ -265,6 +282,10 @@ const App = () => {
                             mapExpand={mapExpand}
                             expandIcon={expandIcon}
                             shrinkIcon={shrinkIcon}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
+                            isMap={isMap}
+                            setIsMap={setIsMap}
                         />
                     </div>
                     <div
@@ -285,6 +306,8 @@ const App = () => {
                                 classes={classes}
                                 toggleCountry={toggleCountry}
                                 globalDailyChartExpand={globalDailyChartExpand}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
                             />
                         </div>
                         <div id="country-chart">
@@ -297,6 +320,8 @@ const App = () => {
                                         option={option}
                                         classes={classes}
                                         globalDailyChartExpand={globalDailyChartExpand}
+                                        isTablet={isTablet}
+                                        isMobile={isMobile}
                                     />
                                     : <CountryCharts
                                         countriesYearlyData={countriesYearlyData}
@@ -305,13 +330,15 @@ const App = () => {
                                         option={option}
                                         classes={classes}
                                         globalDailyChartExpand={globalDailyChartExpand}
+                                        isTablet={isTablet}
+                                        isMobile={isMobile}
                                     />
                             }
                         </div>
                     </div>
                 </div>
                 <div className={`column${columnClasses[2]} column3`}>
-                    <div className={`row ${globalChartExpand ? "hide" : ""}`} >
+                    <div className={`row${globalChartExpand ? "-hide" : ""}`} >
                         <div
                             id="deaths-recovered-card"
                             className={classes[4]}
@@ -327,6 +354,8 @@ const App = () => {
                                 expandIcon={expandIcon}
                                 shrinkIcon={shrinkIcon}
                                 formatNumber={formatNumber}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
                             />
                         </div>
                         <div
@@ -343,6 +372,8 @@ const App = () => {
                                 expandIcon={expandIcon}
                                 shrinkIcon={shrinkIcon}
                                 formatNumber={formatNumber}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
                             />
                         </div>
                     </div>
@@ -360,13 +391,14 @@ const App = () => {
                             setGlobalChartExpand={setGlobalChartExpand}
                             expandIcon={expandIcon}
                             shrinkIcon={shrinkIcon}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
                         />
                     </div>
                 </div>
             </main>
 
-
-            <main id="tablet">
+            <main className={`tablet${!isTablet ? "-responsive" : "-version"}`}>
                 <div className={"tablet-item"} id="map-tablet">
                     <Maps
                         classes={classes}
@@ -375,6 +407,10 @@ const App = () => {
                         mapExpand={mapExpand}
                         expandIcon={expandIcon}
                         shrinkIcon={shrinkIcon}
+                        isMap={isMap}
+                        setIsMap={setIsMap}
+                        isTablet={isTablet}
+                        isMobile={isMobile}
                     />
                 </div>
                 <div className={"tablet-item"} id={"infected-card-tablet"}>
@@ -389,6 +425,8 @@ const App = () => {
                         shrinkIcon={shrinkIcon}
                         setInfectedCardExpand={setInfectedCardExpand}
                         formatNumber={formatNumber}
+                        isTablet={isTablet}
+                        isMobile={isMobile}
                     />
                 </div>
                 <div className={"deaths-active-card tablet-item"}>
@@ -403,6 +441,8 @@ const App = () => {
                         expandIcon={expandIcon}
                         shrinkIcon={shrinkIcon}
                         formatNumber={formatNumber}
+                        isTablet={isTablet}
+                        isMobile={isMobile}
                     />
                 </div>
                 <div className={"deaths-active-card tablet-item"}>
@@ -416,6 +456,8 @@ const App = () => {
                         expandIcon={expandIcon}
                         shrinkIcon={shrinkIcon}
                         formatNumber={formatNumber}
+                        isTablet={isTablet}
+                        isMobile={isMobile}
                     />
                 </div>
                 <div id="country-picker-chart" className={"tablet-item"}>
@@ -423,6 +465,8 @@ const App = () => {
                         <CountryPicker
                             classes={classes}
                             toggleCountry={toggleCountry}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
                         />
                     </div>
                     <div id="country-chart">
@@ -435,6 +479,8 @@ const App = () => {
                                     option={option}
                                     classes={classes}
                                     globalDailyChartExpand={globalDailyChartExpand}
+                                    isTablet={isTablet}
+                                    isMobile={isMobile}
                                 />
                                 : <CountryCharts
                                     countriesYearlyData={countriesYearlyData}
@@ -443,6 +489,8 @@ const App = () => {
                                     option={option}
                                     classes={classes}
                                     globalDailyChartExpand={globalDailyChartExpand}
+                                    isTablet={isTablet}
+                                    isMobile={isMobile}
                                 />
                         }
                     </div>
@@ -458,6 +506,8 @@ const App = () => {
                         setGlobalChartExpand={setGlobalChartExpand}
                         expandIcon={expandIcon}
                         shrinkIcon={shrinkIcon}
+                        isTablet={isTablet}
+                        isMobile={isMobile}
                     />
                 </div>
                 <div id="info-panel" className={"tablet-item"}>
@@ -466,6 +516,8 @@ const App = () => {
                         countriesData={countriesData}
                         provincesData={provincesData}
                         formatNumber={formatNumber}
+                        isTablet={isTablet}
+                        isMobile={isMobile}
                     />
                 </div>
             </main>

@@ -1,18 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap");
 
-//laptop
-.infected-card-container {
+//card containeres
+.card-container,
+.card-container-expand,
+.card-container-tablet,
+.card-container-tablet-version {
     height: 100%;
     width: 100%;
-    border-radius: 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    @media only screen and (max-width: 959px) {
-        display: none;
-    }
 
     .infected-num {
         color: #c34271;
@@ -22,51 +21,15 @@
     .card-header {
         text-align: center;
         border-bottom: 1px solid #f5f5f5;
+        width: 100%;
+        padding: clamp(0px, 2.5vh, 25px) 0;
+        background-color: #244c83;
         border-top: 1px solid #053366;
         border-right: 1px solid #053366;
         border-left: 1px solid #053366;
-        padding: clamp(0px, 2.5vh, 25px) 0;
-        width: 100%;
-        background-color: #244c83;
-
-        .card-header-text {
-            font-size: clamp(11px, 1.1vw, 18px);
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(10px, 1vw, 16px);
-            }
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(10px, 0.9vw, 14px);
-            }
-            @media only screen and (max-height: 550px) {
-                font-size: clamp(9px, 0.8vw, 12px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(9px, 0.7vw, 10px);
-            }
-            @media only screen and (max-height: 450px) {
-                font-size: clamp(8px, 0.6vw, 8px);
-            }
-        }
 
         .card-header-num {
-            font-size: clamp(25px, 2.7vw, 50px);
             margin: 0;
-
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(23px, 2.6vw, 45px);
-            }
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(20px, 2.5vw, 40px);
-            }
-            @media only screen and (max-height: 550px) {
-                font-size: clamp(15px, 2.4vw, 35px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(15px, 2.3vw, 30px);
-            }
-            @media only screen and (max-height: 450px) {
-                font-size: clamp(15px, 2.2vw, 25px);
-            }
         }
     }
 
@@ -77,8 +40,99 @@
         border-right: 1px solid #053366;
         border-left: 1px solid #053366;
         padding: clamp(3px, 0.7vh, 10px) 0;
+    }
+
+    .province-card-note {
+        width: 100%;
+        background-color: #244c83;
+        border-right: 1px solid #053366;
+        border-left: 1px solid #053366;
+        text-align: center;
+        padding: clamp(3px, 0.7vh, 10px) 0;
         display: flex;
         flex-direction: column;
+    }
+
+    .ul {
+        width: 100%;
+        overflow-y: auto;
+        background-color: #244c83;
+        border-bottom: 1px solid #053366;
+        border-right: 1px solid #053366;
+        border-left: 1px solid #053366;
+        .country-list {
+            padding: clamp(3px, 1.5vh, 15px) 0 clamp(3px, 1.5vh, 15px) 7px;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .province-list {
+            padding: clamp(0px, 1vh, 15px) 0 clamp(0px, 1vh, 15px) 7px;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            flex-direction: column;
+        }
+        .list-num {
+            margin-right: 0.2em;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .province-list-cases {
+            margin-left: 0.2em;
+            color: #f5f5f5;
+            font-family: "Work Sans";
+        }
+    }
+}
+
+//desktop
+.card-container {
+    @media only screen and (max-width: 959px) {
+        display: none;
+    }
+
+    .card-header-text {
+        font-size: clamp(11px, 1.1vw, 18px);
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(10px, 1vw, 16px);
+        }
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(10px, 0.9vw, 14px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(9px, 0.8vw, 12px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(9px, 0.7vw, 10px);
+        }
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(8px, 0.6vw, 8px);
+        }
+    }
+
+    .card-header-num {
+        font-size: clamp(25px, 2.6vw, 50px);
+
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(23px, 2.5vw, 45px);
+        }
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(20px, 2.4vw, 40px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(15px, 2.3vw, 35px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(15px, 2.2vw, 30px);
+        }
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(15px, 2.1vw, 25px);
+        }
+    }
+
+    .country-card-note {
         font-size: clamp(10px, 1.1vw, 18px);
         @media only screen and (max-height: 700px) {
             font-size: clamp(10px, 1vw, 16px);
@@ -98,15 +152,6 @@
     }
 
     .province-card-note {
-        width: 100%;
-        background-color: #244c83;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-        text-align: center;
-        padding: clamp(3px, 0.7vh, 10px) 0;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
         font-size: clamp(8px, 0.9vw, 18px);
         @media only screen and (max-height: 700px) {
             font-size: clamp(7px, 0.8vw, 16px);
@@ -125,23 +170,7 @@
         }
     }
 
-    //ul
     .ul {
-        width: 100%;
-        overflow-y: auto;
-        background-color: #244c83;
-        border-bottom: 1px solid #053366;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-
-        .country-list {
-            padding: clamp(3px, 1.5vh, 15px) 0 clamp(3px, 1.5vh, 15px) 7px;
-            border-bottom: 1px solid #f5f5f5;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
         .country-list-place {
             font-size: clamp(13px, 1.1vw, 16px);
             @media only screen and (max-height: 600px) {
@@ -151,18 +180,9 @@
                 font-size: clamp(8px, 0.9vw, 10px);
             }
         }
-    }
-
-    .province-list {
-        padding: clamp(0px, 1vh, 15px) 0 clamp(0px, 1vh, 15px) 7px;
-        border-bottom: 1px solid #f5f5f5;
-        display: flex;
-        flex-direction: column;
 
         .province-list-cases {
             font-size: clamp(10px, 1vw, 16px);
-            color: #f5f5f5;
-            font-family: "Work Sans";
             @media only screen and (max-height: 600px) {
                 font-size: clamp(10px, 0.9vw, 13px);
             }
@@ -180,38 +200,30 @@
                 font-size: clamp(8px, 0.8vw, 10px);
             }
         }
-    }
-    .list-num {
-        margin-right: 0.2em;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        font-size: clamp(15px, 1.2vw, 18px);
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(13px, 1.1vw, 15px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(11px, 1vw, 12px);
-        }
-        .province-list-cases {
-            margin-left: 0.2em;
+
+        .list-num {
+            font-size: clamp(15px, 1.2vw, 18px);
+            @media only screen and (max-height: 600px) {
+                font-size: clamp(13px, 1.1vw, 15px);
+            }
+            @media only screen and (max-height: 500px) {
+                font-size: clamp(11px, 1vw, 12px);
+            }
         }
     }
 }
 
-//toggler
+//arrow toggler
 .arrow-toggler {
     background-color: #244c83;
     border-right: 1px solid #053366;
     border-left: 1px solid #053366;
     border-bottom: 1px solid #053366;
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 80%;
     padding: 0 0.5em;
-    top: 0;
 
     @media only screen and (max-width: 959px) {
         display: none;
@@ -238,10 +250,9 @@
         }
     }
 
-    .card-toggler-text {
+    .toggler-text {
         font-size: clamp(10px, 0.8vw, 14px);
         text-align: center;
-
         @media only screen and (max-height: 600px) {
             font-size: clamp(9px, 0.7vw, 14px);
         }
@@ -251,105 +262,51 @@
     }
 }
 
-.card-button-toggler-wrapper {
-    display: flex;
-    align-self: flex-start;
-    justify-content: space-evenly;
-    position: relative;
+//expand
+.card-container-expand {
     @media only screen and (max-width: 959px) {
         display: none;
     }
 
-    .button-toggler {
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-        border-bottom: 1px solid #053366;
-        padding: 0.2em 0.6em;
-        background-color: #244c83;
-        margin-left: 0.7em;
-        cursor: pointer;
-        font-size: clamp(11px, 1vw, 15px);
+    .card-header-text {
+        font-size: clamp(13px, 1.2vw, 16px);
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(12px, 1.2vw, 15px);
+        }
         @media only screen and (max-height: 600px) {
-            font-size: clamp(10px, 1vw, 13px);
+            font-size: clamp(11px, 1.2vw, 14px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(10px, 1.2vw, 13px);
         }
         @media only screen and (max-height: 500px) {
-            font-size: clamp(9px, 1vw, 11px);
+            font-size: clamp(9px, 1.2vw, 12px);
+        }
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(8px, 1.2vw, 11px);
         }
     }
-}
 
-//expand
-.infected-card-container-expand {
-    height: 100%;
-    width: 100%;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-
-    .infected-num {
-        color: #c34271;
-        font-family: "Inconsolata";
-    }
-
-    .card-header {
-        text-align: center;
-        border-bottom: 1px solid #f5f5f5;
-        border-top: 1px solid #053366;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-        padding: clamp(0px, 2.5vh, 25px) 0;
-        width: 100%;
-        background-color: #244c83;
-
-        .card-header-text {
-            font-size: clamp(13px, 1.2vw, 16px);
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(12px, 1.2vw, 15px);
-            }
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(11px, 1.2vw, 14px);
-            }
-            @media only screen and (max-height: 550px) {
-                font-size: clamp(10px, 1.2vw, 13px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(9px, 1.2vw, 12px);
-            }
-            @media only screen and (max-height: 450px) {
-                font-size: clamp(8px, 1.2vw, 11px);
-            }
+    .card-header-num {
+        font-size: clamp(35px, 3vw, 43px);
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(32px, 2.9vw, 40px);
         }
-
-        .card-header-num {
-            margin: 0;
-            font-size: clamp(35px, 3vw, 43px);
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(32px, 2.9vw, 40px);
-            }
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(29px, 2.8vw, 37px);
-            }
-            @media only screen and (max-height: 550px) {
-                font-size: clamp(26px, 2.7vw, 34px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(23px, 2.6vw, 31px);
-            }
-            @media only screen and (max-height: 450px) {
-                font-size: clamp(20px, 2.5vw, 28px);
-            }
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(29px, 2.8vw, 37px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(26px, 2.7vw, 34px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(23px, 2.6vw, 31px);
+        }
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(20px, 2.5vw, 28px);
         }
     }
 
     .country-card-note {
-        text-align: center;
-        width: 100%;
-        padding: clamp(3px, 0.7vh, 10px) 0;
-        background-color: #244c83;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
         font-size: clamp(13px, 1.2vw, 16px);
         @media only screen and (max-height: 700px) {
             font-size: clamp(12px, 1.2vw, 15px);
@@ -369,15 +326,6 @@
     }
 
     .province-card-note {
-        width: 100%;
-        text-align: center;
-        padding: clamp(3px, 0.7vh, 10px) 0;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        background-color: #244c83;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
         font-size: clamp(13px, 1.2vw, 16px);
         @media only screen and (max-height: 700px) {
             font-size: clamp(12px, 1.2vw, 15px);
@@ -399,21 +347,6 @@
     //ul
 
     .ul {
-        width: 100%;
-        overflow-y: auto;
-        background-color: #244c83;
-        border-bottom: 1px solid #053366;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-
-        .country-list {
-            padding: clamp(3px, 1.5vh, 15px) 0 clamp(3px, 1.5vh, 15px) 7px;
-            border-bottom: 1px solid #f5f5f5;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
         .country-list-place {
             font-size: clamp(15px, 1.2vw, 18px);
             @media only screen and (max-height: 600px) {
@@ -423,52 +356,171 @@
                 font-size: clamp(11px, 1.2vw, 14px);
             }
         }
-    }
-
-    .province-list {
-        padding: clamp(0px, 1vh, 15px) 0 clamp(0px, 1vh, 15px) 7px;
-        border-bottom: 1px solid #f5f5f5;
-        display: flex;
-        flex-direction: column;
-
         .province-list-cases {
             font-size: clamp(10px, 1vw, 16px);
-            color: #f5f5f5;
-            font-family: "Work Sans";
             @media only screen and (max-height: 600px) {
                 font-size: clamp(10px, 0.9vw, 13px);
             }
             @media only screen and (max-height: 500px) {
                 font-size: clamp(8px, 0.8vw, 10px);
             }
-        }
 
-        .province-list-place {
-            font-size: 1em;
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(13px, 1.2vw, 16px);
+            .province-list-place {
+                font-size: 1em;
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(13px, 1.2vw, 16px);
+                }
+                @media only screen and (max-height: 500px) {
+                    font-size: clamp(11px, 1.2vw, 14px);
+                }
             }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(11px, 1.2vw, 14px);
+            .list-num {
+                font-size: clamp(17px, 1.2vw, 20px);
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(15px, 1.1vw, 18px);
+                }
+                @media only screen and (max-height: 500px) {
+                    font-size: clamp(13px, 1vw, 16px);
+                }
             }
         }
     }
-    .list-num {
-        margin-right: 0.2em;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        font-size: clamp(17px, 1.2vw, 20px);
+}
+
+//tablet
+.card-container-tablet,
+.card-container-tablet-version {
+    .card-header-text {
+        font-size: clamp(9px, 1.5vw, 15px);
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(9px, 1.1vw, 14px);
+        }
         @media only screen and (max-height: 600px) {
-            font-size: clamp(15px, 1.1vw, 18px);
+            font-size: clamp(9px, 0.9vw, 13px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(8px, 0.8vw, 12px);
         }
         @media only screen and (max-height: 500px) {
-            font-size: clamp(13px, 1vw, 16px);
+            font-size: clamp(8px, 0.7vw, 11px);
         }
-        .province-list-cases {
-            margin-left: 0.2em;
-            font-size: 0.8em;
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(8px, 0.6vw, 10px);
         }
+    }
+
+    .card-header-num {
+        font-size: clamp(25px, 4vw, 38px);
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(23px, 2.6vw, 36px);
+        }
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(21px, 2.5vw, 34px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(19px, 2.4vw, 32px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(17px, 2.3vw, 30px);
+        }
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(15px, 2.2vw, 28px);
+        }
+    }
+
+    .country-card-note {
+        font-size: clamp(9px, 1.5vw, 15px);
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(9px, 1.1vw, 14px);
+        }
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(9px, 0.9vw, 13px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(8px, 0.8vw, 12px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(8px, 0.7vw, 11px);
+        }
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(8px, 0.6vw, 10px);
+        }
+    }
+
+    .province-card-note {
+        font-size: clamp(9px, 1.5vw, 15px);
+        @media only screen and (max-height: 700px) {
+            font-size: clamp(9px, 1.1vw, 14px);
+        }
+        @media only screen and (max-height: 600px) {
+            font-size: clamp(9px, 0.9vw, 13px);
+        }
+        @media only screen and (max-height: 550px) {
+            font-size: clamp(8px, 0.8vw, 12px);
+        }
+        @media only screen and (max-height: 500px) {
+            font-size: clamp(8px, 0.7vw, 11px);
+        }
+        @media only screen and (max-height: 450px) {
+            font-size: clamp(8px, 0.6vw, 10px);
+        }
+    }
+
+    //ul
+
+    .ul {
+        .country-list-place {
+            font-size: clamp(10px, 1.5vw, 15px);
+            @media only screen and (max-height: 600px) {
+                font-size: clamp(10px, 1.5vw, 13px);
+            }
+            @media only screen and (max-height: 500px) {
+                font-size: clamp(9px, 1.5vw, 11px);
+            }
+        }
+        .province-list {
+            .province-list-cases {
+                font-size: clamp(10px, 1.3vw, 13px);
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(10px, 1.4vw, 12px);
+                }
+                @media only screen and (max-height: 500px) {
+                    font-size: clamp(9px, 1.4vw, 10px);
+                }
+            }
+
+            .province-list-place {
+                font-size: clamp(10px, 1.5vw, 15px);
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(10px, 1.5vw, 13px);
+                }
+                @media only screen and (max-height: 500px) {
+                    font-size: clamp(9px, 1.5vw, 11px);
+                }
+            }
+        }
+        .list-num {
+            font-size: clamp(12px, 1.6vw, 16px);
+            @media only screen and (max-height: 600px) {
+                font-size: clamp(12px, 1.5vw, 14px);
+            }
+            @media only screen and (max-height: 500px) {
+                font-size: clamp(11px, 1.5vw, 12px);
+            }
+        }
+    }
+}
+
+.card-container-hide {
+    display: none;
+}
+
+.card-container-tablet {
+    @media only screen and (min-width: 960px) {
+        display: none;
+    }
+    @media only screen and (max-width: 500px) {
+        display: none;
     }
 }
 
@@ -488,235 +540,4 @@
 .ul::-webkit-scrollbar-thumb {
     background-color: #999;
     border-radius: 3px;
-}
-
-//tablet
-.infected-card-container-tablet {
-    height: 100%;
-    width: 100%;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    @media only screen and (min-width: 960px) {
-        display: none;
-    }
-    @media only screen and (max-width: 500px) {
-        display: none;
-    }
-
-    .infected-num {
-        color: #c34271;
-        font-family: "Inconsolata";
-    }
-
-    .card-header {
-        text-align: center;
-        border-bottom: 1px solid #f5f5f5;
-        border-top: 1px solid #053366;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-        padding: clamp(0px, 2.5vh, 25px) 0;
-        width: 100%;
-        background-color: #244c83;
-
-        .card-header-text {
-            font-size: clamp(9px, 1.5vw, 15px);
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(9px, 1.1vw, 14px);
-            }
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(9px, 0.9vw, 13px);
-            }
-            @media only screen and (max-height: 550px) {
-                font-size: clamp(8px, 0.8vw, 12px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(8px, 0.7vw, 11px);
-            }
-            @media only screen and (max-height: 450px) {
-                font-size: clamp(8px, 0.6vw, 10px);
-            }
-        }
-
-        .card-header-num {
-            margin: 0;
-            font-size: clamp(25px, 4vw, 38px);
-            @media only screen and (max-height: 700px) {
-                font-size: clamp(23px, 2.6vw, 36px);
-            }
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(21px, 2.5vw, 34px);
-            }
-            @media only screen and (max-height: 550px) {
-                font-size: clamp(19px, 2.4vw, 32px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(17px, 2.3vw, 30px);
-            }
-            @media only screen and (max-height: 450px) {
-                font-size: clamp(15px, 2.2vw, 28px);
-            }
-        }
-    }
-
-    .country-card-note {
-        width: 100%;
-        text-align: center;
-        background-color: #244c83;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-        padding: clamp(3px, 0.7vh, 10px) 0;
-        display: flex;
-        flex-direction: column;
-        font-size: clamp(9px, 1.5vw, 15px);
-        @media only screen and (max-height: 700px) {
-            font-size: clamp(9px, 1.1vw, 14px);
-        }
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(9px, 0.9vw, 13px);
-        }
-        @media only screen and (max-height: 550px) {
-            font-size: clamp(8px, 0.8vw, 12px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(8px, 0.7vw, 11px);
-        }
-        @media only screen and (max-height: 450px) {
-            font-size: clamp(8px, 0.6vw, 10px);
-        }
-    }
-
-    .province-card-note {
-        width: 100%;
-        background-color: #244c83;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-        text-align: center;
-        padding: clamp(3px, 0.7vh, 10px) 0;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        font-size: clamp(9px, 1.5vw, 15px);
-        @media only screen and (max-height: 700px) {
-            font-size: clamp(9px, 1.1vw, 14px);
-        }
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(9px, 0.9vw, 13px);
-        }
-        @media only screen and (max-height: 550px) {
-            font-size: clamp(8px, 0.8vw, 12px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(8px, 0.7vw, 11px);
-        }
-        @media only screen and (max-height: 450px) {
-            font-size: clamp(8px, 0.6vw, 10px);
-        }
-    }
-
-    //ul
-
-    .ul {
-        width: 100%;
-        overflow-y: auto;
-        background-color: #244c83;
-        border-bottom: 1px solid #053366;
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-
-        .country-list {
-            padding: clamp(3px, 1.5vh, 15px) 0 clamp(3px, 1.5vh, 15px) 7px;
-            border-bottom: 1px solid #f5f5f5;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .country-list-place {
-            font-size:clamp(10px, 1.5vw, 15px);
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(10px, 1.5vw, 13px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(9px, 1.5vw, 11px);
-            }
-        }
-    }
-
-    .province-list {
-        padding: clamp(0px, 1vh, 15px) 0 clamp(0px, 1vh, 15px) 7px;
-        border-bottom: 1px solid #f5f5f5;
-        display: flex;
-        flex-direction: column;
-
-        .province-list-cases {
-            color: #f5f5f5;
-            font-family: "Work Sans";
-            font-size:clamp(10px, 1.3vw, 13px);
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(10px, 1.4vw, 12px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(9px, 1.4vw, 10px);
-            }
-        }
-
-        .province-list-place {
-            font-size:clamp(10px, 1.5vw, 15px);
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(10px, 1.5vw, 13px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(9px, 1.5vw, 11px);
-            }
-        }
-    }
-    .list-num {
-        margin-right: 0.2em;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        font-size:clamp(12px, 1.6vw, 16px);
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(12px, 1.5vw, 14px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(11px, 1.5vw, 12px);
-        }
-        .province-list-cases {
-            margin-left: 0.2em;
-        }
-    }
-}
-
-.card-button-toggler-wrapper-tablet {
-    display: flex;
-    align-self: flex-start;
-    justify-content: space-evenly;
-    position: relative;
-    @media only screen and (min-width: 960px) {
-        display: none;
-    }
-    @media only screen and (max-width: 500px) {
-        display: none;
-    }
-
-    .button-toggler {
-        border-right: 1px solid #053366;
-        border-left: 1px solid #053366;
-        border-bottom: 1px solid #053366;
-        padding: 0.2em 0.6em;
-        background-color: #244c83;
-        margin-left: 0.7em;
-        cursor: pointer;
-        font-size: clamp(8px, 1.4vw, 14px);
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(8px, 1.3vw, 12px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(7px, 1.3vw, 10px);
-        }
-    }
 }

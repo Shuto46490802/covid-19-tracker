@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap");
 
 //laptop
-#table-laptop {
+.table-laptop {
     border-collapse: collapse;
     border-style: hidden;
     background-color: #244c83;
@@ -104,7 +104,7 @@
     }
 }
 
-#country-panel {
+.country-panel {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -153,7 +153,7 @@
     }
 }
 
-#last-update-panel {
+.last-update-panel {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -180,28 +180,32 @@
         }
     }
     .panel-number {
-        font-size: clamp(15px, 1.6vw, 24px);
+        font-size: clamp(14px, 1.4vw, 23px);
         margin: 0;
         @media only screen and (max-height: 700px) {
-            font-size: clamp(14px, 1.5vw, 50px);
+            font-size: clamp(14px, 1.3vw, 22px);
         }
         @media only screen and (max-height: 600px) {
-            font-size: clamp(13px, 1.4vw, 45px);
+            font-size: clamp(13px, 1.2vw, 21px);
         }
         @media only screen and (max-height: 550px) {
-            font-size: clamp(12px, 1.3vw, 40px);
+            font-size: clamp(12px, 1.1vw, 20px);
         }
         @media only screen and (max-height: 500px) {
-            font-size: clamp(11px, 1.2vw, 35px);
+            font-size: clamp(11px, 1vw, 19px);
         }
         @media only screen and (max-height: 450px) {
-            font-size: clamp(10px, 1.1vw, 30px);
+            font-size: clamp(10px, 1vw, 18px);
         }
     }
 }
 
+.table-laptop-hide, .country-panel-hide, .last-update-panel-hide  {
+    display:none;
+}
+
 //expand
-#table-expand {
+.table-expand {
     height: 100%;
     width: 100%;
     border-collapse: collapse;
@@ -221,33 +225,34 @@
 
             .panel-header {
                 text-align: center;
-                font-size: clamp(15px, 1.4vw, 20px);
+                font-size:clamp(10px, 1.3vw, 19px);
                 @media only screen and (max-height: 600px) {
-                    font-size: clamp(13px, 1.4vw, 18px);
+                    font-size: clamp(9px, 1.4vw, 17px);
                 }
                 @media only screen and (max-height: 550px) {
-                    font-size: clamp(11px, 1.4vw, 16px);
+                    font-size: clamp(9px, 1.4vw, 15px);
                 }
             }
             .panel-number {
                 font-family: "Inconsolata";
                 text-align: center;
                 margin-top: 10px;
-                font-size: clamp(30px, 3vw, 45px);
+                font-size:clamp(35px, 3.2vw, 46px);
                 @media only screen and (max-height: 700px) {
-                    font-size: clamp(28px, 3vw, 42px);
+                    font-size: clamp(33px, 3.2vw, 42px);
                 }
                 @media only screen and (max-height: 600px) {
-                    font-size: clamp(26px, 3vw, 39px);
+                    font-size: clamp(31px, 3.2vw, 39px);
                 }
                 @media only screen and (max-height: 550px) {
-                    font-size: clamp(24px, 3vw, 36px);
+                    font-size: clamp(29px, 3.2vw, 36px);
+                    margin:5px 0 0 0 ;
                 }
                 @media only screen and (max-height: 500px) {
-                    font-size: clamp(22px, 3vw, 33px);
+                    font-size: clamp(27px, 3.2vw, 33px);
                 }
                 @media only screen and (max-height: 450px) {
-                    font-size: clamp(20px, 3vw, 30px);
+                    font-size: clamp(25px, 3.2vw, 30px);
                 }
             }
 
@@ -265,21 +270,22 @@
                 margin-top: 10px;
                 margin-bottom: 10px;
                 color: #c34271;
-                font-size: clamp(35px, 3.5vw, 50px);
+                font-size: clamp(45px, 4.2vw, 64px);
                 @media only screen and (max-height: 700px) {
-                    font-size: clamp(33px, 3.5vw, 47px);
+                    font-size: clamp(42px, 4.2vw, 61px);
                 }
                 @media only screen and (max-height: 600px) {
-                    font-size: clamp(31px, 3.5vw, 44px);
+                    font-size: clamp(39px, 4.2vw, 58px);
                 }
                 @media only screen and (max-height: 550px) {
-                    font-size: clamp(28px, 3.5vw, 41px);
+                    font-size: clamp(36px, 4.2vw, 55px);
+                    margin:5px 0 0 0 ;
                 }
                 @media only screen and (max-height: 500px) {
-                    font-size: clamp(25px, 3.5vw, 38px);
+                    font-size: clamp(33px, 4.2vw, 52px);
                 }
                 @media only screen and (max-height: 450px) {
-                    font-size: clamp(22px, 3.5vw, 35px);
+                    font-size: clamp(30px, 4.2vw, 49px);
                 }
             }
         }
@@ -287,11 +293,7 @@
 }
 
 //tablet
-#table-tablet {
-    @media only screen and (min-width: 960px) {
-        display: none;
-    }
-
+.table-tablet, .table-tablet-version {
     height: 100%;
     width: 100%;
     border-collapse: collapse;
@@ -305,43 +307,100 @@
         td {
             border: 1px solid #f5f5f5;
             width: 50%;
-            line-height: 1em;
 
             .panel-header {
-                font-size: 1.2em;
                 text-align: center;
+                font-size:clamp(10px, 1.3vw, 19px);
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(9px, 1.3vw, 17px);
+                }
+                @media only screen and (max-height: 550px) {
+                    font-size: clamp(9px, 1.3vw, 15px);
+                }
             }
+
             .panel-number {
                 font-family: "Inconsolata";
                 text-align: center;
-                font-size: 1.9em;
+                margin:10px 0 0 0 ;
+                font-size:clamp(35px, 3.2vw, 46px);
+                @media only screen and (max-height: 700px) {
+                    font-size: clamp(33px, 3.2vw, 42px);
+                }
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(31px, 3.2vw, 39px);
+                }
+                @media only screen and (max-height: 550px) {
+                    font-size: clamp(29px, 3.2vw, 36px);
+                    margin:5px 0 0 0 ;
+                }
+                @media only screen and (max-height: 500px) {
+                    font-size: clamp(27px, 3.2vw, 33px);
+                }
+                @media only screen and (max-height: 450px) {
+                    font-size: clamp(25px, 3.2vw, 30px);
+                }
             }
 
             .deaths-number {
                 color: #999;
-                font-size: 3em;
             }
+
             .recovered-number {
                 color: #53900f;
-                font-size: 3em;
             }
-            .country-number {
-                font-size: 3em;
-            }
+
             .lastUpdate-number {
                 line-height: 1em;
+                font-size:clamp(20px, 3.2vw, 46px);
+                @media only screen and (max-height: 700px) {
+                    font-size: clamp(19px, 3.2vw, 42px);
+                }
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(18px, 3.2vw, 39px);
+                }
+                @media only screen and (max-height: 550px) {
+                    font-size: clamp(17px, 3.2vw, 36px);
+                    margin:5px 0 0 0 ;
+                }
+                @media only screen and (max-height: 500px) {
+                    font-size: clamp(16px, 3.2vw, 33px);
+                }
+                @media only screen and (max-height: 450px) {
+                    font-size: clamp(15px, 3.2vw, 30px);
+                }
             }
-            .infected-panel-header {
-                text-align: center;
-                font-size: 1.2em;
-            }
+
             .infected-panel-number {
                 font-family: "Inconsolata";
                 text-align: center;
-                font-size: 2.3em;
                 color: #c34271;
-                font-size: 4em;
+                margin:10px 0 0 0 ;
+                font-size: clamp(45px, 4.2vw, 64px);
+                @media only screen and (max-height: 700px) {
+                    font-size: clamp(42px, 4.2vw, 61px);
+                }
+                @media only screen and (max-height: 600px) {
+                    font-size: clamp(39px, 4.2vw, 58px);
+                }
+                @media only screen and (max-height: 550px) {
+                    font-size: clamp(36px, 4.2vw, 55px);
+                    margin:5px 0 0 0 ;
+                }
+                @media only screen and (max-height: 500px) {
+                    font-size: clamp(33px, 4.2vw, 52px);
+                }
+                @media only screen and (max-height: 450px) {
+                    font-size: clamp(30px, 4.2vw, 49px);
+                }
             }
         }
     }
 }
+
+.table-tablet{
+    @media only screen and (min-width: 960px) {
+        display: none;
+    }
+}
+

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 
-import "../css/InfoPanel.scss";
+import "./InfoPanel.scss";
 
-const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, classes, dataPanelExpand }) => {
+const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, classes, dataPanelExpand, isTablet, isMobile }) => {
 
     if (!globalData[0] || !provincesData[0]) {
         return "Loading..."
@@ -77,7 +77,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
             {
                 !dataPanelExpand
                     ? <Fragment>
-                        <table id="table-laptop">
+                        <table className={`table-laptop${isTablet ? "-hide" : "" }`}>
                             <tr>
                                 <td colspan="2">
                                     <div className={"infected-panel-header"}>Today's Global Cases</div>
@@ -102,13 +102,13 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                                 </td>
                             </tr>
                         </table>
-                        <div id="country-panel">
+                        <div className={`country-panel${isTablet ? "-hide" : "" }`}>
                             <div className={"panel-header"}>Countries/Provinces</div>
                             <h3 className={"panel-number"}>
                                 {filteredCountries.length}/{filteredProvinces.length}
                             </h3>
                         </div>
-                        <div id="last-update-panel">
+                        <div className={`last-update-panel${isTablet ? "-hide" : "" }`}>
                             <div className={"panel-header"}>Last Updated at (M/D/YYYY)</div>
                             <h3 className={"panel-number"}>
                                 {getFormattedDate(globalData[0].lastUpdate)}
@@ -116,7 +116,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                         </div>
                     </Fragment>
                     : <Fragment>
-                        <table id="table-expand">
+                        <table className={"table-expand"}>
                             <tr>
                                 <td colspan="2">
                                     <span className={"panel-header"}>Today's Global Cases</span>
@@ -158,10 +158,10 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                     </Fragment>
             }
 
-            <table id="table-tablet">
+            <table className={`table-tablet${isTablet ? "-version" : "" }`}>
                 <tr>
                     <td colspan="2">
-                        <span className={"infected-panel-header"}>Today's Global Cases</span>
+                        <span className={"panel-header"}>Today's Global Cases</span>
                         <h1 className={"infected-panel-number"}>
                             {formatNumber(globalData[0].newConfirmed)}
                         </h1>

@@ -1,356 +1,404 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap");
 
-/* body */
-#app{
-    font-family:"Work Sans";
+// app
+.app {
+    font-family: "Work Sans";
     overscroll-behavior: none;
-    margin:0;
+    margin: 0;
 
-    @media only screen and (min-width : 960px){
-        overflow-y:hidden;
-        height:100vh;
-    }  
-}
-
-/* header */
-header{
-    display:flex;
-    align-items:center;
-    background-color:#104c87;
-    box-sizing:border-box;
-    height:50px;
-    width:100%;
-    position:fixed;
-    top:0;
-    z-index:2;
-
-    @media only screen and (max-width : 959px){
-        height:32.2px;
-    }  
-    @media only screen and (max-width : 500px){
-        height:16.7px;
-    }  
-    
-    img{
-        width:72px;
-        height:50px;
-        @media only screen and (max-width : 959px){
-            width:48px;
-            height:32.2px;
-        }  
-        @media only screen and (max-width : 500px){
-            width:24px;
-            height:16.7px;
-        }  
-    }
-    #header-title{
-        display:flex;
-        align-items:center;
-        margin-left:clamp(5px, 1vw, 15px);
-        h1{
-            font-size:clamp(10px, 2vw, 30px);
-            font-weight:400;
-        }
-    }
-    #header-border{
-        width:1px;
-        height:40px;
-        margin:0 .5em;
-        background-color:#f5f5f5;
-        @media only screen and (max-width : 959px){
-            height:26px;
-        }  
-        @media only screen and (max-width : 500px){
-            height:13px;
-        }  
-    }
-    #header-footer{
-        display:flex;
-        flex-direction:column;
-        font-size:1.1vw;
-    }
-    #nav{
-        display:flex;
-        margin-left:auto;
-        a{
-            font-size:2.1vw;
-            margin:0 .5em;
-        }
+    @media only screen and (min-width: 960px) {
+        overflow-y: hidden;
+        height: 100vh;
     }
 }
 
+.app-tablet-version{
+    font-family: "Work Sans";
+    overscroll-behavior: none;
+    margin: 0;
+}
 
-//laptop
-#laptop{
-    display:flex;
-    flex-direction:row;
-    justify-content:space-evenly;
-    margin:5px;
-    position:relative;
-    height:100%;
-    @media only screen and (max-width : 959px){
-        display:none;
-    }  
+// header
+header {
+    display: flex;
+    align-items: center;
+    background-color: #104c87;
+    box-sizing: border-box;
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
 
-    .column{
-        display:flex;
-        flex-direction:column;
-        justify-content:space-between;
-        align-items:center;
-        position:relative;
-        top:50px;
-        height:92.5%;
-        @media only screen and (max-height : 700px){
-            height:92%;
-        }   
-        @media only screen and (max-height : 600px){
-            height:91%;
-        }  
-        @media only screen and (max-height : 550px){
-            height:90%;
-        }  
-        @media only screen and (max-height : 500px){
-            height:89%;
-        }  
-        @media only screen and (max-height : 450px){
-            height:88%;
-        } 
-        @media only screen and (max-height : 400px){
-            height:86%;
-        } 
+    @media only screen and (max-width: 959px) {
+        height: 40px;
+    }
+    @media only screen and (max-width: 500px) {
+        height: 35px;
     }
 
-    .column1{
-        width:16%;
-
-        #infected-card{
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            height:60%;
-            width:100%;
-            padding:5px;
-            box-sizing:border-box;
+    img {
+        width: 72px;
+        height: 50px;
+        @media only screen and (max-width: 959px) {
+            width: 57.6px;
+            height: 40px;
         }
-
-        #info-panel{
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:space-between;
-            height:40%; 
-            width:100%;
-            box-sizing:border-box;
-            padding:5px;
-            position:relative;
+        @media only screen and (max-width: 500px) {
+            width: 50.4px;
+            height: 35px;
         }
     }
-
-    .column2{
-        width:56%;
-
-        #map{
-            padding:5px;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            height:57%;
-            width:100%;
-            box-sizing:border-box;
-        }
-
-        #country-picker-chart{
-            height:43%;
-            padding:5px;
-            box-sizing:border-box;
-            width:100%;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:space-between;
-            position:relative;
-
-            #country-picker{
-                width:100%;
-                height:15%;
-                background-color:#474747;
-            }
-
-            #country-chart{
-                width:100%;
-                height:85%;
-            }
+    #header-title {
+        display: flex;
+        align-items: center;
+        margin-left: clamp(5px, 1vw, 15px);
+        h1 {
+            font-size: clamp(13px, 2vw, 30px);
+            font-weight: 400;
         }
     }
-
-    .column3{
-        width:28%;
-
-        .row{
-            display:flex;
-            justify-content:space-evenly;
-            height:57%;
-            width:100%;
-            box-sizing:border-box;
-            padding:5px;
-
-            .deaths-active-card{
-                width:50%;
-            }
-
-            #deaths-recovered-card{
-                margin-right:5px;
-                width:49.9%;
-            }
-
-            #active-incident-card{
-                margin-left:5px;
-                width:50.1%;
-            }
+    #header-border {
+        width: 1px;
+        height: 40px;
+        margin: 0 0.5em;
+        background-color: #f5f5f5;
+        @media only screen and (max-width: 959px) {
+            height: 35px;
         }
-
-        #global-chart{
-            height:43%;
-            width:100%;
-            padding:5px;
-            box-sizing:border-box;
+        @media only screen and (max-width: 500px) {
+            height:30px;
         }
     }
-
-    .columnexpand{
-        width:99%;
-        height:92.5%;
-        position:relative;
-        top:50px;
-        display:flex;
-        justify-content:center;
-        background-color:pink;
-        
-        @media only screen and (max-height : 700px){
-            height:92%;
-        }   
-        @media only screen and (max-height : 600px){
-            height:91%;
-        }  
-        @media only screen and (max-height : 550px){
-            height:90%;
-        }  
-        @media only screen and (max-height : 500px){
-            height:89%;
-        }  
-        @media only screen and (max-height : 450px){
-            height:88%;
-        } 
-        @media only screen and (max-height : 400px){
-            height:86%;
-        } 
-
-        #country-picker-chart{
-            background-color:transparent;
-            height:100% !important;
-            padding:5px;
-            box-sizing:border-box;
-            width:100% !important;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:space-between;
-
-            #country-picker{
-                background-color:#474747;
-                height:6% !important;
-            }
-
-            #country-chart{
-                height:94% !important;
-                display:flex;
-                flex-direction:column;
-            }
-        }
-
-        .row{
-            height:100%;
-            width:100%;
-        }
+    #header-footer {
+        display: flex;
+        flex-direction: column;
+        font-size: clamp(7px, 1.1vw, 14px);
     }
+    #nav {
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+        margin-right: clamp(5px, 1vw, 15px);
 
-    .columnhide{
-        display:none;
+        .nav-text {
+            font-size: clamp(8px, 1.1vw, 16px);
+            margin-right: clamp(5px, 1.7vw, 24px);
+        }
     }
 }
 
+//desktop
 
-/* main */
+.desktop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 5px;
+    position: relative;
+    height: 100%;
 
-#tablet{ 
-    @media only screen and (min-width : 960px){
-        display:none;
+    @media only screen and (max-width: 959px) {
+        display: none;
     }
-    @media only screen and (max-width : 500px){
-        display:none;
-    }  
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    margin:5px;
-    position:relative;
-    top:32.2px;
-    
-    .tablet-item{
-        height:85vh;
-        width:95%;
-        margin-bottom:2em;
-        padding:5px;
-        display:flex;
+    .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        top: 50px;
+        height: 92.5%;
+        @media only screen and (max-height: 700px) {
+            height: 92%;
+        }
+        @media only screen and (max-height: 600px) {
+            height: 91%;
+        }
+        @media only screen and (max-height: 550px) {
+            height: 90%;
+        }
+        @media only screen and (max-height: 500px) {
+            height: 89%;
+        }
+        @media only screen and (max-height: 450px) {
+            height: 88%;
+        }
+        @media only screen and (max-height: 400px) {
+            height: 86%;
+        }
+    }
+
+    .column1 {
+        width: 16%;
+
+        #infected-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60%;
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        #info-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 40%;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+            position: relative;
+        }
+    }
+
+    .column2 {
+        width: 56%;
+
+        #map {
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 57%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #country-picker-chart {
+            height: 43%;
+            padding: 5px;
+            box-sizing: border-box;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+
+            #country-picker {
+                width: 100%;
+                height: 15%;
+                background-color: #474747;
+            }
+
+            #country-chart {
+                width: 100%;
+                height: 85%;
+            }
+        }
+    }
+
+    .column3 {
+        width: 28%;
+
+        .row {
+            display: flex;
+            justify-content: space-evenly;
+            height: 57%;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+
+            .deaths-active-card {
+                width: 50%;
+            }
+
+            #deaths-recovered-card {
+                margin-right: 5px;
+                width: 100%;
+            }
+
+            #active-incident-card {
+                margin-left: 5px;
+                width: 100%;
+            }
+        }
+
+        #global-chart {
+            height: 43%;
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+    }
+
+    .columnexpand {
+        width: 99%;
+        height: 92.5%;
+        position: relative;
+        top: 50px;
+        display: flex;
         flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        box-sizing:border-box;
+        justify-content: center;
 
-        #country-picker{
-            height:7%;
-            width:100%;
+        @media only screen and (max-height: 700px) {
+            height: 92%;
+        }
+        @media only screen and (max-height: 600px) {
+            height: 91%;
+        }
+        @media only screen and (max-height: 550px) {
+            height: 90%;
+        }
+        @media only screen and (max-height: 500px) {
+            height: 89%;
+        }
+        @media only screen and (max-height: 450px) {
+            height: 88%;
+        }
+        @media only screen and (max-height: 400px) {
+            height: 86%;
+        }
+
+        #country-picker-chart {
+            background-color: transparent;
+            height: 100% !important;
+            padding: 5px;
+            box-sizing: border-box;
+            width: 100% !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+
+            #country-picker {
+                background-color: #474747;
+                height: 6% !important;
+            }
+
+            #country-chart {
+                height: 94% !important;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .row {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .columnhide {
+        display: none;
+    }
+}
+
+.desktop-hide{
+    display:none;
+}
+
+/* tablet */
+.tablet-responsive {
+    @media only screen and (min-width: 960px) {
+        display: none;
+    }
+    @media only screen and (max-width: 500px) {
+        display: none;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    position: relative;
+    top: 40px;
+
+    .tablet-item {
+        height: 85vh;
+        width: 95%;
+        margin-bottom: 2em;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+
+        #country-picker {
+            width: 100%;
             background-color: #474747;
         }
 
-        #country-chart{
-            height:93%;
-            width:100%;
-            display:flex;
-            flex-direction:column;
+        #country-chart {
+            height: 93%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
         }
     }
 }
 
 //expand and shrink
-.expand-icon{
-    position:absolute;
-    top:0;
-    right:0;
-    cursor:pointer;
-    z-index:2;
+.expand-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 2;
 }
 
-.shrink-icon{
-    position:absolute;
-    top:0;
-    right:0;
-    cursor:pointer;
-    z-index:2;
+.shrink-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 2;
 }
 
-.expand{
-    width:100% !important;
-    height:100% !important;
-    margin:0 !important;
+.expand {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
 }
-.hide{
-    display:none !important;
+.hide {
+    display: none !important;
 }
 
+//tablet version
+.tablet-version{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    position: relative;
+    top: 50px;
 
+    @media only screen and (max-width: 959px) {
+        top: 40px;
+    }
+    @media only screen and (max-width: 500px) {
+        top: 35px;
+    }
 
+    .tablet-item {
+        height: 85vh;
+        width: 95%;
+        margin-bottom: 2em;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
 
+        #country-picker {
+            width: 100%;
+            background-color: #474747;
+        }
+
+        #country-chart {
+            height: 93%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

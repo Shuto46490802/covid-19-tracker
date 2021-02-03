@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import "./ActiveIncidentRateCard.scss";
 
-const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight, activeCardExpand, setActiveCardExpand, expandIcon, shrinkIcon, formatNumber }) => {
+const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight, activeCardExpand, setActiveCardExpand, expandIcon, shrinkIcon, formatNumber, isTablet, isMobile }) => {
 
     const [isCard, setIsCard] = useState("active");
     const [isHover, setIsHover] = useState(false);
@@ -68,7 +68,7 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
     return (
         <Fragment>
             <div
-                className={`active-card-container${activeCardExpand ? "-expand" : ""}`}
+                className={`card-container${activeCardExpand ? "-expand" : isTablet ? "-hide" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -122,7 +122,7 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                     !activeCardExpand
                         ? <div className={"arrow-toggler"}>
                             <div className={"arrow-icon"} onClick={() => toggleActiveIncidentRateCard()}>{arrowLeft}</div>
-                            <div className={"card-toggler-text"}>
+                            <div className={"toggler-text"}>
                                 {
                                     isCard === "active"
                                         ? "Active Cases"
@@ -133,7 +133,7 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                             </div>
                             <div className={"arrow-icon"} onClick={() => toggleActiveIncidentRateCard()}>{arrowRight}</div>
                         </div>
-                        : <div className={"card-button-toggler-wrapper"}>
+                        : <div className={"button-toggler-wrapper-expand"}>
                             <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("active")}>Active Cases</div>
                             <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("incidentRate")}>Incident Rate</div>
                         </div>
@@ -142,7 +142,7 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
 
             {/* tablet */}
             <div
-                className={`active-card-container-tablet`}
+                className={`card-container-tablet${isTablet ? "-version" : "" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -192,7 +192,7 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                             )
                     }
                 </div>
-                <div className={"card-button-toggler-wrapper-tablet"}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
                     <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("active")}>Active Cases</div>
                     <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("incidentRate")}>Incident Rate</div>
                 </div>

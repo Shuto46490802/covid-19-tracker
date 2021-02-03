@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import "./DeathsRecoveredCard.scss"
 
-const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, arrowRight, deathsdCardExpand, setDeathsCardExpand, expandIcon, shrinkIcon, formatNumber }) => {
+const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, arrowRight, deathsdCardExpand, setDeathsCardExpand, expandIcon, shrinkIcon, formatNumber, isTablet, isMobile }) => {
 
     const [isCard, setIsCard] = useState("deaths");
     const [isHover, setIsHover] = useState(false);
@@ -61,7 +61,7 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
     return (
         <Fragment>
             <div
-                className={`deaths-card-container${deathsdCardExpand ? "-expand" : ""}`}
+                className={`card-container${deathsdCardExpand ? "-expand" : isTablet ? "-hide" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -126,7 +126,7 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
                     !deathsdCardExpand
                         ? <div className={"arrow-toggler"}>
                             <div className={"arrow-icon"} onClick={() => toggleDeathsRecoveredLeft()}>{arrowLeft}</div>
-                            <div className={"card-toggler-text"}>
+                            <div className={"toggler-text"}>
                                 {
                                     isCard === "deaths"
                                         ? "Deaths"
@@ -139,7 +139,7 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
                             </div>
                             <div className={"arrow-icon"} onClick={() => toggleDeathsRecoveredRight()}>{arrowRight}</div>
                         </div>
-                        : <div className={"card-button-toggler-wrapper"}>
+                        : <div className={"button-toggler-wrapper-expand"}>
                             <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("deaths")}>Deaths</div>
                             <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("recovered")}>Recovered</div>
                             <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Deaths</div>
@@ -149,7 +149,7 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
 
             {/* tablet */}
             <div
-                className={`deaths-card-container-tablet`}
+                className={`card-container-tablet${isTablet ? "-version" : "" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -210,7 +210,7 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
                                     : null
                     }
                 </div>
-                <div className={"card-button-toggler-wrapper-tablet"}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
                     <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("deaths")}>Deaths</div>
                     <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("recovered")}>Recovered</div>
                     <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Deaths</div>

@@ -7,9 +7,8 @@ import IncidentRate from "./IncidentRate/IncidentRate";
 
 import "./Maps.scss";
 
-const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shrinkIcon }) => {
+const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shrinkIcon, isTablet, isMobile, isMap, setIsMap }) => {
 
-    const [isMap, setIsMap] = useState("calmulative");
     const [isHover, setIsHover] = useState(false);
 
     //check if data has been asinged to countries
@@ -61,7 +60,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
     return (
         <Fragment>
             <div
-                id="map-container"
+                className={`map-container${isTablet ? "-hide" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -90,14 +89,14 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                 }
 
             </div>
-            <div className={"button-toggler-wrapper"}>
-                <div style={calmulativeStyle} className={`button-toggler${mapExpand ? "-expand" : "" }`} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
-                <div style={activeStyle} className={`button-toggler${mapExpand ? "-expand" : "" }`} onClick={() => setIsMap("active")}>Active Cases</div>
-                <div style={incidentRateStyle} className={`button-toggler${mapExpand ? "-expand" : "" }`} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
+            <div className={`button-toggler-wrapper${mapExpand ? "-expand" : isTablet ? "-hide" : ""}`}>
+                <div style={calmulativeStyle} className={`button-toggler`} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
+                <div style={activeStyle} className={`button-toggler`} onClick={() => setIsMap("active")}>Active Cases</div>
+                <div style={incidentRateStyle} className={`button-toggler`} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
             </div>
 
             <div
-                id="map-container-tablet"
+                className={`map-container-tablet${isTablet ? "-version" : "" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -126,7 +125,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                 }
 
             </div>
-            <div className={"button-toggler-wrapper-tablet"}>
+            <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
                 <div style={calmulativeStyle} className={`button-toggler`} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
                 <div style={activeStyle} className={`button-toggler`} onClick={() => setIsMap("active")}>Active Cases</div>
                 <div style={incidentRateStyle} className={`button-toggler`} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>

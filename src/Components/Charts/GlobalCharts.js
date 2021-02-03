@@ -7,7 +7,7 @@ import Loader from 'react-loader-spinner';
 import "./GlobalCharts.scss"
 
 
-const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, globalChartExpand, setGlobalChartExpand, expandIcon, shrinkIcon }) => {
+const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, globalChartExpand, setGlobalChartExpand, expandIcon, shrinkIcon, isTablet, isMobile }) => {
 
   const [isChart, setIsChart] = useState("infected");
   const [isHover, setIsHover] = useState(false);
@@ -132,20 +132,21 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
   //toggle map togglers border bottom
   let { infectedStyle, deathsStyle, recoveredStyle } = {};
   const onStyle = { borderBottom: "3px solid white", backgroundColor: "#474747" };
+  const offStyle = { backgroundColor: "#777" }
   infectedStyle = isChart === "infected" ?
     onStyle :
-    {}
+    offStyle
   deathsStyle = isChart === "deaths" ?
     onStyle :
-    {}
+    offStyle
   recoveredStyle = isChart === "recovered" ?
     onStyle :
-    {}
+    offStyle
 
   return (
     <Fragment>
       <div
-        className={`global-chart-container${globalChartExpand ? "-" + classes[6] : ""}`}
+        className={`global-chart-container${globalChartExpand ? "-expand" : isTablet ? "-hide" : "" }`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
@@ -175,7 +176,7 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
             !globalChartExpand
               ? <div className={"arrow-toggler"}>
                 <div className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</div>
-                <div className={"card-toggler-text"}>
+                <div className={"toggler-text"}>
                   {
                     isChart === "infected"
                       ? "Infected"
@@ -194,7 +195,7 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
       </div>
       {
         globalChartExpand
-          ? <div className={"chart-button-toggler-wrapper-expand"}>
+          ? <div className={`button-toggler-wrapper-expand`}>
             <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
             <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
             <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
@@ -204,7 +205,7 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
       
       {/* tablet */}
       <div
-        className={`global-chart-container-tablet`}
+        className={`global-chart-container-tablet${isTablet ? "-version" : "" }`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
@@ -225,7 +226,7 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
           </div>
         </div>
       </div>
-      <div className={"chart-button-toggler-wrapper-tablet"}>
+      <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
         <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
         <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
         <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>

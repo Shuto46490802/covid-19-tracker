@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 
 import "./InfectedCard.scss";
 
-const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber, classes }) => {
+const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber, isTablet }) => {
 
     const [isCard, setIsCard] = useState("admin0");
     const [isHover, setIsHover] = useState(false);
@@ -68,7 +68,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
     return (
         <Fragment>
             <div
-                className={`infected-card-container${infectedCardExpand ? "-expand" : ""}`}
+                className={`card-container${infectedCardExpand ? "-expand" : isTablet ? "-hide" : "" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -131,9 +131,9 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                 </div>
                 {
                     !infectedCardExpand
-                        ? <div className={"arrow-toggler"}>
+                        ? <div className={`arrow-toggler${isTablet ? "-hide" : "" }`}>
                             <div className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</div>
-                            <div className={"card-toggler-text"}>
+                            <div className={"toggler-text"}>
                                 {
                                     isCard === "admin0"
                                         ? "Admin0"
@@ -146,7 +146,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                             </div>
                             <div className={"arrow-icon"} onClick={() => toggleAdminInfectedRight()}>{arrowRight}</div>
                         </div>
-                        : <div className={"card-button-toggler-wrapper"}>
+                        : <div className={"button-toggler-wrapper-expand"}>
                             <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
                             <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
                             <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
@@ -156,7 +156,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
 
             {/* tablet */}
             <div
-                className={`infected-card-container-tablet`}
+                className={`card-container-tablet${isTablet ? "-version" : "" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -217,7 +217,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                                     : null
                     }
                 </div>
-                <div className={"card-button-toggler-wrapper-tablet"}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
                     <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
                     <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
                     <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
