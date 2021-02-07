@@ -5,7 +5,9 @@
 .card-container,
 .card-container-expand,
 .card-container-tablet,
-.card-container-tablet-version {
+.card-container-tablet-version,
+.card-container-mobile-version
+ {
     height: 100%;
     width: 100%;
     display: flex;
@@ -22,7 +24,7 @@
         text-align: center;
         border-bottom: 1px solid #f5f5f5;
         width: 100%;
-        padding: clamp(0px, 2.5vh, 25px) 0;
+        padding: clamp(5px, 2.5vh, 25px) 0;
         background-color: #244c83;
         border-top: 1px solid #053366;
         border-right: 1px solid #053366;
@@ -57,7 +59,6 @@
         width: 100%;
         overflow-y: auto;
         background-color: #244c83;
-        border-bottom: 1px solid #053366;
         border-right: 1px solid #053366;
         border-left: 1px solid #053366;
         .country-list {
@@ -389,7 +390,8 @@
 
 //tablet
 .card-container-tablet,
-.card-container-tablet-version {
+.card-container-tablet-version,
+.card-container-mobile-version {
     .card-header-text {
         font-size: clamp(9px, 1.5vw, 15px);
         @media only screen and (max-height: 700px) {
@@ -541,3 +543,7 @@
     background-color: #999;
     border-radius: 3px;
 }
+
+// .button-toggler-wrapper-hide{
+//     display:none;
+// }

@@ -77,7 +77,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
             {
                 !dataPanelExpand
                     ? <Fragment>
-                        <table className={`table-laptop${isTablet ? "-hide" : "" }`}>
+                        <table className={`table-laptop${isTablet || isMobile ? "-hide" : "" }`}>
                             <tr>
                                 <td colspan="2">
                                     <div className={"infected-panel-header"}>Today's Global Cases</div>
@@ -102,13 +102,13 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                                 </td>
                             </tr>
                         </table>
-                        <div className={`country-panel${isTablet ? "-hide" : "" }`}>
+                        <div className={`country-panel${isTablet || isMobile ? "-hide" : "" }`}>
                             <div className={"panel-header"}>Countries/Provinces</div>
                             <h3 className={"panel-number"}>
                                 {filteredCountries.length}/{filteredProvinces.length}
                             </h3>
                         </div>
-                        <div className={`last-update-panel${isTablet ? "-hide" : "" }`}>
+                        <div className={`last-update-panel${isTablet || isMobile ? "-hide" : "" }`}>
                             <div className={"panel-header"}>Last Updated at (M/D/YYYY)</div>
                             <h3 className={"panel-number"}>
                                 {getFormattedDate(globalData[0].lastUpdate)}
@@ -158,7 +158,7 @@ const InfoPanel = ({ globalData, countriesData, provincesData, formatNumber, cla
                     </Fragment>
             }
 
-            <table className={`table-tablet${isTablet ? "-version" : "" }`}>
+            <table className={`table${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet" }`}>
                 <tr>
                     <td colspan="2">
                         <span className={"panel-header"}>Today's Global Cases</span>

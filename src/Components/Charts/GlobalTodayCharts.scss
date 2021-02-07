@@ -94,7 +94,7 @@
         background-color: transparent;
         border: none;
         margin-bottom: 5px;
-        height:5%;
+        height: 5%;
     }
 }
 
@@ -105,7 +105,8 @@
 
 //tablet
 .chart-container-tablet,
-.chart-container-tablet-version {
+.chart-container-tablet-version,
+.chart-container-mobile-version {
     .chart-wrapper {
         .chart-header {
             margin: 0;
@@ -126,6 +127,40 @@
             width: 100%;
             height: 90%;
         }
+    }
+}
+
+.chart-container-mobile-version {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 100%;
+    height: 100%;
+    background-color: #474747;
+
+    .chart-wrapper {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        
+        .chart{
+            height:90%;
+            width:100%;
+        }
+
+        .chart-header{
+            height:5%;
+        }
+    }
+
+    .border {
+        align-self: flex-end;
+        width: 100%;
+        height: 1px;
+        background-color: #f5f5f5;
     }
 }
 
@@ -157,6 +192,7 @@
     }
 }
 
-.chart-container-hide {
+.chart-container-hide,
+.button-toggler-container-hide {
     display: none;
 }

@@ -205,7 +205,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
 
     return (
         <Fragment>
-            <div className={`chart-container${isTablet ? "-hide" : ""}`}>
+            <div className={`chart-container${isTablet || isMobile ? "-hide" : ""}`}>
                 <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
                     <p className={`chart-header`} >
                         Daily Infected/Deaths/Recovered by Country
@@ -267,7 +267,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
             }
 
             {/* tablet */}
-            <div className={`chart-container-tablet${isTablet ? "-version" : ""}`}>
+            <div className={`chart-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet"}`}>
                 <div className={`chart-wrapper`}>
                     <p className={`chart-header`} >
                         Daily Infected/Deaths/Recovered by Country
@@ -294,7 +294,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                     </div>
                 </div>
             </div>
-            <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : ""}`}>
+            <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet"}`}>
                 <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
                 <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
                 <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>

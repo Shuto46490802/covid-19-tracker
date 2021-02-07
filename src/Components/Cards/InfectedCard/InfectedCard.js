@@ -2,9 +2,8 @@ import React, { Fragment, useState } from "react";
 
 import "./InfectedCard.scss";
 
-const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber, isTablet }) => {
+const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber, isTablet, isMobile, isInfectedCard, setIsInfectedCard }) => {
 
-    const [isCard, setIsCard] = useState("admin0");
     const [isHover, setIsHover] = useState(false);
 
     if (!countriesData[0] || !globalData[0] || !provincesData[0]) {
@@ -32,34 +31,34 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
         .sort((a, b) => b[1].confirmed - a[1].confirmed);
 
     const toggleAdminInfectedRight = () => {
-        if (isCard === "admin0") {
-            setIsCard("admin2")
-        } else if (isCard === "admin2") {
-            setIsCard("today")
-        } else if (isCard === "today") {
-            setIsCard("admin0")
+        if (isInfectedCard=== "admin0") {
+            setIsInfectedCard("admin2")
+        } else if (isInfectedCard === "admin2") {
+            setIsInfectedCard("today")
+        } else if (isInfectedCard === "today") {
+            setIsInfectedCard("admin0")
         }
     };
     const toggleAdminInfectedLeft = () => {
-        if (isCard === "admin0") {
-            setIsCard("today")
-        } else if (isCard === "today") {
-            setIsCard("admin2")
-        } else if (isCard === "admin2") {
-            setIsCard("admin0")
+        if (isInfectedCard === "admin0") {
+            setIsInfectedCard("today")
+        } else if (isInfectedCard === "today") {
+            setIsInfectedCard("admin2")
+        } else if (isInfectedCard === "admin2") {
+            setIsInfectedCard("admin0")
         }
     };
 
-    //toggle map togglers border bottom
+    //toggle button togglers border bottom
     let { admin0Style, admin2Style, todayStyle } = {};
     const onStyle = { borderBottom: "3px solid #d9e4f4", backgroundColor: "#295897" };
-    admin0Style = isCard === "admin0"
+    admin0Style = isInfectedCard === "admin0"
         ? onStyle
         : {}
-    admin2Style = isCard === "admin2"
+    admin2Style = isInfectedCard === "admin2"
         ? onStyle
         : {}
-    todayStyle = isCard === "today"
+    todayStyle = isInfectedCard === "today"
         ? onStyle
         : {}
 
@@ -68,7 +67,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
     return (
         <Fragment>
             <div
-                className={`card-container${infectedCardExpand ? "-expand" : isTablet ? "-hide" : "" }`}
+                className={`card-container${infectedCardExpand ? "-expand" : isTablet || isMobile ? "-hide" : "" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -81,20 +80,20 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                 }
                 <div className={"card-header"} >
                     {
-                        isCard === "admin0" || isCard === "admin2"
+                        isInfectedCard === "admin0" || isInfectedCard === "admin2"
                             ? <div className={"card-header-text"}>Global Cases</div>
                             : <div className={"card-header-text"}>Global Today's Cases</div>
                     }
 
                     {
-                        isCard === "admin0" || isCard === "admin2"
+                        isInfectedCard === "admin0" || isInfectedCard === "admin2"
                             ? <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].confirmed)}</h1>
                             : <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].newConfirmed)}</h1>
                     }
 
                 </div>
                 {
-                    isCard === "admin0" || isCard === "today"
+                    isInfectedCard === "admin0" || isInfectedCard === "today"
                         ? <div className={"country-card-note"} >
                             <div>Cases by Country</div>
                         </div>
@@ -105,21 +104,21 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                 }
                 <div className={"ul"}>
                     {
-                        isCard === "admin0"
+                        isInfectedCard === "admin0"
                             ? modifiedGlobalCasesData.map((data, i) =>
                                 <div className={"country-list"} key={i}>
                                     <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
                                     <div className={"country-list-place"}>{data[0]}</div>
                                 </div>
                             )
-                            : isCard === "admin2"
+                            : isInfectedCard === "admin2"
                                 ? modifiedProvincesData.map((data, i) =>
                                     <div className={"province-list"} key={i}>
                                         <div className={"list-num infected-num"} >{formatNumber(data[0])} <div className={"province-list-cases"}>Cases</div></div>
                                         <div className={"province-list-place"}>{data[1]}</div>
                                     </div>
                                 )
-                                : isCard === "today"
+                                : isInfectedCard === "today"
                                     ? modifiedTodayData.map((data, i) =>
                                         <div className={"country-list"} key={i}>
                                             <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
@@ -135,11 +134,11 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                             <div className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</div>
                             <div className={"toggler-text"}>
                                 {
-                                    isCard === "admin0"
+                                    isInfectedCard === "admin0"
                                         ? "Admin0"
-                                        : isCard === "admin2"
+                                        : isInfectedCard === "admin2"
                                             ? "Admin2"
-                                            : isCard === "today"
+                                            : isInfectedCard === "today"
                                                 ? "Global Today's Cases"
                                                 : null
                                 }
@@ -147,16 +146,16 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                             <div className={"arrow-icon"} onClick={() => toggleAdminInfectedRight()}>{arrowRight}</div>
                         </div>
                         : <div className={"button-toggler-wrapper-expand"}>
-                            <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
-                            <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
-                            <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
+                            <div style={admin0Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin0")}>Admin0</div>
+                            <div style={admin2Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin2")}>Admin2</div>
+                            <div style={todayStyle} className={"button-toggler"} onClick={() => setIsInfectedCard("today")}>Global Today's Cases</div>
                         </div>
                 }
             </div>
 
             {/* tablet */}
             <div
-                className={`card-container-tablet${isTablet ? "-version" : "" }`}
+                className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -169,20 +168,20 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                 }
                 <div className={"card-header"} >
                     {
-                        isCard === "admin0" || isCard === "admin2"
+                        isInfectedCard === "admin0" || isInfectedCard === "admin2"
                             ? <div className={"card-header-text"}>Global Cases</div>
                             : <div className={"card-header-text"}>Global Today's Cases</div>
                     }
 
                     {
-                        isCard === "admin0" || isCard === "admin2"
+                        isInfectedCard === "admin0" || isInfectedCard === "admin2"
                             ? <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].confirmed)}</h1>
                             : <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].newConfirmed)}</h1>
                     }
 
                 </div>
                 {
-                    isCard === "admin0" || isCard === "today"
+                    isInfectedCard === "admin0" || isInfectedCard === "today"
                         ? <div className={"country-card-note"} >
                             <div>Cases by Country</div>
                         </div>
@@ -193,21 +192,21 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                 }
                 <div className={"ul"}>
                     {
-                        isCard === "admin0"
+                        isInfectedCard === "admin0"
                             ? modifiedGlobalCasesData.map((data, i) =>
                                 <div className={"country-list"} key={i}>
                                     <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
                                     <div className={"country-list-place"}>{data[0]}</div>
                                 </div>
                             )
-                            : isCard === "admin2"
+                            : isInfectedCard === "admin2"
                                 ? modifiedProvincesData.map((data, i) =>
                                     <div className={"province-list"} key={i}>
                                         <div className={"list-num infected-num"} >{formatNumber(data[0])} <div className={"province-list-cases"}>Cases</div></div>
                                         <div className={"province-list-place"}>{data[1]}</div>
                                     </div>
                                 )
-                                : isCard === "today"
+                                : isInfectedCard === "today"
                                     ? modifiedTodayData.map((data, i) =>
                                         <div className={"country-list"} key={i}>
                                             <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
@@ -217,10 +216,10 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                                     : null
                     }
                 </div>
-                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
-                    <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("admin0")}>Admin0</div>
-                    <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("admin2")}>Admin2</div>
-                    <div style={todayStyle} className={"button-toggler"} onClick={() => setIsCard("today")}>Global Today's Cases</div>
+                <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet" }`}>
+                    <div style={admin0Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin0")}>Admin0</div>
+                    <div style={admin2Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin2")}>Admin2</div>
+                    <div style={todayStyle} className={"button-toggler"} onClick={() => setIsInfectedCard("today")}>Global Today's Cases</div>
                 </div>
             </div>
         </Fragment>

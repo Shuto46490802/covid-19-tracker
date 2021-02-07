@@ -48,7 +48,7 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                             onClick={() => {
                                 setIsTablet(!isTablet)
                                 setIsMap("")
-                                setTimeout(() => setIsMap("calmulative"))
+                                setTimeout(() => setIsMap("cumulative"))
                                 setPopup(!popup)
                                 setGlobalChartExpand(false)
                                 setGlobalDailyChartExpand(false)
@@ -71,6 +71,15 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                             onClick={() => {
                                 setIsMobile(!isMobile)
                                 setPopup(!popup)
+                                setIsMap("")
+                                setTimeout(() => setIsMap("cumulative"))
+                                setGlobalChartExpand(false)
+                                setGlobalDailyChartExpand(false)
+                                setInfectedCardExpand(false)
+                                setDeathsCardExpand(false)
+                                setActiveCardExpand(false)
+                                setMapExpand(false)
+                                setDataPanelExpand(false)
                             }}
                         >
                             {

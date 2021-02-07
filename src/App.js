@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 //Components 
 import CountryPicker from "./Components/CountryPicker/CountryPicker";
@@ -11,6 +11,7 @@ import DeathsRecoveredCard from "./Components/Cards/DeathsRecoveredCard/DeathsRe
 import ActiveIncidentRateCard from "./Components/Cards/ActiveIncidentRateCard/ActiveIncidentRateCard";
 import InfoPanel from "./Components/InfoPanel/InfoPanel";
 import PopupNavBars from "./Components/PopupNavBars/PopupNavBars";
+import MobileButtonToggler from "./Components/MobileButtonToggler/MobileButtonToggler";
 
 import "./css/App.scss";
 
@@ -21,6 +22,8 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { faCompressArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSortDown } from '@fortawesome/free-solid-svg-icons';
+
 
 
 import Loader from 'react-loader-spinner';
@@ -30,16 +33,19 @@ const arrowLeft = < FontAwesomeIcon icon={faCaretLeft} />
 const arrowRight = < FontAwesomeIcon icon={faCaretRight} />
 const expandIcon = < FontAwesomeIcon icon={faExpandArrowsAlt} />
 const shrinkIcon = < FontAwesomeIcon icon={faCompressArrowsAlt} />
+const dropdown = < FontAwesomeIcon icon={faSortDown} />
 
 
 const App = () => {
 
+    //Fetch API Datas
     const [globalData, setGlobaldata] = useState({})
     const [country, setCountry] = useState("select a country");
     const [countriesData, setCountriesData] = useState({});
     const [provincesData, setProvincesData] = useState();
     const [countriesYearlyData, setCountriesYearlyData] = useState({});
 
+    //Expand or Hide
     const [infectedCardExpand, setInfectedCardExpand] = useState(false);
     const [deathsdCardExpand, setDeathsCardExpand] = useState(false);
     const [activeCardExpand, setActiveCardExpand] = useState(false);
@@ -48,15 +54,30 @@ const App = () => {
     const [globalDailyChartExpand, setGlobalDailyChartExpand] = useState(false);
     const [globalChartExpand, setGlobalChartExpand] = useState(false);
 
-    const [isMap, setIsMap] = useState("calmulative");
-
+    //Hover Expand and Shrink Icons
     const [isPanelHover, setIsPanelHover] = useState(false);
     const [isTodayChartHover, setIsTodayChartHover] = useState(false);
 
+    //Toggle Map 
+    const [isMap, setIsMap] = useState("cumulative");
+
+    //Toggle Cards
+    const [isInfectedCard, setIsInfectedCard] = useState("admin0");
+    const [isDeathsRecoveredCard, setIsDeathsRecoveredCard] = useState("deaths");
+    const [isActiveIncidentCard, setIsActiveIncidentCard] = useState("active");
+
+    //Tablet or Mobile Version
     const [isTablet, setIsTablet] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
+    //Toggle Mobile between Items
+    const [mobileItem, setMobileItem] = useState("totals")
 
+    //Toggle Mobile Categories 
+    const [isGlobal, setIsGlobal] = useState("infected");
+    const [isChart, setIsChart] = useState("globalChart")
+
+    //Loader
     const [isLoad, setIsLoad] = useState(true)
 
     useEffect(() => {
@@ -142,7 +163,9 @@ const App = () => {
                     maxTicksLimit: 8,
                     callback: function numFormatter(num) {
                         if (num > 999 && num < 1000000) {
-                            return (num / 1000).toFixed(1) + 'K';
+                            return Math.floor((num / 1000).toFixed(1)) + 'K';
+                        } else if (num >= 10000000) {
+                            return Math.floor((num / 1000000).toFixed(1)) + 'M';
                         } else if (num >= 1000000) {
                             return (num / 1000000).toFixed(1) + 'M';
                         } else if (num < 900) {
@@ -186,9 +209,10 @@ const App = () => {
                     ? ["hide", "hide", "expand"]
                     : ["", "", ""];
 
+    console.log(isMap)
 
     return (
-        <div className={`app${isTablet ? "-tablet-version" : ""}`} >
+        <div className={`app${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`} >
             <header>
                 <img src="https://www.tiabc.ca/wp-content/uploads/home/COVID%E2%80%9419.png" alt="covid-19 logo" />
                 <div id="header-title">
@@ -216,12 +240,13 @@ const App = () => {
                             setDataPanelExpand={setDataPanelExpand}
                             setGlobalDailyChartExpand={setGlobalDailyChartExpand}
                             setGlobalChartExpand={setGlobalChartExpand}
+                            dropdown={dropdown}
                         />
                     </div>
                 </div>
             </header>
 
-            <main className={`desktop${isTablet ? "-hide" : ""}`} >
+            <div className={`desktop${isTablet || isMobile ? "-hide" : ""}`} >
                 <div
                     className={`column${columnClasses[0]} column1`}
                 >
@@ -243,6 +268,8 @@ const App = () => {
                             classes={classes}
                             isTablet={isTablet}
                             isMobile={isMobile}
+                            isInfectedCard={isInfectedCard}
+                            setIsInfectedCard={setIsInfectedCard}
                         />
                     </div>
                     <div
@@ -356,6 +383,8 @@ const App = () => {
                                 formatNumber={formatNumber}
                                 isTablet={isTablet}
                                 isMobile={isMobile}
+                                isDeathsRecoveredCard={isDeathsRecoveredCard}
+                                setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
                             />
                         </div>
                         <div
@@ -374,6 +403,8 @@ const App = () => {
                                 formatNumber={formatNumber}
                                 isTablet={isTablet}
                                 isMobile={isMobile}
+                                isActiveIncidentCard={isActiveIncidentCard}
+                                setIsActiveIncidentCard={setIsActiveIncidentCard}
                             />
                         </div>
                     </div>
@@ -396,9 +427,10 @@ const App = () => {
                         />
                     </div>
                 </div>
-            </main>
+            </div>
 
-            <main className={`tablet${!isTablet ? "-responsive" : "-version"}`}>
+            {/* Tablet */}
+            <div className={`tablet${isTablet ? "-version" : isMobile ? "-hide" : "-responsive"}`}>
                 <div className={"tablet-item"} id="map-tablet">
                     <Maps
                         classes={classes}
@@ -427,6 +459,8 @@ const App = () => {
                         formatNumber={formatNumber}
                         isTablet={isTablet}
                         isMobile={isMobile}
+                        isInfectedCard={isInfectedCard}
+                        setIsInfectedCard={setIsInfectedCard}
                     />
                 </div>
                 <div className={"deaths-active-card tablet-item"}>
@@ -443,6 +477,8 @@ const App = () => {
                         formatNumber={formatNumber}
                         isTablet={isTablet}
                         isMobile={isMobile}
+                        isDeathsRecoveredCard={isDeathsRecoveredCard}
+                        setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
                     />
                 </div>
                 <div className={"deaths-active-card tablet-item"}>
@@ -458,6 +494,8 @@ const App = () => {
                         formatNumber={formatNumber}
                         isTablet={isTablet}
                         isMobile={isMobile}
+                        isActiveIncidentCard={isActiveIncidentCard}
+                        setIsActiveIncidentCard={setIsActiveIncidentCard}
                     />
                 </div>
                 <div id="country-picker-chart" className={"tablet-item"}>
@@ -520,7 +558,152 @@ const App = () => {
                         isMobile={isMobile}
                     />
                 </div>
-            </main>
+            </div>
+
+            {/* Mobile */}
+            <div className={`mobile${!isMobile ? "-hide" : ""}`}>
+                <div className={"mobile-item"}>
+                    {
+                        mobileItem === "totals"
+                            ? <InfoPanel
+                                globalData={globalData}
+                                countriesData={countriesData}
+                                provincesData={provincesData}
+                                formatNumber={formatNumber}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
+                            />
+                            : mobileItem === "map"
+                                ? <Maps
+                                    classes={classes}
+                                    provincesData={provincesData}
+                                    setMapExpand={setMapExpand}
+                                    mapExpand={mapExpand}
+                                    expandIcon={expandIcon}
+                                    shrinkIcon={shrinkIcon}
+                                    isMap={isMap}
+                                    setIsMap={setIsMap}
+                                    isTablet={isTablet}
+                                    isMobile={isMobile}
+                                />
+                                : mobileItem === "global"
+                                    ? isGlobal === "infected"
+                                        ? <InfectedCard
+                                            countriesData={countriesData}
+                                            globalData={globalData}
+                                            provincesData={provincesData}
+                                            arrowLeft={arrowLeft}
+                                            arrowRight={arrowRight}
+                                            infectedCardExpand={infectedCardExpand}
+                                            expandIcon={expandIcon}
+                                            shrinkIcon={shrinkIcon}
+                                            setInfectedCardExpand={setInfectedCardExpand}
+                                            formatNumber={formatNumber}
+                                            isTablet={isTablet}
+                                            isMobile={isMobile}
+                                            isInfectedCard={isInfectedCard}
+                                            setIsInfectedCard={setIsInfectedCard}
+                                        />
+                                        : isGlobal === "deathsRecovered"
+                                            ? <DeathsRecoveredCard
+                                                countriesData={countriesData}
+                                                globalData={globalData}
+                                                classes={classes}
+                                                arrowLeft={arrowLeft}
+                                                arrowRight={arrowRight}
+                                                deathsdCardExpand={deathsdCardExpand}
+                                                setDeathsCardExpand={setDeathsCardExpand}
+                                                expandIcon={expandIcon}
+                                                shrinkIcon={shrinkIcon}
+                                                formatNumber={formatNumber}
+                                                isTablet={isTablet}
+                                                isMobile={isMobile}
+                                                isDeathsRecoveredCard={isDeathsRecoveredCard}
+                                                setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
+                                            />
+                                            : isGlobal === "activeIncidentRate"
+                                                ? <ActiveIncidentRateCard
+                                                    provincesData={provincesData}
+                                                    classes={classes}
+                                                    arrowLeft={arrowLeft}
+                                                    arrowRight={arrowRight}
+                                                    activeCardExpand={activeCardExpand}
+                                                    setActiveCardExpand={setActiveCardExpand}
+                                                    expandIcon={expandIcon}
+                                                    shrinkIcon={shrinkIcon}
+                                                    formatNumber={formatNumber}
+                                                    isTablet={isTablet}
+                                                    isMobile={isMobile}
+                                                    isActiveIncidentCard={isActiveIncidentCard}
+                                                    setIsActiveIncidentCard={setIsActiveIncidentCard}
+                                                />
+                                                : null
+                                    : mobileItem === "countries"
+                                        ? <Fragment>
+                                            <div className={"country-picker"}>
+                                                <CountryPicker
+                                                    classes={classes}
+                                                    toggleCountry={toggleCountry}
+                                                    isTablet={isTablet}
+                                                    isMobile={isMobile}
+                                                />
+                                            </div>
+                                            <div className={"country-charts"}>
+                                                <CountryCharts
+                                                    countriesYearlyData={countriesYearlyData}
+                                                    arrowLeft={arrowLeft}
+                                                    arrowRight={arrowRight}
+                                                    option={option}
+                                                    classes={classes}
+                                                    globalDailyChartExpand={globalDailyChartExpand}
+                                                    isTablet={isTablet}
+                                                    isMobile={isMobile}
+                                                />
+                                            </div>
+                                        </Fragment>
+                                        : mobileItem === "charts"
+                                            ? isChart === "globalChart"
+                                                ? <GlobalCharts
+                                                    globalData={globalData}
+                                                    arrowLeft={arrowLeft}
+                                                    arrowRight={arrowRight}
+                                                    option={option}
+                                                    classes={classes}
+                                                    globalChartExpand={globalChartExpand}
+                                                    setGlobalChartExpand={setGlobalChartExpand}
+                                                    expandIcon={expandIcon}
+                                                    shrinkIcon={shrinkIcon}
+                                                    isTablet={isTablet}
+                                                    isMobile={isMobile}
+                                                />
+                                                : isChart === "dailyChart"
+                                                    ? <GlobalTodayCharts
+                                                        globalData={globalData}
+                                                        arrowRight={arrowRight}
+                                                        arrowLeft={arrowLeft}
+                                                        option={option}
+                                                        classes={classes}
+                                                        globalDailyChartExpand={globalDailyChartExpand}
+                                                        isTablet={isTablet}
+                                                        isMobile={isMobile}
+                                                    />
+                                                    : null
+                                            : null
+                    }
+                </div>
+                <MobileButtonToggler
+                    setMobileItem={setMobileItem}
+                    setIsMap={setIsMap}
+                    mobileItem={mobileItem}
+                    dropdown={dropdown}
+                    setIsGlobal={setIsGlobal}
+                    setIsChart={setIsChart}
+                    arrowLeft={arrowLeft}
+                    setIsInfectedCard={setIsInfectedCard}
+                    setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
+                    setIsActiveIncidentCard={setIsActiveIncidentCard}
+                />
+            </div>
         </div>
     )
 };

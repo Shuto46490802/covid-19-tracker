@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 //components
-import CamulativeMap from "./CamulativeMap/CamulativeMap";
+import CumulativeMap from "./CumulativeMap/CumulativeMap";
 import ActiveMap from "./ActiveMap/ActiveMap";
 import IncidentRate from "./IncidentRate/IncidentRate";
 
@@ -45,9 +45,9 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
     };
 
     //toggle map togglers border bottom
-    let { calmulativeStyle, activeStyle, incidentRateStyle } = {};
+    let { cumulativeStyle, activeStyle, incidentRateStyle } = {};
     const onStyle = { borderBottom: "3px solid #d9e4f4", backgroundColor: "#295897" };
-    calmulativeStyle = isMap === "calmulative" ?
+    cumulativeStyle = isMap === "cumulative" ?
         onStyle :
         {}
     activeStyle = isMap === "active" ?
@@ -60,7 +60,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
     return (
         <Fragment>
             <div
-                className={`map-container${isTablet ? "-hide" : ""}`}
+                className={`map-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -71,7 +71,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                                 onClick={() => {
                                     setMapExpand(true)
                                     setIsMap("")
-                                    setTimeout(() => { setIsMap("calmulative") })
+                                    setTimeout(() => { setIsMap("cumulative") })
                                 }}>
                                 {expandIcon}
                             </div>
@@ -79,8 +79,8 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                         : null
                 }
                 {
-                    isMap === "calmulative"
-                        ? <CamulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                    isMap === "cumulative"
+                        ? <CumulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
                         : isMap === "active"
                             ? <ActiveMap noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
                             : isMap === "incidentRate"
@@ -89,14 +89,14 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                 }
 
             </div>
-            <div className={`button-toggler-wrapper${mapExpand ? "-expand" : isTablet ? "-hide" : ""}`}>
-                <div style={calmulativeStyle} className={`button-toggler`} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
+            <div className={`button-toggler-wrapper${mapExpand ? "-expand" : isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`}>
+                <div style={cumulativeStyle} className={`button-toggler`} onClick={() => setIsMap("cumulative")}>Cumulative Cases</div>
                 <div style={activeStyle} className={`button-toggler`} onClick={() => setIsMap("active")}>Active Cases</div>
                 <div style={incidentRateStyle} className={`button-toggler`} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
             </div>
 
             <div
-                className={`map-container-tablet${isTablet ? "-version" : "" }`}
+                className={`map-container-tablet${isTablet || isMobile ? "-hide" : "" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -107,7 +107,7 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                                 onClick={() => {
                                     setMapExpand(true)
                                     setIsMap("")
-                                    setTimeout(() => { setIsMap("calmulative") })
+                                    setTimeout(() => { setIsMap("cumulative") })
                                 }}>
                                 {expandIcon}
                             </div>
@@ -115,8 +115,8 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                         : null
                 }
                 {
-                    isMap === "calmulative"
-                        ? <CamulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                    isMap === "cumulative"
+                        ? <CumulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
                         : isMap === "active"
                             ? <ActiveMap noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
                             : isMap === "incidentRate"
@@ -125,8 +125,8 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                 }
 
             </div>
-            <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
-                <div style={calmulativeStyle} className={`button-toggler`} onClick={() => setIsMap("calmulative")}>Calmulative Cases</div>
+            <div className={`button-toggler-wrapper-tablet${isTablet || isMobile ? "-hide" : "" }`}>
+                <div style={cumulativeStyle} className={`button-toggler`} onClick={() => setIsMap("cumulative")}>Cumulative Cases</div>
                 <div style={activeStyle} className={`button-toggler`} onClick={() => setIsMap("active")}>Active Cases</div>
                 <div style={incidentRateStyle} className={`button-toggler`} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
             </div>

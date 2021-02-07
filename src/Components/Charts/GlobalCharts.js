@@ -146,7 +146,7 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
   return (
     <Fragment>
       <div
-        className={`global-chart-container${globalChartExpand ? "-expand" : isTablet ? "-hide" : "" }`}
+        className={`global-chart-container${globalChartExpand ? "-expand" : isTablet || isMobile ? "-hide" : ""}`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
@@ -159,7 +159,7 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
         }
         <div className={`chart-wrapper`}>
           <p className={`chart-header`} >
-            Daily Infected/Deaths/Recovered by Country
+            Gloabl Infected/Deaths/Recovered
             </p>
           <div className={`chart`}>
             {
@@ -202,16 +202,16 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
           </div>
           : null
       }
-      
+
       {/* tablet */}
       <div
-        className={`global-chart-container-tablet${isTablet ? "-version" : "" }`}
+        className={`global-chart-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet"}`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
         <div className={`chart-wrapper`}>
           <p className={`chart-header`} >
-            Daily Infected/Deaths/Recovered by Country
+            Gloabl Daily Infected/Deaths/Recovered
             </p>
           <div className={`chart`}>
             {
@@ -226,7 +226,7 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
           </div>
         </div>
       </div>
-      <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
+      <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
         <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
         <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
         <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>

@@ -139,7 +139,7 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
     return (
         <Fragment>
             {/* laptop */}
-            <div className={`chart-container${isTablet ? "-hide" : ""}`}>
+            <div className={`chart-container${isTablet || isMobile ? "-hide" : ""}`}>
                 <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
                     <p className={`chart-header`}>
                         Global Daily Infected/Active Cases
@@ -215,7 +215,7 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
             }
 
             {/* tablet */}
-            <div className={`chart-container-tablet${isTablet ? "-version" : ""}`}>
+            <div className={`chart-container${isTablet ? "-tablet-version" :  isMobile ? "-mobile-version" : "-tablet" }`}>
                 <div className={`chart-wrapper`}>
                     <p className={`chart-header`}>
                         Global Daily Infected/Active Cases
@@ -245,12 +245,12 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                 </div>
             </div>
 
-            <div className={`button-toggler-container-tablet${isTablet ? "-version" : ""}`}>
-                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
+            <div className={`button-toggler-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
+                <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                     <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsInfectedActiveChart("infected")}>Infected</div>
                     <div style={activeStyle} className={"button-toggler"} onClick={() => setIsInfectedActiveChart("active")}>Active</div>
                 </div>
-                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
+                <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                     <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsDeathsRecoveredChart("deaths")}>Deaths</div>
                     <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsDeathsRecoveredChart("recovered")}>Recovered</div>
                 </div>

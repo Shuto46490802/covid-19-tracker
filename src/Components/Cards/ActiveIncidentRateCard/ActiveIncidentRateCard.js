@@ -1,9 +1,8 @@
 import React, { useState, Fragment } from "react";
 import "./ActiveIncidentRateCard.scss";
 
-const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight, activeCardExpand, setActiveCardExpand, expandIcon, shrinkIcon, formatNumber, isTablet, isMobile }) => {
+const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight, activeCardExpand, setActiveCardExpand, expandIcon, shrinkIcon, formatNumber, isTablet, isMobile, isActiveIncidentCard, setIsActiveIncidentCard}) => {
 
-    const [isCard, setIsCard] = useState("active");
     const [isHover, setIsHover] = useState(false);
 
     if (!provincesData[0]) {
@@ -49,26 +48,26 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
         .reduce((a, b) => a + b)) / numberOfProvinces);
 
     const toggleActiveIncidentRateCard = () => {
-        if (isCard === "active") {
-            setIsCard("incidentRate")
+        if (isActiveIncidentCard === "active") {
+            setIsActiveIncidentCard("incidentRate")
         } else {
-            setIsCard("active")
+            setIsActiveIncidentCard("active")
         }
     }
 
     let { admin0Style, admin2Style } = {};
     const onStyle = { borderBottom: "3px solid #d9e4f4", backgroundColor: "#295897" };
-    admin0Style = isCard === "active" ?
+    admin0Style = isActiveIncidentCard === "active" ?
         onStyle :
         {}
-    admin2Style = isCard === "incidentRate" ?
+    admin2Style = isActiveIncidentCard === "incidentRate" ?
         onStyle :
         {}
 
     return (
         <Fragment>
             <div
-                className={`card-container${activeCardExpand ? "-expand" : isTablet ? "-hide" : ""}`}
+                className={`card-container${activeCardExpand ? "-expand" : isTablet || isMobile ? "-hide" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -79,20 +78,20 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                             : <div className={"shrink-icon"} onClick={() => setActiveCardExpand(false)}>{shrinkIcon}</div>
                         : null
                 }
-                <div className={isCard === "active" ? "card-header" : "card-header card-header-incident"} >
+                <div className={isActiveIncidentCard === "active" ? "card-header" : "card-header card-header-incident"} >
                     {
-                        isCard === "active"
+                        isActiveIncidentCard === "active"
                             ? <div className={"card-header-text"}>
                                 Gloabl Active Cases
                                 </div>
-                            : isCard === "incidentRate"
+                            : isActiveIncidentCard === "incidentRate"
                                 ? <div className={"card-header-text"}>Global Incident Rate<div id="percentage">(per 100,000 people)</div></div>
                                 : null
                     }
                     {
-                        isCard === "active"
+                        isActiveIncidentCard === "active"
                             ? <h1 className={"card-header-num active-num"} >{formatNumber(activeDataSum)}</h1>
-                            : isCard === "incidentRate"
+                            : isActiveIncidentCard === "incidentRate"
                                 ? <h1 className={"card-header-num incidentRate-num"} >{formatNumber(incidentRateAvarage)}</h1>
                                 : null
                     }
@@ -103,7 +102,7 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                 </div>
                 <div className={"ul"}>
                     {
-                        isCard === "active"
+                        isActiveIncidentCard === "active"
                             ? modifiedActiveData.map((data, i) =>
                                 <div className={"province-list"} key={i}>
                                     <div className={"list-num active-num"} >{formatNumber(data[0])} <div className={"province-list-cases"}>Cases</div></div>
@@ -124,9 +123,9 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                             <div className={"arrow-icon"} onClick={() => toggleActiveIncidentRateCard()}>{arrowLeft}</div>
                             <div className={"toggler-text"}>
                                 {
-                                    isCard === "active"
+                                    isActiveIncidentCard === "active"
                                         ? "Active Cases"
-                                        : isCard === "incidentRate"
+                                        : isActiveIncidentCard === "incidentRate"
                                             ? "Incident Rate"
                                             : null
                                 }
@@ -134,15 +133,15 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                             <div className={"arrow-icon"} onClick={() => toggleActiveIncidentRateCard()}>{arrowRight}</div>
                         </div>
                         : <div className={"button-toggler-wrapper-expand"}>
-                            <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("active")}>Active Cases</div>
-                            <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("incidentRate")}>Incident Rate</div>
+                            <div style={admin0Style} className={"button-toggler"} onClick={() => setIsActiveIncidentCard("active")}>Active Cases</div>
+                            <div style={admin2Style} className={"button-toggler"} onClick={() => setIsActiveIncidentCard("incidentRate")}>Incident Rate</div>
                         </div>
                 }
             </div>
 
             {/* tablet */}
             <div
-                className={`card-container-tablet${isTablet ? "-version" : "" }`}
+                className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet" }`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -153,20 +152,20 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                             : <div className={"shrink-icon"} onClick={() => setActiveCardExpand(false)}>{shrinkIcon}</div>
                         : null
                 }
-                <div className={isCard === "active" ? "card-header" : "card-header card-header-incident"} >
+                <div className={isActiveIncidentCard === "active" ? "card-header" : "card-header card-header-incident"} >
                     {
-                        isCard === "active"
+                        isActiveIncidentCard === "active"
                             ? <div className={"card-header-text"}>
                                 Gloabl Active Cases
                                 </div>
-                            : isCard === "incidentRate"
+                            : isActiveIncidentCard === "incidentRate"
                                 ? <div className={"card-header-text"}>Global Incident Rate<div id="percentage">(per 100,000 people)</div></div>
                                 : null
                     }
                     {
-                        isCard === "active"
+                        isActiveIncidentCard === "active"
                             ? <h1 className={"card-header-num active-num"} >{formatNumber(activeDataSum)}</h1>
-                            : isCard === "incidentRate"
+                            : isActiveIncidentCard === "incidentRate"
                                 ? <h1 className={"card-header-num incidentRate-num"} >{formatNumber(incidentRateAvarage)}</h1>
                                 : null
                     }
@@ -177,7 +176,7 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                 </div>
                 <div className={"ul"}>
                     {
-                        isCard === "active"
+                        isActiveIncidentCard === "active"
                             ? modifiedActiveData.map((data, i) =>
                                 <div className={"province-list"} key={i}>
                                     <div className={"list-num active-num"} >{formatNumber(data[0])} <div className={"province-list-cases"}>Cases</div></div>
@@ -192,9 +191,9 @@ const ActiveIncidentRateCard = ({ provincesData, classes, arrowLeft, arrowRight,
                             )
                     }
                 </div>
-                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
-                    <div style={admin0Style} className={"button-toggler"} onClick={() => setIsCard("active")}>Active Cases</div>
-                    <div style={admin2Style} className={"button-toggler"} onClick={() => setIsCard("incidentRate")}>Incident Rate</div>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : isMobile ? "-hide" : "" }`}>
+                    <div style={admin0Style} className={"button-toggler"} onClick={() => setIsActiveIncidentCard("active")}>Active Cases</div>
+                    <div style={admin2Style} className={"button-toggler"} onClick={() => setIsActiveIncidentCard("incidentRate")}>Incident Rate</div>
                 </div>
             </div>
         </Fragment>

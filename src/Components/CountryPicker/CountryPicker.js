@@ -7,20 +7,10 @@ import { fetchCountry } from "../../api";
 
 import "./CountryPicker.scss";
 
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        margin: theme.spacing(.5),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        //   marginTop: theme.spacing(2),
-    }
-}));
 
 const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand, isTablet, isMobile }) => {
 
     const [countries, setCountries] = useState([]);
-    const classStyle = useStyles();
 
     useEffect(() => {
         const fetchAPI = async () => {
@@ -37,7 +27,7 @@ const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand, isTable
 
     return (
         <Fragment>
-            <div className={`country-picker-container${globalDailyChartExpand ? "-expand" : isTablet ? "-hide" : ""}`}>
+            <div className={`country-picker-container${globalDailyChartExpand ? "-expand" : isTablet || isMobile ? "-hide" : ""}`}>
                 <FormControl id="form">
                     <InputLabel shrink id="label">Select a Country</InputLabel>
                     <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
@@ -50,11 +40,15 @@ const CountryPicker = ({ classes, toggleCountry, globalDailyChartExpand, isTable
                 </FormControl>
             </div>
 
-            <div className={`country-picker-container-tablet${isTablet ? "-version" : "" }`}>
+            <div className={`country-picker-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet" }`}>
                 <FormControl id="form">
                     <InputLabel shrink id="label">Select a Country</InputLabel>
                     <NativeSelect id="select" onChange={(e) => { toggleCountry(e.target.value) }} className={classes.selectEmpty}>
-                        <option value={"select a country"} className={"option"}>Global</option>
+                        {
+                            isMobile
+                            ? <option className={"option"}>Select A Country</option>
+                            : <option value={"select a country"} className={"option"}>Global</option>
+                        }
                         {
                             modifiedData.map((country, i) =>
                                 <option key={i} value={country.code} className={"option"} > {country.name} </option>)

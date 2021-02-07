@@ -12,10 +12,18 @@
     }
 }
 
-.app-tablet-version{
+.app-tablet-version {
     font-family: "Work Sans";
     overscroll-behavior: none;
     margin: 0;
+}
+
+.app-mobile-version {
+    font-family: "Work Sans";
+    overscroll-behavior: none;
+    margin: 0;
+    // overflow-y: hidden;
+    height: 100vh;
 }
 
 // header
@@ -67,7 +75,7 @@ header {
             height: 35px;
         }
         @media only screen and (max-width: 500px) {
-            height:30px;
+            height: 30px;
         }
     }
     #header-footer {
@@ -164,7 +172,6 @@ header {
             padding: 5px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
             height: 57%;
             width: 100%;
@@ -235,7 +242,7 @@ header {
         position: relative;
         top: 50px;
         display: flex;
-        flex-direction:column;
+        flex-direction: column;
         justify-content: center;
 
         @media only screen and (max-height: 700px) {
@@ -291,8 +298,8 @@ header {
     }
 }
 
-.desktop-hide{
-    display:none;
+.desktop-hide {
+    display: none;
 }
 
 /* tablet */
@@ -336,6 +343,10 @@ header {
     }
 }
 
+.tablet-hide {
+    display: none;
+}
+
 //expand and shrink
 .expand-icon {
     position: absolute;
@@ -363,7 +374,7 @@ header {
 }
 
 //tablet version
-.tablet-version{
+.tablet-version {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -401,4 +412,37 @@ header {
             flex-direction: column;
         }
     }
+}
+
+//mobile
+.mobile {
+    height: 91.3%;
+    margin: 5px;
+    position: relative;
+    top: 50px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .mobile-item {
+        background-color: #244c83;
+        height: 96.5%;
+        width: 100%;
+
+        .country-picker{
+            display:flex;
+            flex-direction:column;
+            height:8%;
+            background-color: #474747;
+        }
+
+        .country-charts{
+            height:92%;
+        }
+    }
+}
+
+.mobile-hide {
+    display: none;
 }
