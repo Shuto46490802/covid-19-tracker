@@ -66,16 +66,21 @@ const App = () => {
     const [isDeathsRecoveredCard, setIsDeathsRecoveredCard] = useState("deaths");
     const [isActiveIncidentCard, setIsActiveIncidentCard] = useState("active");
 
+    //Toggle Charts
+    const [isGlobalChart, setIsGlobalChart] = useState("infected");
+    const [isGlobalTodayChart, setGlobalTodayChart] = useState("infected");
+    const [isCountryChart, setIsCountryChart] = useState("infected");
+
     //Tablet or Mobile Version
     const [isTablet, setIsTablet] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
-    //Toggle Mobile between Items
+    //Toggle Mobile Items
     const [mobileItem, setMobileItem] = useState("totals")
 
-    //Toggle Mobile Categories 
+    //Toggle Item within Mobile Items
     const [isGlobal, setIsGlobal] = useState("infected");
-    const [isChart, setIsChart] = useState("globalChart")
+    const [isChart, setIsChart] = useState("globalChart");
 
     //Loader
     const [isLoad, setIsLoad] = useState(true)
@@ -209,8 +214,6 @@ const App = () => {
                     ? ["hide", "hide", "expand"]
                     : ["", "", ""];
 
-    console.log(isMap)
-
     return (
         <div className={`app${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`} >
             <header>
@@ -335,6 +338,7 @@ const App = () => {
                                 globalDailyChartExpand={globalDailyChartExpand}
                                 isTablet={isTablet}
                                 isMobile={isMobile}
+                                country={country}
                             />
                         </div>
                         <div id="country-chart">
@@ -359,6 +363,8 @@ const App = () => {
                                         globalDailyChartExpand={globalDailyChartExpand}
                                         isTablet={isTablet}
                                         isMobile={isMobile}
+                                        isCountryChart={isCountryChart}
+                                        setIsCountryChart={setIsCountryChart}
                                     />
                             }
                         </div>
@@ -424,6 +430,8 @@ const App = () => {
                             shrinkIcon={shrinkIcon}
                             isTablet={isTablet}
                             isMobile={isMobile}
+                            isGlobalChart={isGlobalChart}
+                            setIsGlobalChart={setIsGlobalChart}
                         />
                     </div>
                 </div>
@@ -505,6 +513,7 @@ const App = () => {
                             toggleCountry={toggleCountry}
                             isTablet={isTablet}
                             isMobile={isMobile}
+                            country={country}
                         />
                     </div>
                     <div id="country-chart">
@@ -519,6 +528,8 @@ const App = () => {
                                     globalDailyChartExpand={globalDailyChartExpand}
                                     isTablet={isTablet}
                                     isMobile={isMobile}
+                                    isCountryChart={isCountryChart}
+                                    setIsCountryChart={setIsCountryChart}
                                 />
                                 : <CountryCharts
                                     countriesYearlyData={countriesYearlyData}
@@ -529,6 +540,8 @@ const App = () => {
                                     globalDailyChartExpand={globalDailyChartExpand}
                                     isTablet={isTablet}
                                     isMobile={isMobile}
+                                    isCountryChart={isCountryChart}
+                                    setIsCountryChart={setIsCountryChart}
                                 />
                         }
                     </div>
@@ -546,6 +559,8 @@ const App = () => {
                         shrinkIcon={shrinkIcon}
                         isTablet={isTablet}
                         isMobile={isMobile}
+                        isGlobalChart={isGlobalChart}
+                        setIsGlobalChart={setIsGlobalChart}
                     />
                 </div>
                 <div id="info-panel" className={"tablet-item"}>
@@ -561,7 +576,7 @@ const App = () => {
             </div>
 
             {/* Mobile */}
-            <div className={`mobile${!isMobile ? "-hide" : ""}`}>
+            <div className={`mobile${isMobile ? "-version" : isTablet ? "-hide" : "-responsive"}`}>
                 <div className={"mobile-item"}>
                     {
                         mobileItem === "totals"
@@ -658,6 +673,8 @@ const App = () => {
                                                     globalDailyChartExpand={globalDailyChartExpand}
                                                     isTablet={isTablet}
                                                     isMobile={isMobile}
+                                                    isCountryChart={isCountryChart}
+                                                    setIsCountryChart={setIsCountryChart}
                                                 />
                                             </div>
                                         </Fragment>
@@ -675,6 +692,8 @@ const App = () => {
                                                     shrinkIcon={shrinkIcon}
                                                     isTablet={isTablet}
                                                     isMobile={isMobile}
+                                                    isGlobalChart={isGlobalChart}
+                                                    setIsGlobalChart={setIsGlobalChart}
                                                 />
                                                 : isChart === "dailyChart"
                                                     ? <GlobalTodayCharts
@@ -686,6 +705,7 @@ const App = () => {
                                                         globalDailyChartExpand={globalDailyChartExpand}
                                                         isTablet={isTablet}
                                                         isMobile={isMobile}
+                                                        isGlobalTodayChart={isGlobalTodayChart}
                                                     />
                                                     : null
                                             : null
@@ -702,6 +722,9 @@ const App = () => {
                     setIsInfectedCard={setIsInfectedCard}
                     setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
                     setIsActiveIncidentCard={setIsActiveIncidentCard}
+                    setIsGlobalChart={setIsGlobalChart}
+                    setGlobalTodayChart={setGlobalTodayChart}
+                    setIsCountryChart={setIsCountryChart}
                 />
             </div>
         </div>

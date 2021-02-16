@@ -6,9 +6,8 @@ import Loader from 'react-loader-spinner';
 
 import "./GlobalTodayCharts.scss"
 
-const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLeft, arrowRight, option, classes, globalDailyChartExpand, isTablet, isMobile }) => {
+const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLeft, arrowRight, option, classes, globalDailyChartExpand, isTablet, isMobile, isCountryChart, setIsCountryChart }) => {
 
-    const [isChart, setIsChart] = useState("infected");
     const [isLoad, setIsLoad] = useState(true);
 
     useEffect(() => {
@@ -171,21 +170,21 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
     );
 
     const toggleToRight = () => {
-        if (isChart === "infected") {
-            setIsChart("deaths")
-        } else if (isChart === "deaths") {
-            setIsChart("recovered")
-        } else if (isChart === "recovered") {
-            setIsChart("infected")
+        if (isCountryChart === "infected") {
+            setIsCountryChart("deaths")
+        } else if (isCountryChart === "deaths") {
+            setIsCountryChart("recovered")
+        } else if (isCountryChart === "recovered") {
+            setIsCountryChart("infected")
         }
     };
     const toggleToLeft = () => {
-        if (isChart === "infected") {
-            setIsChart("recovered")
-        } else if (isChart === "recovered") {
-            setIsChart("deaths")
-        } else if (isChart === "deaths") {
-            setIsChart("infected")
+        if (isCountryChart === "infected") {
+            setIsCountryChart("recovered")
+        } else if (isCountryChart === "recovered") {
+            setIsCountryChart("deaths")
+        } else if (isCountryChart === "deaths") {
+            setIsCountryChart("infected")
         }
     };
 
@@ -193,18 +192,21 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
     let { infectedStyle, deathsStyle, recoveredStyle } = {};
     const onStyle = { borderBottom: "3px solid white", backgroundColor: "#474747" };
     const offStyle = { backgroundColor: "#777" };;
-    infectedStyle = isChart === "infected" ?
+    infectedStyle = isCountryChart === "infected" ?
         onStyle :
         offStyle
-    deathsStyle = isChart === "deaths" ?
+    deathsStyle = isCountryChart === "deaths" ?
         onStyle :
         offStyle
-    recoveredStyle = isChart === "recovered" ?
+    recoveredStyle = isCountryChart === "recovered" ?
         onStyle :
         offStyle
 
+        console.log(isCountryChart)
+
     return (
         <Fragment>
+            {/* Desktop */}
             <div className={`chart-container${isTablet || isMobile ? "-hide" : ""}`}>
                 <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
                     <p className={`chart-header`} >
@@ -212,11 +214,11 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                     </p>
                     <div className={`chart`}>
                         {
-                            isChart === "infected"
+                            isCountryChart === "infected"
                                 ? infectedLineChart
-                                : isChart === "deaths"
+                                : isCountryChart === "deaths"
                                     ? deathsLineChart
-                                    : isChart === "recovered"
+                                    : isCountryChart === "recovered"
                                         ? recoveredLineChart
                                         : null
                         }
@@ -227,11 +229,11 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                                 <span className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</span>
                                 <span className={"toggler-text"}>
                                     {
-                                        isChart === "infected"
+                                        isCountryChart === "infected"
                                             ? "Infected"
-                                            : isChart === "deaths"
+                                            : isCountryChart === "deaths"
                                                 ? "Deaths"
-                                                : isChart === "recovered"
+                                                : isCountryChart === "recovered"
                                                     ? "Recovered"
                                                     : null
                                     }
@@ -246,7 +248,7 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                     <p className={`chart-header`}>
                         Latest Infected/Deaths/Recovered by Country
                         </p>
-                    <div className={`chart bar-chart`} >
+                    <div className={`chart`} >
                         {barChart}
                     </div>
                     {
@@ -259,26 +261,60 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
             {
                 globalDailyChartExpand
                     ? <div className={`button-toggler-wrapper-expand`}>
-                        <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
-                        <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
-                        <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
+                        <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsCountryChart("infected")}>Infected</div>
+                        <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsCountryChart("deaths")}>Deaths</div>
+                        <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsCountryChart("recovered")}>Recovered</div>
                     </div>
                     : null
             }
 
-            {/* tablet */}
-            <div className={`chart-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet"}`}>
+            {/* Tablet */}
+            <div className={`chart-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                 <div className={`chart-wrapper`}>
                     <p className={`chart-header`} >
                         Daily Infected/Deaths/Recovered by Country
                     </p>
                     <div className={`chart`}>
                         {
-                            isChart === "infected"
+                            isCountryChart === "infected"
                                 ? infectedLineChart
-                                : isChart === "deaths"
+                                : isCountryChart === "deaths"
                                     ? deathsLineChart
-                                    : isChart === "recovered"
+                                    : isCountryChart === "recovered"
+                                        ? recoveredLineChart
+                                        : null
+                        }
+                    </div>
+                </div>
+                <div className={"border"} />
+                <div className={`chart-wrapper`}>
+                    <p className={`chart-header`}>
+                        Latest Infected/Deaths/Recovered by Country
+                    </p>
+                    <div className={`chart`} >
+                        {barChart}
+                    </div>
+                </div>
+            </div>
+            <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
+                <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsCountryChart("infected")}>Infected</div>
+                <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsCountryChart("deaths")}>Deaths</div>
+                <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsCountryChart("recovered")}>Recovered</div>
+            </div>
+
+            {/* Mobile */}
+            <div className={`chart-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile"}`}>
+                <div className={`chart-wrapper`}>
+                    <p className={`chart-header`} >
+                        Daily Infected/Deaths/Recovered by Country
+                    </p>
+                    <div className={`chart`}>
+                        {
+                            isCountryChart === "infected"
+                                ? infectedLineChart
+                                : isCountryChart === "deaths"
+                                    ? deathsLineChart
+                                    : isCountryChart === "recovered"
                                         ? recoveredLineChart
                                         : null
                         }
@@ -293,11 +329,6 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
                         {barChart}
                     </div>
                 </div>
-            </div>
-            <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet"}`}>
-                <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
-                <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
-                <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
             </div>
         </Fragment>
     )

@@ -59,8 +59,9 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
 
     return (
         <Fragment>
+            {/* Desktop */}
             <div
-                className={`map-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`}
+                className={`map-container${isTablet || isMobile ? "-hide" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -89,17 +90,14 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                 }
 
             </div>
-            <div className={`button-toggler-wrapper${mapExpand ? "-expand" : isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`}>
+            <div className={`button-toggler-wrapper${mapExpand ? "-expand" : isTablet || isMobile ? "-hide" : ""}`}>
                 <div style={cumulativeStyle} className={`button-toggler`} onClick={() => setIsMap("cumulative")}>Cumulative Cases</div>
                 <div style={activeStyle} className={`button-toggler`} onClick={() => setIsMap("active")}>Active Cases</div>
                 <div style={incidentRateStyle} className={`button-toggler`} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
             </div>
 
-            <div
-                className={`map-container-tablet${isTablet || isMobile ? "-hide" : "" }`}
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-            >
+            {/* Tablet */}
+            <div className={`map-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                 {
                     isHover
                         ? !mapExpand
@@ -125,10 +123,38 @@ const Maps = ({ classes, provincesData, setMapExpand, mapExpand, expandIcon, shr
                 }
 
             </div>
-            <div className={`button-toggler-wrapper-tablet${isTablet || isMobile ? "-hide" : "" }`}>
+            <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                 <div style={cumulativeStyle} className={`button-toggler`} onClick={() => setIsMap("cumulative")}>Cumulative Cases</div>
                 <div style={activeStyle} className={`button-toggler`} onClick={() => setIsMap("active")}>Active Cases</div>
                 <div style={incidentRateStyle} className={`button-toggler`} onClick={() => setIsMap("incidentRate")}>Incident Rate</div>
+            </div>
+
+            {/* Mobile */}
+            <div className={`map-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile"}`}>
+                {
+                    isHover
+                        ? !mapExpand
+                            ? <div className={"expand-icon"}
+                                onClick={() => {
+                                    setMapExpand(true)
+                                    setIsMap("")
+                                    setTimeout(() => { setIsMap("cumulative") })
+                                }}>
+                                {expandIcon}
+                            </div>
+                            : <div className={"shrink-icon"} onClick={() => setMapExpand(false)}>{shrinkIcon}</div>
+                        : null
+                }
+                {
+                    isMap === "cumulative"
+                        ? <CumulativeMap mapExpand={mapExpand} classes={classes} noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                        : isMap === "active"
+                            ? <ActiveMap noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                            : isMap === "incidentRate"
+                                ? <IncidentRate noProvince={noProvince} provinces={provinces} usProvinces={usProvinces} formatNumber={formatNumber} />
+                                : null
+                }
+
             </div>
         </Fragment>
     )

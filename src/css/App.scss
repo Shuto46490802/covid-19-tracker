@@ -10,6 +10,10 @@
         overflow-y: hidden;
         height: 100vh;
     }
+    @media only screen and (max-width: 500px) {
+        overflow-y: hidden;
+        height: 100vh;
+    }
 }
 
 .app-tablet-version {
@@ -22,7 +26,7 @@
     font-family: "Work Sans";
     overscroll-behavior: none;
     margin: 0;
-    // overflow-y: hidden;
+    overflow-y: hidden;
     height: 100vh;
 }
 
@@ -303,14 +307,8 @@ header {
 }
 
 /* tablet */
-.tablet-responsive {
-    @media only screen and (min-width: 960px) {
-        display: none;
-    }
-    @media only screen and (max-width: 500px) {
-        display: none;
-    }
-
+.tablet-responsive,
+.tablet-version {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -340,6 +338,15 @@ header {
             display: flex;
             flex-direction: column;
         }
+    }
+}
+
+.tablet-responsive {
+    @media only screen and (min-width: 960px) {
+        display: none;
+    }
+    @media only screen and (max-width: 500px) {
+        display: none;
     }
 }
 
@@ -375,71 +382,63 @@ header {
 
 //tablet version
 .tablet-version {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 5px;
-    position: relative;
     top: 50px;
-
     @media only screen and (max-width: 959px) {
         top: 40px;
     }
     @media only screen and (max-width: 500px) {
         top: 35px;
     }
-
-    .tablet-item {
-        height: 85vh;
-        width: 95%;
-        margin-bottom: 2em;
-        padding: 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-
-        #country-picker {
-            width: 100%;
-            background-color: #474747;
-        }
-
-        #country-chart {
-            height: 93%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-    }
 }
 
 //mobile
-.mobile {
-    height: 91.3%;
+.mobile-responsive,
+.mobile-version {
+    height: 91.3vh;
+    @media only screen and (max-width: 959px) {
+        height: 92%;
+    }
+    @media only screen and (max-width: 500px) {
+        height: 94%;
+    }
     margin: 5px;
     position: relative;
-    top: 50px;
     padding: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    top: 35px;
 
     .mobile-item {
-        background-color: #244c83;
         height: 96.5%;
         width: 100%;
 
-        .country-picker{
-            display:flex;
-            flex-direction:column;
-            height:8%;
+        .country-picker {
+            display: flex;
+            flex-direction: column;
+            height: 8%;
             background-color: #474747;
         }
 
-        .country-charts{
-            height:92%;
+        .country-charts {
+            height: 92%;
         }
+    }
+}
+
+.mobile-version {
+    top: 50px;
+    @media only screen and (max-width: 959px) {
+        top: 40px;
+    }
+    @media only screen and (max-width: 500px) {
+        top: 35px;
+    }
+}
+
+.mobile-responsive {
+    @media only screen and (min-width: 501px) {
+        display: none;
     }
 }
 

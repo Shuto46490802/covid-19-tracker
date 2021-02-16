@@ -6,7 +6,7 @@ import Loader from 'react-loader-spinner';
 
 import "./GlobalTodayCharts.scss"
 
-const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes, globalDailyChartExpand, isTablet, isMobile }) => {
+const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes, globalDailyChartExpand, isTablet, isMobile, isGlobalTodayChart }) => {
 
     const [isInfectedActiveChart, setIsInfectedActiveChart] = useState("infected");
     const [isDeathsRecoveredChart, setIsDeathsRecoveredChart] = useState("deaths");
@@ -138,7 +138,7 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
 
     return (
         <Fragment>
-            {/* laptop */}
+            {/* Desktop */}
             <div className={`chart-container${isTablet || isMobile ? "-hide" : ""}`}>
                 <div className={`chart-wrapper${globalDailyChartExpand ? "-" + classes[3] : ""}`}>
                     <p className={`chart-header`}>
@@ -214,15 +214,13 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                     : null
             }
 
-            {/* tablet */}
-            <div className={`chart-container${isTablet ? "-tablet-version" :  isMobile ? "-mobile-version" : "-tablet" }`}>
+            {/* Tablet */}
+            <div className={`chart-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                 <div className={`chart-wrapper`}>
                     <p className={`chart-header`}>
                         Global Daily Infected/Active Cases
                     </p>
-                    <div
-                        className={`chart`}
-                    >
+                    <div className={`chart`}>
                         {
                             isInfectedActiveChart === "infected"
                                 ? infectedBarChart
@@ -244,7 +242,6 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                     </div>
                 </div>
             </div>
-
             <div className={`button-toggler-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                 <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                     <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsInfectedActiveChart("infected")}>Infected</div>
@@ -256,6 +253,27 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
                 </div>
             </div>
 
+            {/* Mobile */}
+            <div className={`global-chart-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile"}`}>
+                <div className={`chart-wrapper`}>
+                    <p className={`chart-header`}>
+                        Global Daily Infected/Active Cases
+                    </p>
+                    <div className={`chart`}>
+                        {
+                            isGlobalTodayChart === "infected"
+                            ? infectedBarChart
+                            : isGlobalTodayChart === "active"
+                            ? activeBarChart
+                            : isGlobalTodayChart === "deaths"
+                            ? deathsBarChart
+                            : isGlobalTodayChart === "recovered"
+                            ? recoveredBarChart
+                            : null
+                        }
+                    </div>
+                </div>
+            </div>
         </Fragment>
     )
 };

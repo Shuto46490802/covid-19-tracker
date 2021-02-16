@@ -31,7 +31,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
         .sort((a, b) => b[1].confirmed - a[1].confirmed);
 
     const toggleAdminInfectedRight = () => {
-        if (isInfectedCard=== "admin0") {
+        if (isInfectedCard === "admin0") {
             setIsInfectedCard("admin2")
         } else if (isInfectedCard === "admin2") {
             setIsInfectedCard("today")
@@ -66,8 +66,9 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
 
     return (
         <Fragment>
+            {/* Desktop */}
             <div
-                className={`card-container${infectedCardExpand ? "-expand" : isTablet || isMobile ? "-hide" : "" }`}
+                className={`card-container${infectedCardExpand ? "-expand" : isTablet || isMobile ? "-hide" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -130,7 +131,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                 </div>
                 {
                     !infectedCardExpand
-                        ? <div className={`arrow-toggler${isTablet ? "-hide" : "" }`}>
+                        ? <div className={`arrow-toggler${isTablet ? "-hide" : ""}`}>
                             <div className={"arrow-icon"} onClick={() => toggleAdminInfectedLeft()}>{arrowLeft}</div>
                             <div className={"toggler-text"}>
                                 {
@@ -154,11 +155,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
             </div>
 
             {/* tablet */}
-            <div
-                className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet" }`}
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-            >
+            <div className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet" }`}>
                 {
                     isHover
                         ? !infectedCardExpand
@@ -216,10 +213,71 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                                     : null
                     }
                 </div>
-                <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet" }`}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
                     <div style={admin0Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin0")}>Admin0</div>
                     <div style={admin2Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin2")}>Admin2</div>
                     <div style={todayStyle} className={"button-toggler"} onClick={() => setIsInfectedCard("today")}>Global Today's Cases</div>
+                </div>
+            </div>
+
+            {/* Mobile */}
+            <div className={`card-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile" }`}>
+                {
+                    isHover
+                        ? !infectedCardExpand
+                            ? <div className={"expand-icon"} onClick={() => setInfectedCardExpand(true)}>{expandIcon}</div>
+                            : <div className={"shrink-icon"} onClick={() => setInfectedCardExpand(false)}>{shrinkIcon}</div>
+                        : null
+                }
+                <div className={"card-header"} >
+                    {
+                        isInfectedCard === "admin0" || isInfectedCard === "admin2"
+                            ? <div className={"card-header-text"}>Global Cases</div>
+                            : <div className={"card-header-text"}>Global Today's Cases</div>
+                    }
+
+                    {
+                        isInfectedCard === "admin0" || isInfectedCard === "admin2"
+                            ? <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].confirmed)}</h1>
+                            : <h1 className={"card-header-num infected-num"} >{formatNumber(globalData[0].newConfirmed)}</h1>
+                    }
+
+                </div>
+                {
+                    isInfectedCard === "admin0" || isInfectedCard === "today"
+                        ? <div className={"country-card-note"} >
+                            <div>Cases by Country</div>
+                        </div>
+                        : <div className={"province-card-note"} >
+                            <div>Cases by</div>
+                            <div>Province/State/Dpendency</div>
+                        </div>
+                }
+                <div className={"ul"}>
+                    {
+                        isInfectedCard === "admin0"
+                            ? modifiedGlobalCasesData.map((data, i) =>
+                                <div className={"country-list"} key={i}>
+                                    <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
+                                    <div className={"country-list-place"}>{data[0]}</div>
+                                </div>
+                            )
+                            : isInfectedCard === "admin2"
+                                ? modifiedProvincesData.map((data, i) =>
+                                    <div className={"province-list"} key={i}>
+                                        <div className={"list-num infected-num"} >{formatNumber(data[0])} <div className={"province-list-cases"}>Cases</div></div>
+                                        <div className={"province-list-place"}>{data[1]}</div>
+                                    </div>
+                                )
+                                : isInfectedCard === "today"
+                                    ? modifiedTodayData.map((data, i) =>
+                                        <div className={"country-list"} key={i}>
+                                            <div className={"list-num infected-num"} >{formatNumber(data[1].confirmed)}</div>
+                                            <div className={"country-list-place"}>{data[0]}</div>
+                                        </div>
+                                    )
+                                    : null
+                    }
                 </div>
             </div>
         </Fragment>

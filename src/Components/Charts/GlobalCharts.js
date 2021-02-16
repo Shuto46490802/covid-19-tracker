@@ -7,9 +7,8 @@ import Loader from 'react-loader-spinner';
 import "./GlobalCharts.scss"
 
 
-const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, globalChartExpand, setGlobalChartExpand, expandIcon, shrinkIcon, isTablet, isMobile }) => {
+const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, globalChartExpand, setGlobalChartExpand, expandIcon, shrinkIcon, isTablet, isMobile, isGlobalChart, setIsGlobalChart }) => {
 
-  const [isChart, setIsChart] = useState("infected");
   const [isHover, setIsHover] = useState(false);
   const [isLoad, setIsLoad] = useState(true);
 
@@ -111,21 +110,21 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
   );
 
   const toggleToRight = () => {
-    if (isChart === "infected") {
-      setIsChart("deaths")
-    } else if (isChart === "deaths") {
-      setIsChart("recovered")
-    } else if (isChart === "recovered") {
-      setIsChart("infected")
+    if (isGlobalChart === "infected") {
+      setIsGlobalChart("deaths")
+    } else if (isGlobalChart === "deaths") {
+      setIsGlobalChart("recovered")
+    } else if (isGlobalChart === "recovered") {
+      setIsGlobalChart("infected")
     }
   };
   const toggleToLeft = () => {
-    if (isChart === "infected") {
-      setIsChart("recovered")
-    } else if (isChart === "recovered") {
-      setIsChart("deaths")
-    } else if (isChart === "deaths") {
-      setIsChart("infected")
+    if (isGlobalChart === "infected") {
+      setIsGlobalChart("recovered")
+    } else if (isGlobalChart === "recovered") {
+      setIsGlobalChart("deaths")
+    } else if (isGlobalChart === "deaths") {
+      setIsGlobalChart("infected")
     }
   };
 
@@ -133,18 +132,19 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
   let { infectedStyle, deathsStyle, recoveredStyle } = {};
   const onStyle = { borderBottom: "3px solid white", backgroundColor: "#474747" };
   const offStyle = { backgroundColor: "#777" }
-  infectedStyle = isChart === "infected" ?
+  infectedStyle = isGlobalChart === "infected" ?
     onStyle :
     offStyle
-  deathsStyle = isChart === "deaths" ?
+  deathsStyle = isGlobalChart === "deaths" ?
     onStyle :
     offStyle
-  recoveredStyle = isChart === "recovered" ?
+  recoveredStyle = isGlobalChart === "recovered" ?
     onStyle :
     offStyle
 
   return (
     <Fragment>
+      {/* Desktop */}
       <div
         className={`global-chart-container${globalChartExpand ? "-expand" : isTablet || isMobile ? "-hide" : ""}`}
         onMouseEnter={() => setIsHover(true)}
@@ -163,11 +163,11 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
             </p>
           <div className={`chart`}>
             {
-              isChart === "infected"
+              isGlobalChart === "infected"
                 ? infectedLineChart
-                : isChart === "deaths"
+                : isGlobalChart === "deaths"
                   ? deathsLineChart
-                  : isChart === "recovered"
+                  : isGlobalChart === "recovered"
                     ? recoveredLineChart
                     : null
             }
@@ -178,11 +178,11 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
                 <div className={"arrow-icon"} onClick={() => toggleToLeft()}>{arrowLeft}</div>
                 <div className={"toggler-text"}>
                   {
-                    isChart === "infected"
+                    isGlobalChart === "infected"
                       ? "Infected"
-                      : isChart === "deaths"
+                      : isGlobalChart === "deaths"
                         ? "Deaths"
-                        : isChart === "recovered"
+                        : isGlobalChart === "recovered"
                           ? "Recovered"
                           : null
                   }
@@ -196,16 +196,45 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
       {
         globalChartExpand
           ? <div className={`button-toggler-wrapper-expand`}>
-            <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
-            <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
-            <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
+            <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsGlobalChart("infected")}>Infected</div>
+            <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsGlobalChart("deaths")}>Deaths</div>
+            <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsGlobalChart("recovered")}>Recovered</div>
           </div>
           : null
       }
 
-      {/* tablet */}
+      {/* Tablet */}
       <div
-        className={`global-chart-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet"}`}
+        className={`global-chart-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        <div className={`chart-wrapper`}>
+          <p className={`chart-header`} >
+            Gloabl Daily Infected/Deaths/Recovered
+          </p>
+          <div className={`chart`}>
+            {
+              isGlobalChart === "infected"
+                ? infectedLineChart
+                : isGlobalChart === "deaths"
+                  ? deathsLineChart
+                  : isGlobalChart === "recovered"
+                    ? recoveredLineChart
+                    : null
+            }
+          </div>
+        </div>
+      </div>
+      <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
+        <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsGlobalChart("infected")}>Infected</div>
+        <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsGlobalChart("deaths")}>Deaths</div>
+        <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsGlobalChart("recovered")}>Recovered</div>
+      </div>
+
+      {/* Mobile */}
+      <div
+        className={`global-chart-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile"}`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
@@ -215,21 +244,16 @@ const GlobalCharts = ({ globalData, arrowLeft, arrowRight, option, classes, glob
             </p>
           <div className={`chart`}>
             {
-              isChart === "infected"
+              isGlobalChart === "infected"
                 ? infectedLineChart
-                : isChart === "deaths"
+                : isGlobalChart === "deaths"
                   ? deathsLineChart
-                  : isChart === "recovered"
+                  : isGlobalChart === "recovered"
                     ? recoveredLineChart
                     : null
             }
           </div>
         </div>
-      </div>
-      <div className={`button-toggler-wrapper${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
-        <div style={infectedStyle} className={"button-toggler"} onClick={() => setIsChart("infected")}>Infected</div>
-        <div style={deathsStyle} className={"button-toggler"} onClick={() => setIsChart("deaths")}>Deaths</div>
-        <div style={recoveredStyle} className={"button-toggler"} onClick={() => setIsChart("recovered")}>Recovered</div>
       </div>
     </Fragment>
   )

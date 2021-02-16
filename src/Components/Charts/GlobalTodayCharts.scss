@@ -1,6 +1,8 @@
-.chart-container,
-.chart-container-tablet,
-.chart-container-tablet-version {
+//Desktop
+.chart-container {
+    @media only screen and (max-width: 959px) {
+        display: none;
+    }
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -17,23 +19,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
-    }
-
-    .border {
-        align-self: flex-end;
-        width: 1px;
-        height: 100%;
-        background-color: #f5f5f5;
-    }
-}
-
-//desktop
-.chart-container {
-    @media only screen and (max-width: 959px) {
-        display: none;
-    }
-
-    .chart-wrapper {
         .chart-header {
             margin: 5px 0 0 0;
             height: 6%;
@@ -96,6 +81,13 @@
         margin-bottom: 5px;
         height: 5%;
     }
+
+    .border {
+        align-self: flex-end;
+        width: 1px;
+        height: 100%;
+        background-color: #555;
+    }
 }
 
 //button toggler containter for expand
@@ -103,14 +95,36 @@
     display: flex;
 }
 
-//tablet
+//Tablet and Mobile
 .chart-container-tablet,
 .chart-container-tablet-version,
-.chart-container-mobile-version {
+.chart-container-mobile,
+.chart-container-mobile-version{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #474747;
+    @media only screen and (min-width: 959px) {
+        flex-direction:row;
+    }
+
     .chart-wrapper {
+        width: 98%;
+        height: 48%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        @media only screen and (min-width: 959px) {
+            width: 48%;
+            height: 98%;
+        }
         .chart-header {
             margin: 0;
-            height: 2.5%;
             font-size: clamp(9px, 1.4vw, 14px);
             @media only screen and (max-height: 550px) {
                 font-size: clamp(9px, 1.4vw, 13px);
@@ -124,52 +138,50 @@
         }
 
         .chart {
-            width: 100%;
+            width: 98%;
             height: 90%;
-        }
-    }
-}
 
-.chart-container-mobile-version {
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    width: 100%;
-    height: 100%;
-    background-color: #474747;
-
-    .chart-wrapper {
-        width: 100%;
-        height: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-        
-        .chart{
-            height:90%;
-            width:100%;
-        }
-
-        .chart-header{
-            height:5%;
+            @media only screen and (min-width: 959px) {
+                width: 98%;
+                height: 95%;
+            }
         }
     }
 
     .border {
-        align-self: flex-end;
         width: 100%;
         height: 1px;
-        background-color: #f5f5f5;
+        background-color: #555;
+        @media only screen and (min-width: 959px) {
+            width: 1px;
+            height: 100%;
+        }
     }
 }
 
-//button toggler for global today charts
 .button-toggler-container-tablet,
 .button-toggler-container-tablet-version {
     display: flex;
     align-self: flex-start;
 }
+
+.chart-container-tablet{
+    @media only screen and (min-width: 959px) {
+        display: none;
+    }
+    @media only screen and (max-width: 500px) {
+        display: none;
+    }
+}
+
+//Mobile
+.chart-container-mobile{
+    @media only screen and (min-width: 501px) {
+        display: none;
+    }
+}
+
+
 
 //loader
 .loader-country-chart-wrapper {
@@ -183,14 +195,7 @@
     background-color: #474747;
 }
 
-.chart-container-tablet {
-    @media only screen and (min-width: 960px) {
-        display: none;
-    }
-    @media only screen and (max-width: 500px) {
-        display: none;
-    }
-}
+
 
 .chart-container-hide,
 .button-toggler-container-hide {

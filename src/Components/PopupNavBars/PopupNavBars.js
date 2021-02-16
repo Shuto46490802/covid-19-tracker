@@ -25,6 +25,7 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                 popup
                     ? <div id="popup-container">
                         <div className={"popup-item"}
+                            style={popupDataSource ? { backgroundColor: "#555" } : { backgroundColor: "#333" }}
                             onClick={() => {
                                 setPopupDataSource(!popupDataSource)
                             }}>
@@ -34,10 +35,10 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                         {
                             popupDataSource
                                 ? <div id="dropdown-items">
-                                    <div onClick={() => setPopup(!popup) } className={"dropdown-item"}>
+                                    <div onClick={() => setPopup(!popup)} className={"dropdown-item"}>
                                         <a href="https://about-corona.net/documentation" target="_blank">ABOUT-CORONA.NET</a>
                                     </div>
-                                    <div onClick={() => setPopup(!popup) } className={"dropdown-item"}>
+                                    <div onClick={() => setPopup(!popup)} className={"dropdown-item"}>
                                         <a href="https://github.com/mathdroid/covid-19-api" target="_blank">Mathdroid Covid-19 REST API v1.0</a>
                                     </div>
                                 </div>
@@ -47,6 +48,7 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                             className={"popup-item"}
                             onClick={() => {
                                 setIsTablet(!isTablet)
+                                setIsMobile(false)
                                 setIsMap("")
                                 setTimeout(() => setIsMap("cumulative"))
                                 setPopup(!popup)
@@ -57,19 +59,21 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                                 setActiveCardExpand(false)
                                 setMapExpand(false)
                                 setDataPanelExpand(false)
+                                setPopupDataSource(false)
                             }}
                         >
                             {
                                 !isTablet
-                                ? "Tablet Version"
-                                : "Desktop Version"
+                                    ? "Tablet Version"
+                                    : "Desktop Version"
                             }
-                            
-                         </div>
+
+                        </div>
                         <div
                             className={"popup-item"}
                             onClick={() => {
                                 setIsMobile(!isMobile)
+                                setIsTablet(false)
                                 setPopup(!popup)
                                 setIsMap("")
                                 setTimeout(() => setIsMap("cumulative"))
@@ -80,17 +84,21 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                                 setActiveCardExpand(false)
                                 setMapExpand(false)
                                 setDataPanelExpand(false)
+                                setPopupDataSource(false)
                             }}
                         >
                             {
                                 !isMobile
-                                ? "Mobile Version"
-                                : "Desktop Version"
+                                    ? "Mobile Version"
+                                    : "Desktop Version"
                             }
                         </div>
                         <div
                             className={"popup-item"}
-                            onClick={() => { setPopup(!popup) }}
+                            onClick={() => { 
+                                setPopup(!popup) 
+                                setPopupDataSource(false)
+                            }}
                         >
                             <a href="https://github.com/Shuto46490802" target="_blank">About</a>
                         </div>

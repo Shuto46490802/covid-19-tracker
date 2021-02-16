@@ -7,10 +7,10 @@
     #popup-container {
         position: absolute;
         right: clamp(5px, 1vw, 15px);
-        background-color:#474747;
-        border-right:1px solid #555;
-        border-left:1px solid #555;
-        border-top:1px solid #555;
+        background-color:#333;
+        border-right:1px solid #444;
+        border-left:1px solid #444;
+        border-top:1px solid #444;
         width:190px;
         top: 55px;
         @media only screen and (max-width: 959px) {
@@ -21,10 +21,9 @@
         }
 
         .popup-item{
-            border-bottom:1px solid #555;
+            border-bottom:1px solid #444;
             padding:8px 0 8px 8px;
             display:flex;
-            
             align-items:center;
             position:relative;
             font-weight:300;
@@ -49,13 +48,21 @@
             }
         }
 
+        .popup-item:hover{
+            background-color:#555 !important;
+        }
+
         #dropdown-items{
 
             .dropdown-item{
-                border-bottom:1px solid #555;
+                border-bottom:1px solid #444;
                 padding:8px 0 8px 8px;
                 font-weight:300;
                 font-size:.7rem;
+            }
+
+            .dropdown-item:hover{
+                background-color:#555;
             }
         }
         a{

@@ -59,6 +59,7 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
 
     return (
         <Fragment>
+            {/* Desktop */}
             <div
                 className={`card-container${deathsdCardExpand ? "-expand" : isTablet || isMobile ? "-hide" : ""}`}
                 onMouseEnter={() => setIsHover(true)}
@@ -146,12 +147,8 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
                 }
             </div>
 
-            {/* tablet */}
-            <div
-                className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : "-tablet" }`}
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-            >
+            {/* Tablet */}
+            <div className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                 {
                     isHover
                         ? !deathsdCardExpand
@@ -209,10 +206,71 @@ const DeathsRecoveredCard = ({ countriesData, globalData, classes, arrowLeft, ar
                                     : null
                     }
                 </div>
-                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : isMobile ? "-hide" : "" }`}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : ""}`}>
                     <div style={admin0Style} className={"button-toggler"} onClick={() => setIsDeathsRecoveredCard("deaths")}>Deaths</div>
                     <div style={admin2Style} className={"button-toggler"} onClick={() => setIsDeathsRecoveredCard("recovered")}>Recovered</div>
                     <div style={todayStyle} className={"button-toggler"} onClick={() => setIsDeathsRecoveredCard("today")}>Global Today's Deaths</div>
+                </div>
+            </div>
+
+            {/* Mobile */}
+            <div className={`card-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile"}`}>
+                {
+                    isHover
+                        ? !deathsdCardExpand
+                            ? <div className={"expand-icon"} onClick={() => setDeathsCardExpand(true)}>{expandIcon}</div>
+                            : <div className={"shrink-icon"} onClick={() => setDeathsCardExpand(false)}>{shrinkIcon}</div>
+                        : null
+                }
+                <div className={"card-header"} >
+                    {
+                        isDeathsRecoveredCard === "deaths"
+                            ? <div className={"card-header-text"}>Global Deaths</div>
+                            : isDeathsRecoveredCard === "recovered"
+                                ? <div className={"card-header-text"}>Global Recovered</div>
+                                : isDeathsRecoveredCard === "today"
+                                    ? <div className={"card-header-text"}>Global Todays's Deaths</div>
+                                    : null
+                    }
+                    {
+                        isDeathsRecoveredCard === "deaths"
+                            ? <h1 className={"card-header-num deaths-num"} >{formatNumber(globalData[0].deaths)}</h1>
+                            : isDeathsRecoveredCard === "recovered"
+                                ? <h1 className={"card-header-num recovered-num"} >{formatNumber(globalData[0].recovered)}</h1>
+                                : isDeathsRecoveredCard === "today"
+                                    ? <h1 className={"card-header-num deaths-num"} >{formatNumber(globalData[0].newDeaths)}</h1>
+                                    : null
+                    }
+
+                </div>
+                <div className={"country-card-note"} >
+                    <div>Cases by Country</div>
+                </div>
+                <div className={"ul"}>
+                    {
+                        isDeathsRecoveredCard === "deaths"
+                            ? modifiedGlobalDeathsData.map((data, i) =>
+                                <div className={"country-list"} key={i}>
+                                    <div className={"list-num deaths-num"} >{formatNumber(data[1].deaths)}</div>
+                                    <div className={"country-list-place"}>{data[0]}</div>
+                                </div>
+                            )
+                            : isDeathsRecoveredCard === "recovered"
+                                ? modifiedGlobalRecoveredData.map((data, i) =>
+                                    <div className={"country-list"} key={i}>
+                                        <div className={"list-num recovered-num"} >{formatNumber(data[1].recovered)}</div>
+                                        <div className={"country-list-place"}>{data[0]}</div>
+                                    </div>
+                                )
+                                : isDeathsRecoveredCard === "today"
+                                    ? modifiedTodayData.map((data, i) =>
+                                        <div className={"country-list"} key={i}>
+                                            <div className={"list-num deaths-num"} >{formatNumber(data[2].deaths)}</div>
+                                            <div className={"country-list-place"}>{data[0]}</div>
+                                        </div>
+                                    )
+                                    : null
+                    }
                 </div>
             </div>
         </Fragment>

@@ -16,13 +16,7 @@
             background-color: #244c83;
             position: relative;
             cursor: pointer;
-            font-size: clamp(8px, 1.4vw, 14px);
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(8px, 1.3vw, 12px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(7px, 1.3vw, 10px);
-            }
+            font-size: clamp(11px, 1.4vw, 14px);
 
             .mobile-button-icon {
                 position: absolute;
@@ -45,9 +39,10 @@
         }
 
         .popup-items {
-            background-color: #474747;
+            background-color: #333;
             z-index: 2;
             white-space: nowrap;
+            align-self:flex-end;
 
             .popup-item {
                 padding: 5px 10px 5px 4px;
@@ -55,33 +50,33 @@
                 display: flex;
                 align-items: center;
                 position: relative;
-                border-top: 1px solid #555;
-                font-size: clamp(8px, 1.2vw, 12px);
-                @media only screen and (max-height: 600px) {
-                    font-size: clamp(8px, 1.2vw, 11px);
-                }
-                @media only screen and (max-height: 500px) {
-                    font-size: clamp(7px, 1.2vw, 10px);
-                }
+                border-top: 1px solid #444;
+                font-size: clamp(10px, 1.3vw, 12px);
 
                 .arrow-icon {
                     position: absolute;
                     right: 1%;
-                    font-size: clamp(8px, 1.3vw, 13px);
-                    @media only screen and (max-height: 600px) {
-                        font-size: clamp(8px, 1.3vw, 12px);
-                    }
-                    @media only screen and (max-height: 500px) {
-                        font-size: clamp(7px, 1.3vw, 11px);
-                    }
+                    font-size: clamp(11px, 1.4vw, 14px);
                 }
+
+                .arrow-icon-active{
+                    position: absolute;
+                    transform:rotate(180deg);
+                    right: 1%;
+                    font-size: clamp(11px, 1.4vw, 14px);
+                }
+            }
+
+            .popup-item:hover{
+                background-color:#555;
             }
         }
 
         .popup-sub-items{
-            background-color: #474747;
+            background-color: #333;
             z-index: 2;
             white-space: nowrap;
+            align-self:flex-end;
 
             .popup-sub-item{
                 padding: 5px 10px 5px 4px;
@@ -89,14 +84,13 @@
                 display: flex;
                 align-items: center;
                 position: relative;
-                border-top: 1px solid #555;
-                font-size: clamp(8px, 1.2vw, 12px);
-                @media only screen and (max-height: 600px) {
-                    font-size: clamp(8px, 1.2vw, 11px);
-                }
-                @media only screen and (max-height: 500px) {
-                    font-size: clamp(7px, 1.2vw, 10px);
-                }
+                border-top: 1px solid #444;
+                font-size: clamp(10px, 1.3vw, 12px);
+                bottom:0;
+            }
+
+            .popup-sub-item:hover{
+                background-color:#555;
             }
         }
     }

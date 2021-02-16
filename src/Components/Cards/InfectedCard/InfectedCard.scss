@@ -6,6 +6,7 @@
 .card-container-expand,
 .card-container-tablet,
 .card-container-tablet-version,
+.card-container-mobile,
 .card-container-mobile-version
  {
     height: 100%;
@@ -263,135 +264,12 @@
     }
 }
 
-//expand
-.card-container-expand {
-    @media only screen and (max-width: 959px) {
-        display: none;
-    }
-
-    .card-header-text {
-        font-size: clamp(13px, 1.2vw, 16px);
-        @media only screen and (max-height: 700px) {
-            font-size: clamp(12px, 1.2vw, 15px);
-        }
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(11px, 1.2vw, 14px);
-        }
-        @media only screen and (max-height: 550px) {
-            font-size: clamp(10px, 1.2vw, 13px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(9px, 1.2vw, 12px);
-        }
-        @media only screen and (max-height: 450px) {
-            font-size: clamp(8px, 1.2vw, 11px);
-        }
-    }
-
-    .card-header-num {
-        font-size: clamp(35px, 3vw, 43px);
-        @media only screen and (max-height: 700px) {
-            font-size: clamp(32px, 2.9vw, 40px);
-        }
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(29px, 2.8vw, 37px);
-        }
-        @media only screen and (max-height: 550px) {
-            font-size: clamp(26px, 2.7vw, 34px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(23px, 2.6vw, 31px);
-        }
-        @media only screen and (max-height: 450px) {
-            font-size: clamp(20px, 2.5vw, 28px);
-        }
-    }
-
-    .country-card-note {
-        font-size: clamp(13px, 1.2vw, 16px);
-        @media only screen and (max-height: 700px) {
-            font-size: clamp(12px, 1.2vw, 15px);
-        }
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(11px, 1.2vw, 14px);
-        }
-        @media only screen and (max-height: 550px) {
-            font-size: clamp(10px, 1.2vw, 13px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(9px, 1.2vw, 12px);
-        }
-        @media only screen and (max-height: 450px) {
-            font-size: clamp(8px, 1.2vw, 11px);
-        }
-    }
-
-    .province-card-note {
-        font-size: clamp(13px, 1.2vw, 16px);
-        @media only screen and (max-height: 700px) {
-            font-size: clamp(12px, 1.2vw, 15px);
-        }
-        @media only screen and (max-height: 600px) {
-            font-size: clamp(11px, 1.2vw, 14px);
-        }
-        @media only screen and (max-height: 550px) {
-            font-size: clamp(10px, 1.2vw, 13px);
-        }
-        @media only screen and (max-height: 500px) {
-            font-size: clamp(9px, 1.2vw, 12px);
-        }
-        @media only screen and (max-height: 450px) {
-            font-size: clamp(8px, 1.2vw, 11px);
-        }
-    }
-
-    //ul
-
-    .ul {
-        .country-list-place {
-            font-size: clamp(15px, 1.2vw, 18px);
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(13px, 1.2vw, 16px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(11px, 1.2vw, 14px);
-            }
-        }
-        .province-list-cases {
-            font-size: clamp(10px, 1vw, 16px);
-            @media only screen and (max-height: 600px) {
-                font-size: clamp(10px, 0.9vw, 13px);
-            }
-            @media only screen and (max-height: 500px) {
-                font-size: clamp(8px, 0.8vw, 10px);
-            }
-
-            .province-list-place {
-                font-size: 1em;
-                @media only screen and (max-height: 600px) {
-                    font-size: clamp(13px, 1.2vw, 16px);
-                }
-                @media only screen and (max-height: 500px) {
-                    font-size: clamp(11px, 1.2vw, 14px);
-                }
-            }
-            .list-num {
-                font-size: clamp(17px, 1.2vw, 20px);
-                @media only screen and (max-height: 600px) {
-                    font-size: clamp(15px, 1.1vw, 18px);
-                }
-                @media only screen and (max-height: 500px) {
-                    font-size: clamp(13px, 1vw, 16px);
-                }
-            }
-        }
-    }
-}
-
-//tablet
+//Expand, Tablet and Mobile
 .card-container-tablet,
 .card-container-tablet-version,
-.card-container-mobile-version {
+.card-container-mobile-version,
+.card-container-mobile,
+.card-container-expand {
     .card-header-text {
         font-size: clamp(9px, 1.5vw, 15px);
         @media only screen and (max-height: 700px) {
@@ -412,21 +290,21 @@
     }
 
     .card-header-num {
-        font-size: clamp(25px, 4vw, 38px);
+        font-size: clamp(25px, 4.5vw, 50px);
         @media only screen and (max-height: 700px) {
-            font-size: clamp(23px, 2.6vw, 36px);
+            font-size: clamp(23px, 4.5vw, 47px);
         }
         @media only screen and (max-height: 600px) {
-            font-size: clamp(21px, 2.5vw, 34px);
+            font-size: clamp(21px, 4.5vw, 44px);
         }
         @media only screen and (max-height: 550px) {
-            font-size: clamp(19px, 2.4vw, 32px);
+            font-size: clamp(19px, 4.5vw, 41px);
         }
         @media only screen and (max-height: 500px) {
-            font-size: clamp(17px, 2.3vw, 30px);
+            font-size: clamp(17px, 4.5vw, 38px);
         }
         @media only screen and (max-height: 450px) {
-            font-size: clamp(15px, 2.2vw, 28px);
+            font-size: clamp(15px, 4.5vw, 35px);
         }
     }
 
@@ -513,10 +391,14 @@
     }
 }
 
-.card-container-hide {
-    display: none;
+//Expand
+.card-container-expand {
+    @media only screen and (max-width: 959px) {
+        display: none;
+    }
 }
 
+//Tablet
 .card-container-tablet {
     @media only screen and (min-width: 960px) {
         display: none;
@@ -524,6 +406,17 @@
     @media only screen and (max-width: 500px) {
         display: none;
     }
+}
+
+//Mobile
+.card-container-mobile {
+    @media only screen and (min-width: 501px) {
+        display: none;
+    }
+}
+
+.card-container-hide {
+    display: none;
 }
 
 //scroll bar
@@ -543,7 +436,3 @@
     background-color: #999;
     border-radius: 3px;
 }
-
-// .button-toggler-wrapper-hide{
-//     display:none;
-// }

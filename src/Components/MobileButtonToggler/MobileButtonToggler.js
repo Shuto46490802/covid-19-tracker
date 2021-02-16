@@ -2,14 +2,28 @@ import React, { useState, Fragment } from "react";
 
 import "./MobileButtonToggler.scss"
 
-const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, setIsGlobal, setIsChart, arrowLeft, setIsInfectedCard, setIsDeathsRecoveredCard, setIsActiveIncidentCard }) => {
+const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, setIsGlobal, setIsChart, arrowLeft, setIsInfectedCard, setIsDeathsRecoveredCard, setIsActiveIncidentCard, setIsGlobalChart, setGlobalTodayChart, setIsCountryChart }) => {
 
+    //Toggle popup
     const [mapPopup, setMapPopup] = useState(false);
     const [globalPopup, setGlobalPopup] = useState(false);
     const [chartsPopup, setChartsPopup] = useState(false);
+
+    //Toggle popup sub-items
+
+    //Cards
     const [infectedPopup, setInfectedPopup] = useState(false);
     const [deathsRecoveredPopup, setDeathsRecoveredPopup] = useState(false);
     const [activeIncidentPopup, setActiveIncidentPopup] = useState(false);
+
+    // Global Chart
+    const [globalChartsPopup, setGlobalChartsPopup] = useState(false);
+
+    //Daily Chart
+    const [dailyChartsPopup, setDailyChartsPopup] = useState(false);
+
+    //Country Chart
+    const [countryChartsPopup, setCountryChartsPopup] = useState(false);
 
     //toggle mobile items
     let {
@@ -36,6 +50,16 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
         ? onStyle
         : {}
 
+    //Popup items style
+    let { infectedStyle, deathsRecoveredStyle, activeIncidentStyle, gloalChartsStyle, dailyChartsStyle } = {};
+    const activeStyle = { backgroundColor: "#555" };
+    infectedStyle = infectedPopup ? activeStyle : {} ;
+    deathsRecoveredStyle = deathsRecoveredPopup ? activeStyle : {} ;
+    activeIncidentStyle = activeIncidentPopup ? activeStyle : {} ;
+    gloalChartsStyle = globalChartsPopup ? activeStyle : {} ;
+    dailyChartsStyle = dailyChartsPopup ? activeStyle : {} ;
+
+
     return (
         //totals
         <div className={"button-toggler-wrapper-mobile"}>
@@ -47,6 +71,7 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                         setMapPopup(false)
                         setGlobalPopup(false)
                         setChartsPopup(false)
+                        setCountryChartsPopup(false)
                     }}
                     style={totalsStyle}
                 >
@@ -58,31 +83,33 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
             <div className={"button-popup-container"}>
                 {
                     mapPopup
-                        ? <div className={"popup-items"}>
-                            <div
-                                className={"popup-item"}
-                                onClick={() => {
-                                    setIsMap("cumulative")
-                                    setMapPopup(!mapPopup)
-                                }}>
-                                Cumulative Cases
+                        ? <div className={"popup-container"}>
+                            <div className={"popup-items"}>
+                                <div
+                                    className={"popup-item"}
+                                    onClick={() => {
+                                        setIsMap("cumulative")
+                                        setMapPopup(!mapPopup)
+                                    }}>
+                                    Cumulative Cases
                                 </div>
-                            <div
-                                className={"popup-item"}
-                                onClick={() => {
-                                    setIsMap("active")
-                                    setMapPopup(!mapPopup)
-                                }}>
-                                Active Cases
+                                <div
+                                    className={"popup-item"}
+                                    onClick={() => {
+                                        setIsMap("active")
+                                        setMapPopup(!mapPopup)
+                                    }}>
+                                    Active Cases
                                 </div>
-                            <div
-                                className={"popup-item"}
-                                onClick={() => {
-                                    setIsMap("incidentRate")
-                                    setMapPopup(!mapPopup)
-                                }}>
-                                Incident Rate
+                                <div
+                                    className={"popup-item"}
+                                    onClick={() => {
+                                        setIsMap("incidentRate")
+                                        setMapPopup(!mapPopup)
+                                    }}>
+                                    Incident Rate
                                 </div>
+                            </div>
                         </div>
                         : null
                 }
@@ -92,6 +119,7 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                         setMobileItem("map")
                         setGlobalPopup(false)
                         setChartsPopup(false)
+                        setCountryChartsPopup(false)
                         if (mobileItem === "map") {
                             setMapPopup(!mapPopup)
                         }
@@ -117,6 +145,7 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                             <div className={"popup-items"}>
                                 <div
                                     className={"popup-item"}
+                                    style={infectedStyle}
                                     onClick={() => {
                                         setIsGlobal("infected")
                                         setInfectedPopup(!infectedPopup)
@@ -124,10 +153,11 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                                         setActiveIncidentPopup(false)
                                     }}>
                                     <div>Infected Cases</div>
-                                    <div className={"arrow-icon"}>{arrowLeft}</div>
+                                    <div className={`arrow-icon${infectedPopup ? "-active" : ""}`}>{arrowLeft}</div>
                                 </div>
                                 <div
                                     className={"popup-item"}
+                                    style={deathsRecoveredStyle}
                                     onClick={() => {
                                         setIsGlobal("deathsRecovered")
                                         setDeathsRecoveredPopup(!deathsRecoveredPopup)
@@ -135,10 +165,11 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                                         setActiveIncidentPopup(false)
                                     }}>
                                     <div>Deaths/Recovered</div>
-                                    <div className={"arrow-icon"}>{arrowLeft}</div>
+                                    <div className={`arrow-icon${deathsRecoveredPopup ? "-active" : ""}`}>{arrowLeft}</div>
                                 </div>
                                 <div
                                     className={"popup-item"}
+                                    style={activeIncidentStyle}
                                     onClick={() => {
                                         setIsGlobal("activeIncidentRate")
                                         setActiveIncidentPopup(!activeIncidentPopup)
@@ -146,7 +177,7 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                                         setDeathsRecoveredPopup(false)
                                     }}>
                                     <div>Active Cases/Incident Rate</div>
-                                    <div className={"arrow-icon"}>{arrowLeft}</div>
+                                    <div className={`arrow-icon${activeIncidentPopup ? "-active" : ""}`}>{arrowLeft}</div>
                                 </div>
                             </div>
                             {
@@ -242,6 +273,7 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                         setMobileItem("global")
                         setMapPopup(false)
                         setChartsPopup(false)
+                        setCountryChartsPopup(false)
                         if (mobileItem === "global") {
                             setGlobalPopup(!globalPopup)
                         }
@@ -251,9 +283,7 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                     <div>Global</div>
                     {
                         mobileItem === "global"
-                            ? <div
-                                className={`mobile-button-icon${globalPopup ? "-active" : ""}`}
-                                onClick={() => { setGlobalPopup(!globalPopup) }}>
+                            ? <div className={`mobile-button-icon${globalPopup ? "-active" : ""}`}>
                                 {dropdown}
                             </div>
                             : null
@@ -263,6 +293,38 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
 
             {/* Countries */}
             <div className={"button-popup-container"}>
+                {
+                    countryChartsPopup
+                        ? <div className={"popup-container"}>
+                            <div className={"popup-items"}>
+                                <div
+                                    className={"popup-item"}
+                                    onClick={() => {
+                                        setCountryChartsPopup(!countryChartsPopup)
+                                        setIsCountryChart("infected")
+                                    }}>
+                                    Infected
+                                </div>
+                                <div
+                                    className={"popup-item"}
+                                    onClick={() => {
+                                        setCountryChartsPopup(!countryChartsPopup)
+                                        setIsCountryChart("deaths")
+                                    }}>
+                                    Deaths
+                                </div>
+                                <div
+                                    className={"popup-item"}
+                                    onClick={() => {
+                                        setCountryChartsPopup(!countryChartsPopup)
+                                        setIsCountryChart("recovered")
+                                    }}>
+                                    Recovered
+                                </div>
+                            </div>
+                        </div>
+                        : null
+                }
                 <div
                     className={"button-toggler"}
                     onClick={() => {
@@ -270,36 +332,124 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                         setMapPopup(false)
                         setGlobalPopup(false)
                         setChartsPopup(false)
+                        if (mobileItem === "countries") {
+                            setCountryChartsPopup(!countryChartsPopup)
+                        }
                     }}
                     style={countriesStyle}
                 >
                     Countries
-                    </div>
+                    {
+                        mobileItem === "countries"
+                            ? <div className={`mobile-button-icon${countryChartsPopup ? "-active" : ""}`}>
+                                {dropdown}
+                            </div>
+                            : null
+                    }
+                </div>
             </div>
 
             {/* Charts */}
             <div className={"button-popup-container"}>
                 {
                     chartsPopup
-                        ? <div className={"popup-items"}>
-                            <div
-                                className={"popup-item"}
-                                onClick={() => {
-                                    setIsChart("globalChart")
-                                    setChartsPopup(!chartsPopup)
-                                }}>
-                                <div>Global Charts</div>
-                                <div className={"arrow-icon"}>{arrowLeft}</div>
+                        ? <div className={"popup-container"}>
+                            <div className={"popup-items"}>
+                                <div
+                                    className={"popup-item"}
+                                    style={gloalChartsStyle}
+                                    onClick={() => {
+                                        setIsChart("globalChart")
+                                        setGlobalChartsPopup(!globalChartsPopup)
+                                        setDailyChartsPopup(false)
+                                    }}>
+                                    <div>Global Charts</div>
+                                    <div className={`arrow-icon${globalChartsPopup ? "-active" : ""}`}>{arrowLeft}</div>
+                                </div>
+                                <div
+                                    className={"popup-item"}
+                                    style={dailyChartsStyle}
+                                    onClick={() => {
+                                        setIsChart("dailyChart")
+                                        setDailyChartsPopup(!dailyChartsPopup)
+                                        setGlobalChartsPopup(false)
+                                    }}>
+                                    <div>Daily Charts</div>
+                                    <div className={`arrow-icon${dailyChartsPopup ? "-active" : ""}`}>{arrowLeft}</div>
+                                </div>
                             </div>
-                            <div
-                                className={"popup-item"}
-                                onClick={() => {
-                                    setIsChart("dailyChart")
-                                    setChartsPopup(!chartsPopup)
-                                }}>
-                                <div>Daily Charts</div>
-                                <div className={"arrow-icon"}>{arrowLeft}</div>
-                            </div>
+                            {
+                                globalChartsPopup
+                                    ? <div className={"popup-sub-items"}>
+                                        <div
+                                            className={"popup-sub-item"}
+                                            onClick={() => {
+                                                setChartsPopup(!chartsPopup)
+                                                setGlobalChartsPopup(!globalChartsPopup)
+                                                setIsGlobalChart("infected")
+                                            }}>
+                                            Infected Cases
+                                        </div>
+                                        <div
+                                            className={"popup-sub-item"}
+                                            onClick={() => {
+                                                setChartsPopup(!chartsPopup)
+                                                setGlobalChartsPopup(!globalChartsPopup)
+                                                setIsGlobalChart("deaths")
+                                            }}>
+                                            Deaths
+                                        </div>
+                                        <div
+                                            className={"popup-sub-item"}
+                                            onClick={() => {
+                                                setChartsPopup(!chartsPopup)
+                                                setGlobalChartsPopup(!globalChartsPopup)
+                                                setIsGlobalChart("recovered")
+                                            }}>
+                                            Recovered
+                                        </div>
+                                    </div>
+                                    : dailyChartsPopup
+                                        ? <div className={"popup-sub-items"}>
+                                            <div
+                                                className={"popup-sub-item"}
+                                                onClick={() => {
+                                                    setChartsPopup(!chartsPopup)
+                                                    setDailyChartsPopup(!dailyChartsPopup)
+                                                    setGlobalTodayChart("infected")
+                                                }}>
+                                                Infected Cases
+                                            </div>
+                                            <div
+                                                className={"popup-sub-item"}
+                                                onClick={() => {
+                                                    setChartsPopup(!chartsPopup)
+                                                    setDailyChartsPopup(!dailyChartsPopup)
+                                                    setGlobalTodayChart("active")
+                                                }}>
+                                                Active Cases
+                                            </div>
+                                            <div
+                                                className={"popup-sub-item"}
+                                                onClick={() => {
+                                                    setChartsPopup(!chartsPopup)
+                                                    setDailyChartsPopup(!dailyChartsPopup)
+                                                    setGlobalTodayChart("deaths")
+                                                }}>
+                                                Deaths
+                                            </div>
+                                            <div
+                                                className={"popup-sub-item"}
+                                                onClick={() => {
+                                                    setChartsPopup(!chartsPopup)
+                                                    setDailyChartsPopup(!dailyChartsPopup)
+                                                    setGlobalTodayChart("recovered")
+                                                }}>
+                                                Recovered
+                                            </div>
+                                        </div>
+                                        : null
+                            }
                         </div>
                         : null
                 }
@@ -309,6 +459,7 @@ const MobileButtonToggler = ({ setMobileItem, setIsMap, mobileItem, dropdown, se
                         setMobileItem("charts")
                         setMapPopup(false)
                         setGlobalPopup(false)
+                        setCountryChartsPopup(false)
                         if (mobileItem === "charts") {
                             setChartsPopup(!chartsPopup)
                         }
