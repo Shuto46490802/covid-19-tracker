@@ -2,11 +2,9 @@ import React, { useState, useEffect, Fragment } from "react";
 
 import { Bar, Line } from 'react-chartjs-2';
 
-import Loader from 'react-loader-spinner';
-
 import "./GlobalTodayCharts.scss"
 
-const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLeft, arrowRight, option, classes, globalDailyChartExpand, isTablet, isMobile, isCountryChart, setIsCountryChart }) => {
+const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLeft, arrowRight, option, classes, globalDailyChartExpand, isTablet, isMobile, isCountryChart, setIsCountryChart, loaderOval }) => {
 
     const [isLoad, setIsLoad] = useState(true);
 
@@ -16,19 +14,11 @@ const CountryCharts = ({ countriesYearlyData: { latest_data, timeline }, arrowLe
         }, 1000)
     })
 
-    const loader = <Loader
-        type="Oval"
-        color="#3500D3"
-        height={50}
-        width={50}
-        timeout={1000}
-    />
-
     if (isLoad || !timeline || !latest_data) {
         return (
-            <div className={`loader-country-chart-wrapper${classes[3]}`}>
+            <div className={`loader-chart-wrapper${globalDailyChartExpand ? "-expand" : "" }`}>
                 <div className={"loader"}>
-                    {loader}
+                    {loaderOval}
                 </div>
                 <div className={"loading"}>
                     Loading ...

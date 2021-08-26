@@ -99,9 +99,9 @@
 .chart-container-tablet,
 .chart-container-tablet-version,
 .chart-container-mobile,
-.chart-container-mobile-version{
+.chart-container-mobile-version {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     position: relative;
@@ -109,7 +109,7 @@
     height: 100%;
     background-color: #474747;
     @media only screen and (min-width: 959px) {
-        flex-direction:row;
+        flex-direction: row;
     }
 
     .chart-wrapper {
@@ -125,15 +125,15 @@
         }
         .chart-header {
             margin: 0;
-            font-size: clamp(9px, 1.4vw, 14px);
+            font-size: clamp(11px, 1.4vw, 14px);
             @media only screen and (max-height: 550px) {
-                font-size: clamp(9px, 1.4vw, 13px);
+                font-size: clamp(10px, 1.4vw, 13px);
             }
             @media only screen and (max-height: 500px) {
-                font-size: clamp(8px, 1.4vw, 12px);
+                font-size: clamp(10px, 1.4vw, 12px);
             }
             @media only screen and (max-height: 450px) {
-                font-size: clamp(8px, 1.4vw, 11px);
+                font-size: clamp(9px, 1.4vw, 11px);
             }
         }
 
@@ -165,7 +165,7 @@
     align-self: flex-start;
 }
 
-.chart-container-tablet{
+.chart-container-tablet {
     @media only screen and (min-width: 959px) {
         display: none;
     }
@@ -175,27 +175,31 @@
 }
 
 //Mobile
-.chart-container-mobile{
+.chart-container-mobile {
     @media only screen and (min-width: 501px) {
         display: none;
     }
 }
 
-
-
 //loader
-.loader-country-chart-wrapper {
+.loader-chart-wrapper, .loader-chart-wrapper-expand {
     width: 100%;
     height: 100%;
     background-color: #474747;
-}
-.loader-country-chart-wrapperexpand {
-    width: 100%;
-    height: 96.3%;
-    background-color: #474747;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    .loading{
+        font-size:12px;
+        font-weight:100;
+    }
 }
 
-
+.loader-chart-wrapper-expand{
+    height: 96.5%;
+}
 
 .chart-container-hide,
 .button-toggler-container-hide {

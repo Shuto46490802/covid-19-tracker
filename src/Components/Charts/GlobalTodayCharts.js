@@ -2,11 +2,9 @@ import React, { useState, useEffect, Fragment } from "react";
 
 import { Bar } from 'react-chartjs-2';
 
-import Loader from 'react-loader-spinner';
-
 import "./GlobalTodayCharts.scss"
 
-const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes, globalDailyChartExpand, isTablet, isMobile, isGlobalTodayChart }) => {
+const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes, globalDailyChartExpand, isTablet, isMobile, isGlobalTodayChart, loaderOval }) => {
 
     const [isInfectedActiveChart, setIsInfectedActiveChart] = useState("infected");
     const [isDeathsRecoveredChart, setIsDeathsRecoveredChart] = useState("deaths");
@@ -18,19 +16,11 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
         }, 1000)
     })
 
-    const loader = <Loader
-        type="Oval"
-        color="#3500D3"
-        height={50}
-        width={50}
-        timeout={1000}
-    />
-
     if (isLoad || !globalData[0]) {
         return (
-            <div className={`loader-country-chart-wrapper${classes[3]}`}>
+            <div className={`loader-chart-wrapper${globalDailyChartExpand ? "-expand" : "" }`}>
                 <div className={"loader"}>
-                    {loader}
+                    {loaderOval}
                 </div>
                 <div className={"loading"}>
                     Loading ...
@@ -257,19 +247,29 @@ const GlobalTodayCharts = ({ globalData, arrowRight, arrowLeft, option, classes,
             <div className={`global-chart-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile"}`}>
                 <div className={`chart-wrapper`}>
                     <p className={`chart-header`}>
-                        Global Daily Infected/Active Cases
+                        {
+                            isGlobalTodayChart === "infected"
+                                ? "Global Daily Infected Cases" 
+                                : isGlobalTodayChart === "active"
+                                    ? "Global Daily Active Cases"
+                                    : isGlobalTodayChart === "deaths"
+                                        ? "Global Daily Deaths"
+                                        : isGlobalTodayChart === "recovered"
+                                            ? "Global Daily Recovered"
+                                            : null
+                        }
                     </p>
                     <div className={`chart`}>
                         {
                             isGlobalTodayChart === "infected"
-                            ? infectedBarChart
-                            : isGlobalTodayChart === "active"
-                            ? activeBarChart
-                            : isGlobalTodayChart === "deaths"
-                            ? deathsBarChart
-                            : isGlobalTodayChart === "recovered"
-                            ? recoveredBarChart
-                            : null
+                                ? infectedBarChart
+                                : isGlobalTodayChart === "active"
+                                    ? activeBarChart
+                                    : isGlobalTodayChart === "deaths"
+                                        ? deathsBarChart
+                                        : isGlobalTodayChart === "recovered"
+                                            ? recoveredBarChart
+                                            : null
                         }
                     </div>
                 </div>

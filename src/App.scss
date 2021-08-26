@@ -87,21 +87,38 @@ header {
         flex-direction: column;
         font-size: clamp(7px, 1.1vw, 14px);
     }
+
     #nav {
         display: flex;
         margin-left: auto;
         align-items: center;
         margin-right: clamp(5px, 1vw, 15px);
 
-        .nav-text {
-            font-size: clamp(8px, 1.1vw, 16px);
-            margin-right: clamp(5px, 1.7vw, 24px);
+        .nav-text-wrapper {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            margin-right:1.5vw;
+            position:relative;
+
+            .nav-text {
+                font-size: clamp(8px, 1.1vw, 16px);
+                text-align:center;
+                cursor:pointer;
+            }
+            .nav-text:hover {
+                color: #f1c400;
+            }
+            .nav-border{
+                width:100%;
+                position:absolute;
+                bottom:0;
+            }
         }
     }
 }
 
 //desktop
-
 .desktop {
     display: flex;
     flex-direction: row;
@@ -109,7 +126,6 @@ header {
     margin: 5px;
     position: relative;
     height: 100%;
-
     @media only screen and (max-width: 959px) {
         display: none;
     }
@@ -412,6 +428,24 @@ header {
     .mobile-item {
         height: 96.5%;
         width: 100%;
+        @media only screen and (max-height: 700px) {
+            height: 95%;
+        }
+        @media only screen and (max-height: 600px) {
+            height: 93%;
+        }
+        @media only screen and (max-height: 550px) {
+            height: 91%;
+        }
+        @media only screen and (max-height: 500px) {
+            height: 90%;
+        }
+        @media only screen and (max-height: 450px) {
+            height: 89%;
+        }
+        @media only screen and (max-height: 400px) {
+            height: 88%;
+        }
 
         .country-picker {
             display: flex;
@@ -444,4 +478,29 @@ header {
 
 .mobile-hide {
     display: none;
+}
+
+//Loader
+.loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    margin: auto;
+
+    .loading {
+        font-weight: 100;
+        font-family: "Work Sans";
+    }
+}
+
+//Country Map
+.search {
+    position:absolute;
+    top:60px;
+    left:50%;
 }

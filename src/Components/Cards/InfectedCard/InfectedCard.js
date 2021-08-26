@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import "./InfectedCard.scss";
 
-const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber, isTablet, isMobile, isInfectedCard, setIsInfectedCard }) => {
+const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arrowRight, infectedCardExpand, expandIcon, shrinkIcon, setInfectedCardExpand, formatNumber, isTablet, isMobile, isInfectedCard, setIsInfectedCard, loaderOval }) => {
 
     const [isHover, setIsHover] = useState(false);
 
@@ -155,7 +155,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
             </div>
 
             {/* tablet */}
-            <div className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet" }`}>
+            <div className={`card-container${isTablet ? "-tablet-version" : isMobile ? "-hide" : "-tablet"}`}>
                 {
                     isHover
                         ? !infectedCardExpand
@@ -213,7 +213,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
                                     : null
                     }
                 </div>
-                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : "" }`}>
+                <div className={`button-toggler-wrapper-tablet${isTablet ? "-version" : ""}`}>
                     <div style={admin0Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin0")}>Admin0</div>
                     <div style={admin2Style} className={"button-toggler"} onClick={() => setIsInfectedCard("admin2")}>Admin2</div>
                     <div style={todayStyle} className={"button-toggler"} onClick={() => setIsInfectedCard("today")}>Global Today's Cases</div>
@@ -221,7 +221,7 @@ const InfectedCard = ({ countriesData, globalData, provincesData, arrowLeft, arr
             </div>
 
             {/* Mobile */}
-            <div className={`card-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile" }`}>
+            <div className={`card-container${isMobile ? "-mobile-version" : isTablet ? "-hide" : "-mobile"}`}>
                 {
                     isHover
                         ? !infectedCardExpand

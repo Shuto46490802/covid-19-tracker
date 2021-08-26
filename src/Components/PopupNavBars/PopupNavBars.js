@@ -1,5 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
 //scss
 import "./PopupNavBars.scss"
 
@@ -105,6 +112,14 @@ const PopupNavBars = ({ isTablet, setIsTablet, isMobile, setIsMobile, setIsMap, 
                     </div>
                     : null
             }
+            {/* <ul>
+                <Link to="/tablet">
+                    <li>Tablet</li>
+                </Link>
+                <Link to="mobile">
+                    <li>Mobile</li>
+                </Link>
+            </ul> */}
         </div >
     )
 };

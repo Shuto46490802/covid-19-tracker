@@ -67,15 +67,15 @@
     .chart-header {
         height: 3%;
         margin: 5px 0 0 0;
-        font-size: clamp(9px, 1.4vw, 14px);
+        font-size: clamp(11px, 1.4vw, 14px);
         @media only screen and (max-height: 550px) {
-            font-size: clamp(9px, 1.4vw, 13px);
+            font-size: clamp(10px, 1.4vw, 13px);
         }
         @media only screen and (max-height: 500px) {
-            font-size: clamp(8px, 1.4vw, 12px);
+            font-size: clamp(10px, 1.4vw, 12px);
         }
         @media only screen and (max-height: 450px) {
-            font-size: clamp(8px, 1.4vw, 11px);
+            font-size: clamp(9px, 1.4vw, 11px);
         }
     }
 

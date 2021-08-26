@@ -33,22 +33,22 @@
             .panel-number {
                 font-family: "Inconsolata";
                 text-align: center;
-                font-size: 1.4vw;
+                font-size: clamp(19px, 1.8vw, 20px);
                 margin: 0;
                 @media only screen and (max-height: 700px) {
-                    font-size: clamp(9px, 1.3vw, 19px);
+                    font-size: clamp(17px, 1.7vw, 19px);
                 }
                 @media only screen and (max-height: 600px) {
-                    font-size: clamp(8px, 1.2vw, 18px);
+                    font-size: clamp(15px, 1.6vw, 18px);
                 }
                 @media only screen and (max-height: 550px) {
-                    font-size: clamp(7px, 1.1vw, 17px);
+                    font-size: clamp(13px, 1.5vw, 17px);
                 }
                 @media only screen and (max-height: 500px) {
-                    font-size: clamp(6px, 1vw, 16px);
+                    font-size: clamp(11px, 1.4vw, 16px);
                 }
                 @media only screen and (max-height: 450px) {
-                    font-size: clamp(9px, 0.9vw, 15px);
+                    font-size: clamp(10px, 1.3vw, 15px);
                 }
             }
 

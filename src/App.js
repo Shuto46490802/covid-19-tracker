@@ -13,7 +13,19 @@ import InfoPanel from "./Components/InfoPanel/InfoPanel";
 import PopupNavBars from "./Components/PopupNavBars/PopupNavBars";
 import MobileButtonToggler from "./Components/MobileButtonToggler/MobileButtonToggler";
 
-import "./css/App.scss";
+//Test
+import Desktop from "./Components/Desktop"
+import Tablet from "./Components/Tablet"
+import Mobile from "./Components/Mobile"
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
+import "./App.scss";
 
 import { fetchProvinceData, fetchCountriesData, fetchGlobaldata, fetchCountriesYearlyData } from "./api";
 
@@ -76,14 +88,21 @@ const App = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     //Toggle Mobile Items
-    const [mobileItem, setMobileItem] = useState("totals")
+    const [mobileItem, setMobileItem] = useState("totals");
 
     //Toggle Item within Mobile Items
     const [isGlobal, setIsGlobal] = useState("infected");
     const [isChart, setIsChart] = useState("globalChart");
 
     //Loader
-    const [isLoad, setIsLoad] = useState(true)
+    const [isLoad, setIsLoad] = useState(true);
+
+    //Toggle Global Map and Country Map
+    const [isGlobalCountryMap, setIsGlobalCountryMap] = useState("global");
+
+    //Serch Input
+    const [searchInput, setSearchInput] = useState("");
+    const [display, setDisplay] = useState("")
 
     useEffect(() => {
         const fetchAPI = async () => {
@@ -100,7 +119,7 @@ const App = () => {
         }, 2000)
     })
 
-    const loader = <Loader
+    const loaderBars = <Loader
         type="Bars"
         color="#3500D3"
         height={100}
@@ -108,11 +127,19 @@ const App = () => {
         timeout={2000}
     />
 
+    const loaderOval = <Loader
+        type="Oval"
+        color="#3500D3"
+        height={50}
+        width={50}
+        timeout={2000}
+    />
+
     if (isLoad || !globalData[0]) {
         return (
             <div className={"loader-wrapper"}>
                 <div className={"loader"}>
-                    {loader}
+                    {loaderBars}
                 </div>
                 <div className={"loading"}>
                     Loading ...
@@ -214,97 +241,280 @@ const App = () => {
                     ? ["hide", "hide", "expand"]
                     : ["", "", ""];
 
-    return (
-        <div className={`app${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`} >
-            <header>
-                <img src="https://www.tiabc.ca/wp-content/uploads/home/COVID%E2%80%9419.png" alt="covid-19 logo" />
-                <div id="header-title">
-                    <h1>World COVID-19 Dashboard</h1>
-                    <span id="header-border"></span>
-                    <div id="header-footer">
-                        <span>Desinged and Coded</span>
-                        <span>by Shuto.S</span>
-                    </div>
-                </div>
-                <div id="nav">
-                    <p className={"nav-text"}>Global Map</p>
-                    <p className={"nav-text"}>Country Map</p>
-                    <div id="popup-nav-bars">
-                        <PopupNavBars
-                            isTablet={isTablet}
-                            setIsTablet={setIsTablet}
-                            isMobile={isMobile}
-                            setIsMobile={setIsMobile}
-                            setIsMap={setIsMap}
-                            setInfectedCardExpand={setInfectedCardExpand}
-                            setDeathsCardExpand={setDeathsCardExpand}
-                            setActiveCardExpand={setActiveCardExpand}
-                            setMapExpand={setMapExpand}
-                            setDataPanelExpand={setDataPanelExpand}
-                            setGlobalDailyChartExpand={setGlobalDailyChartExpand}
-                            setGlobalChartExpand={setGlobalChartExpand}
-                            dropdown={dropdown}
-                        />
-                    </div>
-                </div>
-            </header>
+    let { globalMapStyle, countryMapStyle } = {};
+    const activeStyle = { color: "#f1c400", fontWeight: "700" }
+    globalMapStyle = isGlobalCountryMap === "global"
+        ? activeStyle
+        : {}
+    countryMapStyle = isGlobalCountryMap === "country"
+        ? activeStyle
+        : {}
 
-            <div className={`desktop${isTablet || isMobile ? "-hide" : ""}`} >
-                <div
-                    className={`column${columnClasses[0]} column1`}
-                >
+    if (isGlobalCountryMap === "global") {
+        return (
+            <div className={`app${isTablet ? "-tablet-version" : isMobile ? "-mobile-version" : ""}`} >
+                <Router>
+                    <header>
+                        <img src="https://www.tiabc.ca/wp-content/uploads/home/COVID%E2%80%9419.png" alt="covid-19 logo" />
+                        <div id="header-title">
+                            <h1>World COVID-19 Dashboard</h1>
+                            <span id="header-border"></span>
+                            <div id="header-footer">
+                                <span>Desinged and Coded</span>
+                                <span>by Shuto.S</span>
+                            </div>
+                        </div>
+                        <div id="nav">
+                            <div className={"nav-text-wrapper"}>
+                                <p
+                                    className={"nav-text"}
+                                    onClick={() => { setIsGlobalCountryMap("global") }}
+                                    style={globalMapStyle}
+                                >
+                                    Global Map
+                            </p>
+                                <div className={"nav-border"} style={isGlobalCountryMap === "global" ? { height: "3px", backgroundColor: "#f1c400" } : {}} />
+                            </div>
+                            <div className={"nav-text-wrapper"}>
+                                <p
+                                    className={"nav-text"}
+                                    // onClick={() => { setIsGlobalCountryMap("country") }}
+                                    style={countryMapStyle}
+                                >
+                                    Country Map
+                            </p>
+                                <div className={"nav-border"} style={isGlobalCountryMap === "country" ? { height: "3px", backgroundColor: "#f1c400" } : {}} />
+                            </div>
+                            <div id="popup-nav-bars">
+                                <PopupNavBars
+                                    isTablet={isTablet}
+                                    setIsTablet={setIsTablet}
+                                    isMobile={isMobile}
+                                    setIsMobile={setIsMobile}
+                                    setIsMap={setIsMap}
+                                    setInfectedCardExpand={setInfectedCardExpand}
+                                    setDeathsCardExpand={setDeathsCardExpand}
+                                    setActiveCardExpand={setActiveCardExpand}
+                                    setMapExpand={setMapExpand}
+                                    setDataPanelExpand={setDataPanelExpand}
+                                    setGlobalDailyChartExpand={setGlobalDailyChartExpand}
+                                    setGlobalChartExpand={setGlobalChartExpand}
+                                    dropdown={dropdown}
+                                />
+                            </div>
+                        </div>
+                    </header>
+
+
+
+
+                    <Switch>
+                        <Route path="/" exact component={Desktop} />
+                        <Route path="/tablet" exact component={Tablet} />
+                        <Route component={Mobile} exact path="/mobile" />
+                    </Switch>
+                </Router>
+
+                {/* Desktop */}
+                <div className={`desktop${isTablet || isMobile ? "-hide" : ""}`} >
                     <div
-                        id={"infected-card"}
-                        className={classes[0]}
+                        className={`column${columnClasses[0]} column1`}
                     >
-                        <InfectedCard
-                            countriesData={countriesData}
-                            globalData={globalData}
-                            provincesData={provincesData}
-                            arrowLeft={arrowLeft}
-                            arrowRight={arrowRight}
-                            infectedCardExpand={infectedCardExpand}
-                            setInfectedCardExpand={setInfectedCardExpand}
-                            expandIcon={expandIcon}
-                            shrinkIcon={shrinkIcon}
-                            formatNumber={formatNumber}
-                            classes={classes}
-                            isTablet={isTablet}
-                            isMobile={isMobile}
-                            isInfectedCard={isInfectedCard}
-                            setIsInfectedCard={setIsInfectedCard}
-                        />
+                        <div
+                            id={"infected-card"}
+                            className={classes[0]}
+                        >
+                            <InfectedCard
+                                countriesData={countriesData}
+                                globalData={globalData}
+                                provincesData={provincesData}
+                                arrowLeft={arrowLeft}
+                                arrowRight={arrowRight}
+                                infectedCardExpand={infectedCardExpand}
+                                setInfectedCardExpand={setInfectedCardExpand}
+                                expandIcon={expandIcon}
+                                shrinkIcon={shrinkIcon}
+                                formatNumber={formatNumber}
+                                classes={classes}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
+                                isInfectedCard={isInfectedCard}
+                                setIsInfectedCard={setIsInfectedCard}
+                                loaderOval={loaderOval}
+                            />
+                        </div>
+                        <div
+                            id="info-panel"
+                            className={classes[1]}
+                            onMouseEnter={() => setIsPanelHover(true)}
+                            onMouseLeave={() => setIsPanelHover(false)}
+                        >
+                            {
+                                isPanelHover
+                                    ? !dataPanelExpand
+                                        ? <div className={"expand-icon"} onClick={() => { setDataPanelExpand(true) }}>{expandIcon}</div>
+                                        : <div className={"shrink-icon"} onClick={() => setDataPanelExpand(false)}>{shrinkIcon}</div>
+                                    : null
+                            }
+                            <InfoPanel
+                                globalData={globalData}
+                                countriesData={countriesData}
+                                provincesData={provincesData}
+                                formatNumber={formatNumber}
+                                classes={classes}
+                                dataPanelExpand={dataPanelExpand}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
+                                loaderOval={loaderOval}
+                            />
+                        </div>
                     </div>
-                    <div
-                        id="info-panel"
-                        className={classes[1]}
-                        onMouseEnter={() => setIsPanelHover(true)}
-                        onMouseLeave={() => setIsPanelHover(false)}
-                    >
-                        {
-                            isPanelHover
-                                ? !dataPanelExpand
-                                    ? <div className={"expand-icon"} onClick={() => { setDataPanelExpand(true) }}>{expandIcon}</div>
-                                    : <div className={"shrink-icon"} onClick={() => setDataPanelExpand(false)}>{shrinkIcon}</div>
-                                : null
-                        }
-                        <InfoPanel
-                            globalData={globalData}
-                            countriesData={countriesData}
-                            provincesData={provincesData}
-                            formatNumber={formatNumber}
-                            classes={classes}
-                            dataPanelExpand={dataPanelExpand}
-                            isTablet={isTablet}
-                            isMobile={isMobile}
-                        />
+                    <div className={`column${columnClasses[1]} column2`}>
+                        <div
+                            id="map"
+                            className={classes[2]}
+                        >
+                            <Maps
+                                classes={classes}
+                                provincesData={provincesData}
+                                setMapExpand={setMapExpand}
+                                mapExpand={mapExpand}
+                                expandIcon={expandIcon}
+                                shrinkIcon={shrinkIcon}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
+                                isMap={isMap}
+                                setIsMap={setIsMap}
+                                loaderOval={loaderOval}
+                            />
+                        </div>
+                        <div
+                            id="country-picker-chart"
+                            className={classes[3]}
+                            onMouseEnter={() => setIsTodayChartHover(true)}
+                            onMouseLeave={() => setIsTodayChartHover(false)}
+                        >
+                            {
+                                isTodayChartHover
+                                    ? !globalDailyChartExpand
+                                        ? <div className={"expand-icon"} onClick={() => setGlobalDailyChartExpand(true)}>{expandIcon}</div>
+                                        : <div className={"shrink-icon"} onClick={() => setGlobalDailyChartExpand(false)}>{shrinkIcon}</div>
+                                    : null
+                            }
+                            <div id="country-picker">
+                                <CountryPicker
+                                    classes={classes}
+                                    toggleCountry={toggleCountry}
+                                    globalDailyChartExpand={globalDailyChartExpand}
+                                    isTablet={isTablet}
+                                    isMobile={isMobile}
+                                    country={country}
+                                />
+                            </div>
+                            <div id="country-chart">
+                                {
+                                    country === "select a country"
+                                        ? <GlobalTodayCharts
+                                            globalData={globalData}
+                                            arrowRight={arrowRight}
+                                            arrowLeft={arrowLeft}
+                                            option={option}
+                                            classes={classes}
+                                            globalDailyChartExpand={globalDailyChartExpand}
+                                            isTablet={isTablet}
+                                            isMobile={isMobile}
+                                            loaderOval={loaderOval}
+                                        />
+                                        : <CountryCharts
+                                            countriesYearlyData={countriesYearlyData}
+                                            arrowLeft={arrowLeft}
+                                            arrowRight={arrowRight}
+                                            option={option}
+                                            classes={classes}
+                                            globalDailyChartExpand={globalDailyChartExpand}
+                                            isTablet={isTablet}
+                                            isMobile={isMobile}
+                                            isCountryChart={isCountryChart}
+                                            setIsCountryChart={setIsCountryChart}
+                                            loaderOval={loaderOval}
+                                        />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`column${columnClasses[2]} column3`}>
+                        <div className={`row${globalChartExpand ? "-hide" : ""}`} >
+                            <div
+                                id="deaths-recovered-card"
+                                className={classes[4]}
+                            >
+                                <DeathsRecoveredCard
+                                    countriesData={countriesData}
+                                    globalData={globalData}
+                                    classes={classes}
+                                    arrowLeft={arrowLeft}
+                                    arrowRight={arrowRight}
+                                    deathsdCardExpand={deathsdCardExpand}
+                                    setDeathsCardExpand={setDeathsCardExpand}
+                                    expandIcon={expandIcon}
+                                    shrinkIcon={shrinkIcon}
+                                    formatNumber={formatNumber}
+                                    isTablet={isTablet}
+                                    isMobile={isMobile}
+                                    isDeathsRecoveredCard={isDeathsRecoveredCard}
+                                    setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
+                                    loaderOval={loaderOval}
+                                />
+                            </div>
+                            <div
+                                id="active-incident-card"
+                                className={classes[5]}
+                            >
+                                <ActiveIncidentRateCard
+                                    provincesData={provincesData}
+                                    classes={classes}
+                                    arrowLeft={arrowLeft}
+                                    arrowRight={arrowRight}
+                                    activeCardExpand={activeCardExpand}
+                                    setActiveCardExpand={setActiveCardExpand}
+                                    expandIcon={expandIcon}
+                                    shrinkIcon={shrinkIcon}
+                                    formatNumber={formatNumber}
+                                    isTablet={isTablet}
+                                    isMobile={isMobile}
+                                    isActiveIncidentCard={isActiveIncidentCard}
+                                    setIsActiveIncidentCard={setIsActiveIncidentCard}
+                                    loaderOval={loaderOval}
+                                />
+                            </div>
+                        </div>
+                        <div
+                            id="global-chart"
+                            className={classes[6]}
+                        >
+                            <GlobalCharts
+                                globalData={globalData}
+                                arrowLeft={arrowLeft}
+                                arrowRight={arrowRight}
+                                option={option}
+                                classes={classes}
+                                globalChartExpand={globalChartExpand}
+                                setGlobalChartExpand={setGlobalChartExpand}
+                                expandIcon={expandIcon}
+                                shrinkIcon={shrinkIcon}
+                                isTablet={isTablet}
+                                isMobile={isMobile}
+                                isGlobalChart={isGlobalChart}
+                                setIsGlobalChart={setIsGlobalChart}
+                                loaderOval={loaderOval}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div className={`column${columnClasses[1]} column2`}>
-                    <div
-                        id="map"
-                        className={classes[2]}
-                    >
+
+                {/* Tablet */}
+                <div className={`tablet${isTablet ? "-version" : isMobile ? "-hide" : "-responsive"}`}>
+                    <div className={"tablet-item"} id="map-tablet">
                         <Maps
                             classes={classes}
                             provincesData={provincesData}
@@ -312,30 +522,74 @@ const App = () => {
                             mapExpand={mapExpand}
                             expandIcon={expandIcon}
                             shrinkIcon={shrinkIcon}
-                            isTablet={isTablet}
-                            isMobile={isMobile}
                             isMap={isMap}
                             setIsMap={setIsMap}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
+                            loaderOval={loaderOval}
                         />
                     </div>
-                    <div
-                        id="country-picker-chart"
-                        className={classes[3]}
-                        onMouseEnter={() => setIsTodayChartHover(true)}
-                        onMouseLeave={() => setIsTodayChartHover(false)}
-                    >
-                        {
-                            isTodayChartHover
-                                ? !globalDailyChartExpand
-                                    ? <div className={"expand-icon"} onClick={() => setGlobalDailyChartExpand(true)}>{expandIcon}</div>
-                                    : <div className={"shrink-icon"} onClick={() => setGlobalDailyChartExpand(false)}>{shrinkIcon}</div>
-                                : null
-                        }
+                    <div className={"tablet-item"} id={"infected-card-tablet"}>
+                        <InfectedCard
+                            countriesData={countriesData}
+                            globalData={globalData}
+                            provincesData={provincesData}
+                            arrowLeft={arrowLeft}
+                            arrowRight={arrowRight}
+                            infectedCardExpand={infectedCardExpand}
+                            expandIcon={expandIcon}
+                            shrinkIcon={shrinkIcon}
+                            setInfectedCardExpand={setInfectedCardExpand}
+                            formatNumber={formatNumber}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
+                            isInfectedCard={isInfectedCard}
+                            setIsInfectedCard={setIsInfectedCard}
+                            loaderOval={loaderOval}
+                        />
+                    </div>
+                    <div className={"deaths-active-card tablet-item"}>
+                        <DeathsRecoveredCard
+                            countriesData={countriesData}
+                            globalData={globalData}
+                            classes={classes}
+                            arrowLeft={arrowLeft}
+                            arrowRight={arrowRight}
+                            deathsdCardExpand={deathsdCardExpand}
+                            setDeathsCardExpand={setDeathsCardExpand}
+                            expandIcon={expandIcon}
+                            shrinkIcon={shrinkIcon}
+                            formatNumber={formatNumber}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
+                            isDeathsRecoveredCard={isDeathsRecoveredCard}
+                            setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
+                            loaderOval={loaderOval}
+                        />
+                    </div>
+                    <div className={"deaths-active-card tablet-item"}>
+                        <ActiveIncidentRateCard
+                            provincesData={provincesData}
+                            classes={classes}
+                            arrowLeft={arrowLeft}
+                            arrowRight={arrowRight}
+                            activeCardExpand={activeCardExpand}
+                            setActiveCardExpand={setActiveCardExpand}
+                            expandIcon={expandIcon}
+                            shrinkIcon={shrinkIcon}
+                            formatNumber={formatNumber}
+                            isTablet={isTablet}
+                            isMobile={isMobile}
+                            isActiveIncidentCard={isActiveIncidentCard}
+                            setIsActiveIncidentCard={setIsActiveIncidentCard}
+                            loaderOval={loaderOval}
+                        />
+                    </div>
+                    <div id="country-picker-chart" className={"tablet-item"}>
                         <div id="country-picker">
                             <CountryPicker
                                 classes={classes}
                                 toggleCountry={toggleCountry}
-                                globalDailyChartExpand={globalDailyChartExpand}
                                 isTablet={isTablet}
                                 isMobile={isMobile}
                                 country={country}
@@ -353,6 +607,9 @@ const App = () => {
                                         globalDailyChartExpand={globalDailyChartExpand}
                                         isTablet={isTablet}
                                         isMobile={isMobile}
+                                        isCountryChart={isCountryChart}
+                                        setIsCountryChart={setIsCountryChart}
+                                        loaderOval={loaderOval}
                                     />
                                     : <CountryCharts
                                         countriesYearlyData={countriesYearlyData}
@@ -365,59 +622,12 @@ const App = () => {
                                         isMobile={isMobile}
                                         isCountryChart={isCountryChart}
                                         setIsCountryChart={setIsCountryChart}
+                                        loaderOval={loaderOval}
                                     />
                             }
                         </div>
                     </div>
-                </div>
-                <div className={`column${columnClasses[2]} column3`}>
-                    <div className={`row${globalChartExpand ? "-hide" : ""}`} >
-                        <div
-                            id="deaths-recovered-card"
-                            className={classes[4]}
-                        >
-                            <DeathsRecoveredCard
-                                countriesData={countriesData}
-                                globalData={globalData}
-                                classes={classes}
-                                arrowLeft={arrowLeft}
-                                arrowRight={arrowRight}
-                                deathsdCardExpand={deathsdCardExpand}
-                                setDeathsCardExpand={setDeathsCardExpand}
-                                expandIcon={expandIcon}
-                                shrinkIcon={shrinkIcon}
-                                formatNumber={formatNumber}
-                                isTablet={isTablet}
-                                isMobile={isMobile}
-                                isDeathsRecoveredCard={isDeathsRecoveredCard}
-                                setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
-                            />
-                        </div>
-                        <div
-                            id="active-incident-card"
-                            className={classes[5]}
-                        >
-                            <ActiveIncidentRateCard
-                                provincesData={provincesData}
-                                classes={classes}
-                                arrowLeft={arrowLeft}
-                                arrowRight={arrowRight}
-                                activeCardExpand={activeCardExpand}
-                                setActiveCardExpand={setActiveCardExpand}
-                                expandIcon={expandIcon}
-                                shrinkIcon={shrinkIcon}
-                                formatNumber={formatNumber}
-                                isTablet={isTablet}
-                                isMobile={isMobile}
-                                isActiveIncidentCard={isActiveIncidentCard}
-                                setIsActiveIncidentCard={setIsActiveIncidentCard}
-                            />
-                        </div>
-                    </div>
-                    <div
-                        id="global-chart"
-                        className={classes[6]}
-                    >
+                    <div id="global-chart" className={"tablet-item"}>
                         <GlobalCharts
                             globalData={globalData}
                             arrowLeft={arrowLeft}
@@ -432,303 +642,245 @@ const App = () => {
                             isMobile={isMobile}
                             isGlobalChart={isGlobalChart}
                             setIsGlobalChart={setIsGlobalChart}
+                            loaderOval={loaderOval}
                         />
                     </div>
-                </div>
-            </div>
-
-            {/* Tablet */}
-            <div className={`tablet${isTablet ? "-version" : isMobile ? "-hide" : "-responsive"}`}>
-                <div className={"tablet-item"} id="map-tablet">
-                    <Maps
-                        classes={classes}
-                        provincesData={provincesData}
-                        setMapExpand={setMapExpand}
-                        mapExpand={mapExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        isMap={isMap}
-                        setIsMap={setIsMap}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                    />
-                </div>
-                <div className={"tablet-item"} id={"infected-card-tablet"}>
-                    <InfectedCard
-                        countriesData={countriesData}
-                        globalData={globalData}
-                        provincesData={provincesData}
-                        arrowLeft={arrowLeft}
-                        arrowRight={arrowRight}
-                        infectedCardExpand={infectedCardExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        setInfectedCardExpand={setInfectedCardExpand}
-                        formatNumber={formatNumber}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                        isInfectedCard={isInfectedCard}
-                        setIsInfectedCard={setIsInfectedCard}
-                    />
-                </div>
-                <div className={"deaths-active-card tablet-item"}>
-                    <DeathsRecoveredCard
-                        countriesData={countriesData}
-                        globalData={globalData}
-                        classes={classes}
-                        arrowLeft={arrowLeft}
-                        arrowRight={arrowRight}
-                        deathsdCardExpand={deathsdCardExpand}
-                        setDeathsCardExpand={setDeathsCardExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        formatNumber={formatNumber}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                        isDeathsRecoveredCard={isDeathsRecoveredCard}
-                        setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
-                    />
-                </div>
-                <div className={"deaths-active-card tablet-item"}>
-                    <ActiveIncidentRateCard
-                        provincesData={provincesData}
-                        classes={classes}
-                        arrowLeft={arrowLeft}
-                        arrowRight={arrowRight}
-                        activeCardExpand={activeCardExpand}
-                        setActiveCardExpand={setActiveCardExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        formatNumber={formatNumber}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                        isActiveIncidentCard={isActiveIncidentCard}
-                        setIsActiveIncidentCard={setIsActiveIncidentCard}
-                    />
-                </div>
-                <div id="country-picker-chart" className={"tablet-item"}>
-                    <div id="country-picker">
-                        <CountryPicker
-                            classes={classes}
-                            toggleCountry={toggleCountry}
+                    <div id="info-panel" className={"tablet-item"}>
+                        <InfoPanel
+                            globalData={globalData}
+                            countriesData={countriesData}
+                            provincesData={provincesData}
+                            formatNumber={formatNumber}
                             isTablet={isTablet}
                             isMobile={isMobile}
-                            country={country}
+                            loaderOval={loaderOval}
                         />
                     </div>
-                    <div id="country-chart">
-                        {
-                            country === "select a country"
-                                ? <GlobalTodayCharts
-                                    globalData={globalData}
-                                    arrowRight={arrowRight}
-                                    arrowLeft={arrowLeft}
-                                    option={option}
-                                    classes={classes}
-                                    globalDailyChartExpand={globalDailyChartExpand}
-                                    isTablet={isTablet}
-                                    isMobile={isMobile}
-                                    isCountryChart={isCountryChart}
-                                    setIsCountryChart={setIsCountryChart}
-                                />
-                                : <CountryCharts
-                                    countriesYearlyData={countriesYearlyData}
-                                    arrowLeft={arrowLeft}
-                                    arrowRight={arrowRight}
-                                    option={option}
-                                    classes={classes}
-                                    globalDailyChartExpand={globalDailyChartExpand}
-                                    isTablet={isTablet}
-                                    isMobile={isMobile}
-                                    isCountryChart={isCountryChart}
-                                    setIsCountryChart={setIsCountryChart}
-                                />
-                        }
-                    </div>
-                </div>
-                <div id="global-chart" className={"tablet-item"}>
-                    <GlobalCharts
-                        globalData={globalData}
-                        arrowLeft={arrowLeft}
-                        arrowRight={arrowRight}
-                        option={option}
-                        classes={classes}
-                        globalChartExpand={globalChartExpand}
-                        setGlobalChartExpand={setGlobalChartExpand}
-                        expandIcon={expandIcon}
-                        shrinkIcon={shrinkIcon}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                        isGlobalChart={isGlobalChart}
-                        setIsGlobalChart={setIsGlobalChart}
-                    />
-                </div>
-                <div id="info-panel" className={"tablet-item"}>
-                    <InfoPanel
-                        globalData={globalData}
-                        countriesData={countriesData}
-                        provincesData={provincesData}
-                        formatNumber={formatNumber}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                    />
-                </div>
-            </div>
+                </div> 
 
-            {/* Mobile */}
-            <div className={`mobile${isMobile ? "-version" : isTablet ? "-hide" : "-responsive"}`}>
-                <div className={"mobile-item"}>
-                    {
-                        mobileItem === "totals"
-                            ? <InfoPanel
-                                globalData={globalData}
-                                countriesData={countriesData}
-                                provincesData={provincesData}
-                                formatNumber={formatNumber}
-                                isTablet={isTablet}
-                                isMobile={isMobile}
-                            />
-                            : mobileItem === "map"
-                                ? <Maps
-                                    classes={classes}
+                {/* Mobile */}
+                <div className={`mobile${isMobile ? "-version" : isTablet ? "-hide" : "-responsive"}`}>
+                    <div className={"mobile-item"}>
+                        {
+                            mobileItem === "totals"
+                                ? <InfoPanel
+                                    globalData={globalData}
+                                    countriesData={countriesData}
                                     provincesData={provincesData}
-                                    setMapExpand={setMapExpand}
-                                    mapExpand={mapExpand}
-                                    expandIcon={expandIcon}
-                                    shrinkIcon={shrinkIcon}
-                                    isMap={isMap}
-                                    setIsMap={setIsMap}
+                                    formatNumber={formatNumber}
                                     isTablet={isTablet}
                                     isMobile={isMobile}
+                                    loaderOval={loaderOval}
                                 />
-                                : mobileItem === "global"
-                                    ? isGlobal === "infected"
-                                        ? <InfectedCard
-                                            countriesData={countriesData}
-                                            globalData={globalData}
-                                            provincesData={provincesData}
-                                            arrowLeft={arrowLeft}
-                                            arrowRight={arrowRight}
-                                            infectedCardExpand={infectedCardExpand}
-                                            expandIcon={expandIcon}
-                                            shrinkIcon={shrinkIcon}
-                                            setInfectedCardExpand={setInfectedCardExpand}
-                                            formatNumber={formatNumber}
-                                            isTablet={isTablet}
-                                            isMobile={isMobile}
-                                            isInfectedCard={isInfectedCard}
-                                            setIsInfectedCard={setIsInfectedCard}
-                                        />
-                                        : isGlobal === "deathsRecovered"
-                                            ? <DeathsRecoveredCard
+                                : mobileItem === "map"
+                                    ? <Maps
+                                        classes={classes}
+                                        provincesData={provincesData}
+                                        setMapExpand={setMapExpand}
+                                        mapExpand={mapExpand}
+                                        expandIcon={expandIcon}
+                                        shrinkIcon={shrinkIcon}
+                                        isMap={isMap}
+                                        setIsMap={setIsMap}
+                                        isTablet={isTablet}
+                                        isMobile={isMobile}
+                                        loaderOval={loaderOval}
+                                    />
+                                    : mobileItem === "global"
+                                        ? isGlobal === "infected"
+                                            ? <InfectedCard
                                                 countriesData={countriesData}
                                                 globalData={globalData}
-                                                classes={classes}
+                                                provincesData={provincesData}
                                                 arrowLeft={arrowLeft}
                                                 arrowRight={arrowRight}
-                                                deathsdCardExpand={deathsdCardExpand}
-                                                setDeathsCardExpand={setDeathsCardExpand}
+                                                infectedCardExpand={infectedCardExpand}
                                                 expandIcon={expandIcon}
                                                 shrinkIcon={shrinkIcon}
+                                                setInfectedCardExpand={setInfectedCardExpand}
                                                 formatNumber={formatNumber}
                                                 isTablet={isTablet}
                                                 isMobile={isMobile}
-                                                isDeathsRecoveredCard={isDeathsRecoveredCard}
-                                                setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
+                                                isInfectedCard={isInfectedCard}
+                                                setIsInfectedCard={setIsInfectedCard}
+                                                loaderOval={loaderOval}
                                             />
-                                            : isGlobal === "activeIncidentRate"
-                                                ? <ActiveIncidentRateCard
-                                                    provincesData={provincesData}
+                                            : isGlobal === "deathsRecovered"
+                                                ? <DeathsRecoveredCard
+                                                    countriesData={countriesData}
+                                                    globalData={globalData}
                                                     classes={classes}
                                                     arrowLeft={arrowLeft}
                                                     arrowRight={arrowRight}
-                                                    activeCardExpand={activeCardExpand}
-                                                    setActiveCardExpand={setActiveCardExpand}
+                                                    deathsdCardExpand={deathsdCardExpand}
+                                                    setDeathsCardExpand={setDeathsCardExpand}
                                                     expandIcon={expandIcon}
                                                     shrinkIcon={shrinkIcon}
                                                     formatNumber={formatNumber}
                                                     isTablet={isTablet}
                                                     isMobile={isMobile}
-                                                    isActiveIncidentCard={isActiveIncidentCard}
-                                                    setIsActiveIncidentCard={setIsActiveIncidentCard}
+                                                    isDeathsRecoveredCard={isDeathsRecoveredCard}
+                                                    setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
+                                                    loaderOval={loaderOval}
                                                 />
-                                                : null
-                                    : mobileItem === "countries"
-                                        ? <Fragment>
-                                            <div className={"country-picker"}>
-                                                <CountryPicker
-                                                    classes={classes}
-                                                    toggleCountry={toggleCountry}
-                                                    isTablet={isTablet}
-                                                    isMobile={isMobile}
-                                                />
-                                            </div>
-                                            <div className={"country-charts"}>
-                                                <CountryCharts
-                                                    countriesYearlyData={countriesYearlyData}
-                                                    arrowLeft={arrowLeft}
-                                                    arrowRight={arrowRight}
-                                                    option={option}
-                                                    classes={classes}
-                                                    globalDailyChartExpand={globalDailyChartExpand}
-                                                    isTablet={isTablet}
-                                                    isMobile={isMobile}
-                                                    isCountryChart={isCountryChart}
-                                                    setIsCountryChart={setIsCountryChart}
-                                                />
-                                            </div>
-                                        </Fragment>
-                                        : mobileItem === "charts"
-                                            ? isChart === "globalChart"
-                                                ? <GlobalCharts
-                                                    globalData={globalData}
-                                                    arrowLeft={arrowLeft}
-                                                    arrowRight={arrowRight}
-                                                    option={option}
-                                                    classes={classes}
-                                                    globalChartExpand={globalChartExpand}
-                                                    setGlobalChartExpand={setGlobalChartExpand}
-                                                    expandIcon={expandIcon}
-                                                    shrinkIcon={shrinkIcon}
-                                                    isTablet={isTablet}
-                                                    isMobile={isMobile}
-                                                    isGlobalChart={isGlobalChart}
-                                                    setIsGlobalChart={setIsGlobalChart}
-                                                />
-                                                : isChart === "dailyChart"
-                                                    ? <GlobalTodayCharts
-                                                        globalData={globalData}
-                                                        arrowRight={arrowRight}
+                                                : isGlobal === "activeIncidentRate"
+                                                    ? <ActiveIncidentRateCard
+                                                        provincesData={provincesData}
+                                                        classes={classes}
                                                         arrowLeft={arrowLeft}
+                                                        arrowRight={arrowRight}
+                                                        activeCardExpand={activeCardExpand}
+                                                        setActiveCardExpand={setActiveCardExpand}
+                                                        expandIcon={expandIcon}
+                                                        shrinkIcon={shrinkIcon}
+                                                        formatNumber={formatNumber}
+                                                        isTablet={isTablet}
+                                                        isMobile={isMobile}
+                                                        isActiveIncidentCard={isActiveIncidentCard}
+                                                        setIsActiveIncidentCard={setIsActiveIncidentCard}
+                                                        loaderOval={loaderOval}
+                                                    />
+                                                    : null
+                                        : mobileItem === "countries"
+                                            ? <Fragment>
+                                                <div className={"country-picker"}>
+                                                    <CountryPicker
+                                                        classes={classes}
+                                                        toggleCountry={toggleCountry}
+                                                        isTablet={isTablet}
+                                                        isMobile={isMobile}
+                                                    />
+                                                </div>
+                                                <div className={"country-charts"}>
+                                                    <CountryCharts
+                                                        countriesYearlyData={countriesYearlyData}
+                                                        arrowLeft={arrowLeft}
+                                                        arrowRight={arrowRight}
                                                         option={option}
                                                         classes={classes}
                                                         globalDailyChartExpand={globalDailyChartExpand}
                                                         isTablet={isTablet}
                                                         isMobile={isMobile}
-                                                        isGlobalTodayChart={isGlobalTodayChart}
+                                                        isCountryChart={isCountryChart}
+                                                        setIsCountryChart={setIsCountryChart}
+                                                        loaderOval={loaderOval}
                                                     />
-                                                    : null
-                                            : null
-                    }
+                                                </div>
+                                            </Fragment>
+                                            : mobileItem === "charts"
+                                                ? isChart === "globalChart"
+                                                    ? <GlobalCharts
+                                                        globalData={globalData}
+                                                        arrowLeft={arrowLeft}
+                                                        arrowRight={arrowRight}
+                                                        option={option}
+                                                        classes={classes}
+                                                        globalChartExpand={globalChartExpand}
+                                                        setGlobalChartExpand={setGlobalChartExpand}
+                                                        expandIcon={expandIcon}
+                                                        shrinkIcon={shrinkIcon}
+                                                        isTablet={isTablet}
+                                                        isMobile={isMobile}
+                                                        isGlobalChart={isGlobalChart}
+                                                        setIsGlobalChart={setIsGlobalChart}
+                                                        loaderOval={loaderOval}
+                                                    />
+                                                    : isChart === "dailyChart"
+                                                        ? <GlobalTodayCharts
+                                                            globalData={globalData}
+                                                            arrowRight={arrowRight}
+                                                            arrowLeft={arrowLeft}
+                                                            option={option}
+                                                            classes={classes}
+                                                            globalDailyChartExpand={globalDailyChartExpand}
+                                                            isTablet={isTablet}
+                                                            isMobile={isMobile}
+                                                            isGlobalTodayChart={isGlobalTodayChart}
+                                                            loaderOval={loaderOval}
+                                                        />
+                                                        : null
+                                                : null
+                        }
+                    </div>
+                    <MobileButtonToggler
+                        setMobileItem={setMobileItem}
+                        setIsMap={setIsMap}
+                        mobileItem={mobileItem}
+                        dropdown={dropdown}
+                        setIsGlobal={setIsGlobal}
+                        setIsChart={setIsChart}
+                        arrowLeft={arrowLeft}
+                        setIsInfectedCard={setIsInfectedCard}
+                        setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
+                        setIsActiveIncidentCard={setIsActiveIncidentCard}
+                        setIsGlobalChart={setIsGlobalChart}
+                        setGlobalTodayChart={setGlobalTodayChart}
+                        setIsCountryChart={setIsCountryChart}
+                    />
                 </div>
-                <MobileButtonToggler
-                    setMobileItem={setMobileItem}
-                    setIsMap={setIsMap}
-                    mobileItem={mobileItem}
-                    dropdown={dropdown}
-                    setIsGlobal={setIsGlobal}
-                    setIsChart={setIsChart}
-                    arrowLeft={arrowLeft}
-                    setIsInfectedCard={setIsInfectedCard}
-                    setIsDeathsRecoveredCard={setIsDeathsRecoveredCard}
-                    setIsActiveIncidentCard={setIsActiveIncidentCard}
-                    setIsGlobalChart={setIsGlobalChart}
-                    setGlobalTodayChart={setGlobalTodayChart}
-                    setIsCountryChart={setIsCountryChart}
-                />
             </div>
-        </div>
-    )
+        )
+    // } else if (isGlobalCountryMap === "country") {
+    //     return (
+    //         <div className={"app"}>
+    //             <header>
+    //                 <img src="https://www.tiabc.ca/wp-content/uploads/home/COVID%E2%80%9419.png" alt="covid-19 logo" />
+    //                 <div id="header-title">
+    //                     <h1>World COVID-19 Dashboard</h1>
+    //                     <span id="header-border"></span>
+    //                     <div id="header-footer">
+    //                         <span>Desinged and Coded</span>
+    //                         <span>by Shuto.S</span>
+    //                     </div>
+    //                 </div>
+    //                 <div id="nav">
+    //                     <div className={"nav-text-wrapper"}>
+    //                         <p
+    //                             className={"nav-text"}
+    //                             onClick={() => { setIsGlobalCountryMap("global") }}
+    //                             style={globalMapStyle}
+    //                         >
+    //                             Global Map
+    //                         </p>
+    //                         <div className={"nav-border"} style={isGlobalCountryMap === "global" ? { height: "3px", backgroundColor: "#f1c400" } : {}} />
+    //                     </div>
+    //                     <div className={"nav-text-wrapper"}>
+    //                         <p
+    //                             className={"nav-text"}
+    //                             onClick={() => { setIsGlobalCountryMap("country") }}
+    //                             style={countryMapStyle}
+    //                         >
+    //                             Country Map
+    //                         </p>
+    //                         <div className={"nav-border"} style={isGlobalCountryMap === "country" ? { height: "3px", backgroundColor: "#f1c400" } : {}} />
+    //                     </div>
+    //                     <div id="popup-nav-bars">
+    //                         <PopupNavBars
+    //                             isTablet={isTablet}
+    //                             setIsTablet={setIsTablet}
+    //                             isMobile={isMobile}
+    //                             setIsMobile={setIsMobile}
+    //                             setIsMap={setIsMap}
+    //                             setInfectedCardExpand={setInfectedCardExpand}
+    //                             setDeathsCardExpand={setDeathsCardExpand}
+    //                             setActiveCardExpand={setActiveCardExpand}
+    //                             setMapExpand={setMapExpand}
+    //                             setDataPanelExpand={setDataPanelExpand}
+    //                             setGlobalDailyChartExpand={setGlobalDailyChartExpand}
+    //                             setGlobalChartExpand={setGlobalChartExpand}
+    //                             dropdown={dropdown}
+    //                         />
+    //                     </div>
+    //                 </div>
+    //             </header>
+    //             <div className={"search"}>
+    //                 <input　onChange={(e) => setSearchInput(e.target.value) }/>
+    //                 <div onClick={() => { setDisplay(searchInput) }}>Search</div>
+    //                 {display}
+    //             </div>
+    //         </div>
+    //     )
+    }
 };
 
 export default App;
